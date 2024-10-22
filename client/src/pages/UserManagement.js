@@ -146,7 +146,7 @@ const UserManagement = () => {
                 <button
                   type="button"
                   onClick={() => handleEdit(index)}
-                  className="bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded mr-2"
+                  className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mr-2"
                 >
                   Edit
                 </button>
