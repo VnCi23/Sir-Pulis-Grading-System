@@ -19,10 +19,10 @@ const Main = () => {
             <div className="container mx-auto px-6 flex flex-col md:flex-row relative py-16">
                 <div className="w-full md:w-2/3 lg:w-2/5 flex flex-col relative z-20">
                 <h1 className="font-bebas-neue uppercase text-2xl sm:text-5xl font-black flex flex-col leading-none dark:text-white text-blue-800">
-                    Online Student Portal for Efficient Grading and Academic Tracking
+                    Online Student Portal for Efficient Grading and Academic Tracking.
                 </h1>
                 <p className="text-sm sm:text-base pt-5 text-blue-700 dark:text-white">
-                    The Online Student Portal for Efficient Grading and Academic Tracking is a cutting-edge platform designed to streamline the educational experience for both teachers and students. It offers real-time grading, detailed progress tracking, and easy assignment management. With integrated communication tools and customizable reports, the portal enhances transparency and efficiency, making it easier for educators to focus on personalized learning. Secure and accessible from any device, this portal is an essential tool for modern education.
+                Ang programang ito ay Rated SPG. Striktong patnubay at gabay ng magulang ang kailangan. Maaaring may maseselang tema, lingguwahe, karanasan, sexual, horror, o droga. na hindi angkop sa mga bata. 
                 </p>
                 <div className="flex mt-8">
                   <Link
@@ -31,8 +31,8 @@ const Main = () => {
                   >
                     Log In
                   </Link>
-                    <a href="http://mstip.edu.ph/" className="uppercase py-2 px-4 rounded-lg bg-transparent border-2 border-yellow-500 text-yellow-500 dark:text-white hover:bg-yellow-500 hover:text-white text-md">
-                    Read More
+                    <a href="http://mstip.edu.ph/" className="py-2 px-4 rounded-lg bg-transparent border-2 border-yellow-500 text-yellow-500 dark:text-white hover:bg-yellow-500 hover:text-white text-md">
+                    About MSTIP
                     </a>
                 </div>
                 </div>

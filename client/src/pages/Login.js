@@ -30,7 +30,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-blue-900">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <h2 className="text-xl font-bold mb-6 text-center">LOG IN</h2>
         <div className="flex justify-center mb-4">
           <div className="bg-white rounded-full">
             <img src={mstiplogo} alt="Logo" className="h-13 w-13" />
