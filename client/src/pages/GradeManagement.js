@@ -85,30 +85,30 @@ const GradeManagement = () => {
         </button>
       </div>
 
-      <table className="w-full text-md bg-yellow-500 shadow-md rounded mb-4">
+      <table className="min-w-full bg-blue-100 border border-gray-300">
         <thead>
-          <tr className="border-b">
-            <th className="text-left p-3">ID</th>
-            <th className="text-left p-3">Student ID</th>
-            <th className="text-left p-3">Student Name</th>
-            <th className="text-left p-3">Subject</th>
-            <th className="text-left p-3">Grade</th>
-            <th className="text-left p-3"></th>
+          <tr className="bg-yellow-500">
+            <th className="border px-4 py-2">ID</th>
+            <th className="border px-4 py-2">Student ID</th>
+            <th className="border px-4 py-2">Student Name</th>
+            <th className="border px-4 py-2">Subject</th>
+            <th className="border px-4 py-2">Grade</th>
+            <th className="border px-4 py-2"></th>
           </tr>
         </thead>
         <tbody>
           {grades.map((grade, index) => (
-            <tr key={grade.id} className="border-b hover:bg-blue-200 bg-blue-100">
-              <td className="p-3">{grade.id}</td>
-              <td className="p-3">{grade.studentId}</td>
-              <td className="p-3">{grade.studentName}</td>
-              <td className="p-3">{grade.subject}</td>
-              <td className="p-3">{grade.grade}</td>
-              <td className="p-3 flex justify-end">
+            <tr key={grade.id}>
+              <td className="border px-4 py-2">{grade.id}</td>
+              <td className="border px-4 py-2">{grade.studentId}</td>
+              <td className="border px-4 py-2">{grade.studentName}</td>
+              <td className="border px-4 py-2">{grade.subject}</td>
+              <td className="border px-4 py-2">{grade.grade}</td>
+              <td className="border px-4 py-2 flex justify-end">
                 <button
                   type="button"
                   onClick={() => handleEdit(index)}
-                  className="bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded mr-2"
+                  className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded mr-2"
                 >
                   Edit
                 </button>

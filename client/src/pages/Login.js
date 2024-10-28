@@ -46,7 +46,7 @@ const Login = () => {
               id="userType"
               value={userType}
               onChange={(e) => setUserType(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 bg-yellow-500 text-white-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 bg-yellow-500 text-black leading-tight focus:outline-none focus:shadow-outline"
             >
               <option value="student">Student</option>
               <option value="teacher">Teacher</option>

@@ -6,20 +6,12 @@ const UserManagement = () => {
     { id: '12-4345', studentId: 'S123', name: 'Jansin Pakyu', email: 'jansin@example.com', role: 'student', password: 'password123' },
     { id: '67-3890', studentId: 'T456', name: 'Revic Dolot', email: 'revic@example.com', role: 'teacher', password: 'password456' },
     { id: '23-0328', studentId: 'A789', name: 'Albert Napal', email: 'albertsmith@example.com', role: 'admin', password: 'password456' },
-    
   ];
 
   // State variables
   const [users, setUsers] = useState(initialUsers);
-  const [searchQuery, setSearchQuery] = useState('');
   const [newUser, setNewUser] = useState({ id: '', studentId: '', name: '', email: '', role: 'student', password: '' });
   const [editIndex, setEditIndex] = useState(null); // For tracking the user being edited
-
-  // Filter users based on search query
-  const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   // Handle changes in the new user form
   const handleNewUserChange = (event) => {
@@ -32,7 +24,7 @@ const UserManagement = () => {
     if (newUser.name && newUser.email) {
       if (editIndex !== null) {
         // Update existing user
-        const updatedUsers = users.map((user, index) => 
+        const updatedUsers = users.map((user, index) =>
           index === editIndex ? { ...newUser } : user
         );
         setUsers(updatedUsers);
@@ -59,14 +51,6 @@ const UserManagement = () => {
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search by name or email..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="p-2 border border-gray-300 rounded mb-4"
-      />
-
       {/* Add/Edit User section */}
       <div className="mb-4 flex items-center justify-center space-x-2">
         <input
@@ -97,7 +81,7 @@ const UserManagement = () => {
           name="role"
           value={newUser.role}
           onChange={handleNewUserChange}
-          className="p-2 border border-gray-300 rounded"
+          className="p-2 border border-gray-300 rounded bg-yellow-500"
         >
           <option value="student">Student</option>
           <option value="teacher">Teacher</option>
@@ -121,28 +105,28 @@ const UserManagement = () => {
       </div>
 
       {/* User table displaying existing users */}
-      <table className="w-full text-md bg-yellow-500 shadow-md rounded mb-4">
+      <table className="min-w-full bg-blue-100 border border-gray-300">
         <thead>
-          <tr className="border-b">
-            <th className="text-left p-3">User ID</th>
-            <th className="text-left p-3">Student ID</th>
-            <th className="text-left p-3">Name</th>
-            <th className="text-left p-3">Email</th>
-            <th className="text-left p-3">Role</th>
-            <th className="text-left p-3">Password</th>
-            <th className="text-left p-3"></th>
+          <tr className="bg-yellow-500">
+            <th className="border px-4 py-2">User ID</th>
+            <th className="border px-4 py-2">Student ID</th>
+            <th className="border px-4 py-2">Name</th>
+            <th className="border px-4 py-2">Email</th>
+            <th className="border px-4 py-2">Role</th>
+            <th className="border px-4 py-2">Password</th>
+            <th className="border px-4 py-2"></th>
           </tr>
         </thead>
         <tbody>
-          {filteredUsers.map((user, index) => (
-            <tr key={user.id} className="border-b hover:bg-blue-200 bg-blue-100">
-              <td className="p-3">{user.id}</td>
-              <td className="p-3">{user.studentId}</td>
-              <td className="p-3">{user.name}</td>
-              <td className="p-3">{user.email}</td>
-              <td className="p-3">{user.role}</td>
-              <td className="p-3">{user.password}</td>
-              <td className="p-3 flex justify-end">
+          {users.map((user, index) => (
+            <tr key={user.id}>
+              <td className="border px-4 py-2">{user.id}</td>
+              <td className="border px-4 py-2">{user.studentId}</td>
+              <td className="border px-4 py-2">{user.name}</td>
+              <td className="border px-4 py-2">{user.email}</td>
+              <td className="border px-4 py-2">{user.role}</td>
+              <td className="border px-4 py-2">{user.password}</td>
+              <td className="border px-4 py-2 flex justify-end">
                 <button
                   type="button"
                   onClick={() => handleEdit(index)}

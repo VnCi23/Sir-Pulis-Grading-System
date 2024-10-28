@@ -3,96 +3,65 @@ import { useNavigate } from 'react-router-dom';
 import UserManagement from './UserManagement';
 import ClassroomManagement from './ClassroomManagement';
 import GradeManagement from './GradeManagement';
-import Reports from './Reports';
+import Announcement from './Announcement';
 
 const Admin = () => {
   const navigate = useNavigate();
-  
-  // Initial users data
-  const initialUsers = [
-    { id: '12-4345', name: 'Jansin Pakyu', email: 'jansin@example.com', role: 'student', password: 'password123' },
-    { id: '67-3890', name: 'Revic Dolot', email: 'revic@example.com', role: 'teacher', password: 'password456' },
-    { id: '23-0328', name: 'Albert Napal', email: 'albertsmith@example.com', role: 'admin', password: 'password456' },
-  ];
-
-  // State variables
-  const [users, setUsers] = useState(initialUsers);
   const [openTab, setOpenTab] = useState(1);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [newUser, setNewUser] = useState({ id: '', name: '', email: '', role: 'student', password: '' });
+  const [searchQuery, setSearchQuery] = useState(''); // State for search bar
 
-  // Filter users based on search query
-  const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  // Handle input changes
-  const handleInputChange = (index, event) => {
-    const newUsers = [...users];
-    newUsers[index][event.target.name] = event.target.value;
-    setUsers(newUsers);
-  };
-
-  const handleNewUserChange = (event) => {
-    const { name, value } = event.target;
-    setNewUser(prevState => ({ ...prevState, [name]: value }));
-  };
-
-  // Add a new user
-  const handleAddUser = () => {
-    if (newUser.name && newUser.email) {
-      setUsers([...users, { ...newUser, id: Date.now().toString() }]);
-      setNewUser({ id: '', name: '', email: '', role: 'student', password: '' });
-    }
-  };
-
-  // Save user changes
-  const handleSave = (index) => {
-    console.log('Saved user:', users[index]);
-  };
-
-  // Delete a user
-  const handleDelete = (index) => {
-    const newUsers = users.filter((_, i) => i !== index);
-    setUsers(newUsers);
-  };
-
-  // Logout
+  // Logout function
   const handleLogout = () => {
     console.log("User logged out");
-    localStorage.removeItem('token'); // Clear the token if you are using JWT
+    localStorage.removeItem('token'); // Clear the token if using JWT
     navigate('/login'); // Navigate to the login page
   };
 
+  // Tab titles mapping
+  const tabTitles = ['User Management', 'Classroom Management', 'Grade Management', 'Announcements']; // Updated title
+
+  // Handle search input change
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
-    <div className="h-screen flex flex-col items-center p-6 bg-blue-100">
-      <div className="w-full flex justify-between mb-4">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+    <div className="h-screen flex flex-col items-center p-5">
+      <div className="w-full flex justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">MSTIP Admin Dashboard</h1>
+        <input
+          type="text"
+          placeholder="Search by name or email..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="p-2 border border-gray-300 rounded mb-4 w-full max-w-md mx-auto"
+        />
         <button
           onClick={handleLogout}
-          className="text-sm bg-red-600 hover:bg-red-800 text-white py-1 px-4 rounded focus:outline-none"
+          className="cursor-pointer rounded-lg bg-red-700 px-5 py-3 text-sm font-semibold text-white hover:bg-red-800 transition duration-300"
         >
           Log Out
         </button>
       </div>
-      <ul className="flex border-b justify-center">
-        {[1, 2, 3, 4].map(tabNumber => (
-          <li key={tabNumber} onClick={() => setOpenTab(tabNumber)} className={`mx-1 cursor-pointer ${openTab === tabNumber ? 'text-black bg-blue-500' : 'text-gray-500 hover:text-black'}`}>
-            <a className={`py-2 px-4 font-semibold ${openTab === tabNumber ? 'border-t border-r border-l rounded-t' : ''}`}>
-              {tabNumber === 1 ? 'User Management' : tabNumber === 2 ? 'Classroom Management' : tabNumber === 3 ? 'Grade Management' : 'Reports'}
-            </a>
+      <ul className="flex justify-center mb-4 space-x-4">
+        {tabTitles.map((title, index) => (
+          <li
+            key={index}
+            onClick={() => setOpenTab(index + 1)}
+            className={`cursor-pointer ${openTab === index + 1 ? 'text-white bg-blue-700' : 'text-gray-500 hover:text-black'} py-2 px-4 font-semibold rounded-t transition duration-300`}
+          >
+            {title}
           </li>
         ))}
       </ul>
       <div className="w-full text-center mt-6">
-        {openTab === 1 && <UserManagement />}
+        {openTab === 1 && <UserManagement searchQuery={searchQuery} />}
         {openTab === 2 && <ClassroomManagement />}
         {openTab === 3 && <GradeManagement />}
-        {openTab === 4 && <Reports />}
+        {openTab === 4 && <Announcement />}
       </div>
     </div>
   );
-}
+};
 
 export default Admin;
