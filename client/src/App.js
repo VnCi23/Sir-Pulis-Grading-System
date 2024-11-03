@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from './Main';
-import Admin from './pages/Admin';
+import Admin from './pages/AdminNav';
 import Teacher from './pages/Teacher';
 import Student from './pages/Student';
 import Login from './pages/Login';

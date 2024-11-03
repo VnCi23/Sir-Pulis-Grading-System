@@ -4,40 +4,54 @@ const ClassroomManagement = () => {
   const initialClassrooms = [
     {
       _id: "1",
-      name: "Math 101",
-      teacher_id: { name: "Alice Smith", _id: "t1" },
+      name: "CC101",
+      teacher_id: { name: "Jinggoy", _id: "t1" },
       subject: "Mathematics",
-      students: Array.from({ length: 70 }, (_, i) => ({ name: `Student ${i + 1}`, _id: `s${i + 1}` })), // Sample 70 students
+      year: "2025",
+      semester: "1st",
+      students: Array.from({ length: 70 }, (_, i) => ({ name: `Student ${i + 1}`, _id: `s${i + 1}` })),
     },
     {
       _id: "2",
       name: "Science 101",
-      teacher_id: { name: "Bob Johnson", _id: "t2" },
-      subject: "Science",
+      teacher_id: { name: "Fuck Bob", _id: "t2" },
+      subject: "Intorduction to IS",
+      year: "2025",
+      semester: "1st",
       students: Array.from({ length: 100 }, (_, i) => ({ name: `Student ${i + 1}`, _id: `s${i + 1}` })),
     },
   ];
 
   const [classrooms, setClassrooms] = useState(initialClassrooms);
-  const [name, setName] = useState('');
-  const [teacherId, setTeacherId] = useState('');
+  const [classroomName, setClassroomName] = useState('');
+  const [teacherName, setTeacherName] = useState('');
   const [subject, setSubject] = useState('');
+  const [year, setYear] = useState('');
+  const [semester, setSemester] = useState('');
   const [students, setStudents] = useState('');
   const [selectedClassroom, setSelectedClassroom] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleCreateClassroom = (e) => {
     e.preventDefault();
     const newClassroom = {
       _id: (classrooms.length + 1).toString(),
-      name,
-      teacher_id: { name: teacherId, _id: `t${classrooms.length + 1}` },
+      name: classroomName,
+      teacher_id: { name: teacherName, _id: `t${classrooms.length + 1}` },
       subject,
+      year,
+      semester,
       students: [],
     };
     setClassrooms([...classrooms, newClassroom]);
-    setName('');
-    setTeacherId('');
+    resetClassroomForm();
+  };
+
+  const resetClassroomForm = () => {
+    setClassroomName('');
+    setTeacherName('');
     setSubject('');
+    setYear('');
+    setSemester('');
   };
 
   const handleAddStudents = (classroomId) => {
@@ -67,24 +81,35 @@ const ClassroomManagement = () => {
     setClassrooms(updatedClassrooms);
   };
 
+  const handleUpdateTeacher = (classroomId) => {
+    const updatedClassrooms = classrooms.map(classroom => {
+      if (classroom._id === classroomId) {
+        return { ...classroom, teacher_id: { name: teacherName, _id: `t${classroomId}` } };
+      }
+      return classroom;
+    });
+    setClassrooms(updatedClassrooms);
+    setTeacherName('');
+  };
+
   return (
     <div className="mx-auto">
 
       {/* Classroom Creation Form */}
-      <form onSubmit={handleSubmit} className="mb-4">
+      <form onSubmit={handleCreateClassroom} className="mb-4">
         <input
           type="text"
           placeholder="Classroom Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={classroomName}
+          onChange={(e) => setClassroomName(e.target.value)}
           className="border p-2 mr-2"
           required
         />
         <input
           type="text"
           placeholder="Teacher Name"
-          value={teacherId}
-          onChange={(e) => setTeacherId(e.target.value)}
+          value={teacherName}
+          onChange={(e) => setTeacherName(e.target.value)}
           className="border p-2 mr-2"
           required
         />
@@ -93,6 +118,22 @@ const ClassroomManagement = () => {
           placeholder="Subject"
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
+          className="border p-2 mr-2"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Year"
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
+          className="border p-2 mr-2"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Semester"
+          value={semester}
+          onChange={(e) => setSemester(e.target.value)}
           className="border p-2 mr-2"
           required
         />
@@ -106,6 +147,8 @@ const ClassroomManagement = () => {
             <th className="border px-4 py-2">Classroom Name</th>
             <th className="border px-4 py-2">Teacher</th>
             <th className="border px-4 py-2">Subject</th>
+            <th className="border px-4 py-2">Year</th>
+            <th className="border px-4 py-2">Semester</th>
             <th className="border px-4 py-2">Students</th>
             <th className="border px-4 py-2">Actions</th>
           </tr>
@@ -116,23 +159,39 @@ const ClassroomManagement = () => {
               <td className="border px-4 py-2">{classroom.name}</td>
               <td className="border px-4 py-2">{classroom.teacher_id.name}</td>
               <td className="border px-4 py-2">{classroom.subject}</td>
+              <td className="border px-4 py-2">{classroom.year}</td>
+              <td className="border px-4 py-2">{classroom.semester}</td>
               <td className="border px-4 py-2 max-w-xs">
                 <div className="max-h-32 overflow-y-auto">
                   {classroom.students.length > 0 ? classroom.students.map(s => <div key={s._id}>{s.name}</div>) : 'No students'}
                 </div>
               </td>
               <td className="border px-4 py-2">
-                <button onClick={() => setSelectedClassroom(classroom)} className="bg-blue-500 text-white p-1">Manage Students</button>
+                <button onClick={() => setSelectedClassroom(classroom)} className="bg-blue-500 text-white p-1">Manage</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* Manage Students for Selected Classroom */}
+      {/* Manage Students and Teachers for Selected Classroom */}
       {selectedClassroom && (
         <div className="mt-4">
-          <h3 className="text-lg font-bold">Manage Students in {selectedClassroom.name}</h3>
+          <h3 className="text-lg font-bold">Manage {selectedClassroom.name}</h3>
+
+          {/* Teacher Management */}
+          <h4 className="mt-4 font-semibold">Current Teacher: {selectedClassroom.teacher_id.name}</h4>
+          <input
+            type="text"
+            placeholder="Update Teacher Name"
+            value={teacherName}
+            onChange={(e) => setTeacherName(e.target.value)}
+            className="border p-2 mb-2"
+          />
+          <button onClick={() => handleUpdateTeacher(selectedClassroom._id)} className="bg-blue-500 text-white p-2">Update Teacher</button>
+
+          {/* Student Management */}
+          <h4 className="mt-4 font-semibold">Manage Students:</h4>
           <input
             type="text"
             placeholder="Enter Student Names (comma-separated)"
@@ -141,6 +200,8 @@ const ClassroomManagement = () => {
             className="border p-2 mb-2"
           />
           <button onClick={() => handleAddStudents(selectedClassroom._id)} className="bg-blue-500 text-white p-2">Add Students</button>
+          
+          <h4 className="mt-4 font-semibold">Current Students:</h4>
           <ul className="mt-2">
             {selectedClassroom.students.map((student) => (
               <li key={student._id} className="flex justify-between border p-1 mb-1">

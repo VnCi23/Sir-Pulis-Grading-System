@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserManagement from './UserManagement';
 import ClassroomManagement from './ClassroomManagement';
-import GradeManagement from './GradeManagement';
 import Announcement from './Announcement';
 
 const Admin = () => {
@@ -18,7 +17,7 @@ const Admin = () => {
   };
 
   // Tab titles mapping
-  const tabTitles = ['User Management', 'Classroom Management', 'Grade Management', 'Announcements']; // Updated title
+  const tabTitles = ['User Management', 'Classroom Management', 'Announcements']; 
 
   // Handle search input change
   const handleSearchChange = (event) => {
@@ -28,7 +27,7 @@ const Admin = () => {
   return (
     <div className="h-screen flex flex-col items-center p-5">
       <div className="w-full flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">MSTIP Admin Dashboard</h1>
+        <h1 className="text-2xl font-bold">MSTIP Admin</h1>
         <input
           type="text"
           placeholder="Search by name or email..."
@@ -57,8 +56,7 @@ const Admin = () => {
       <div className="w-full text-center mt-6">
         {openTab === 1 && <UserManagement searchQuery={searchQuery} />}
         {openTab === 2 && <ClassroomManagement />}
-        {openTab === 3 && <GradeManagement />}
-        {openTab === 4 && <Announcement />}
+        {openTab === 3 && <Announcement />}
       </div>
     </div>
   );

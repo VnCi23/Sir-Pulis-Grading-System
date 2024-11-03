@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
-const User = require('./models/User'); // Adjust this to the correct path
+const User = require('./models/User');
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
@@ -40,9 +40,10 @@ async function addUser(username, password, userType) {
 }
 
 async function addUsersAndStartServer() {
-  await addUser('admin', 'adminpassword', 'admin'); // Admin credentials
-  await addUser('teacher', 'teacherpassword', 'teacher'); // Teacher credentials
-  await addUser('student', 'studentpassword', 'student'); // Student credentials
+  await addUser('admin', 'adminpassword', 'admin'); 
+  await addUser('teacher', 'teacherpassword', 'teacher'); 
+  await addUser('student', 'studentpassword', 'student'); 
+  await addUser('vince', '1234', 'student');
 
   // Health check endpoint
   app.get('/health', (req, res) => {
