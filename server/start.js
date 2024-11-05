@@ -40,10 +40,16 @@ async function addUser(username, password, userType) {
 }
 
 async function addUsersAndStartServer() {
-  await addUser('admin', 'adminpassword', 'admin'); 
-  await addUser('teacher', 'teacherpassword', 'teacher'); 
-  await addUser('student', 'studentpassword', 'student'); 
-  await addUser('vince', '1234', 'student');
+  const users = [
+    { username: 'admin', password: 'adminpassword', role: 'admin' },
+    { username: 'teacher', password: 'teacherpassword', role: 'teacher' },
+    { username: 'student', password: 'studentpassword', role: 'student' },
+    { username: 'vince', password: '1234', role: 'student' }
+  ];
+
+  for (const user of users) {
+    await addUser(user.username, user.password, user.role);
+  }
 
   // Health check endpoint
   app.get('/health', (req, res) => {

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserManagement from './UserManagement';
-import ClassroomManagement from './ClassroomManagement';
-import Announcement from './Announcement';
+import THome from './THome';
+import TGrade from './TGrade';
+import TAnnouncement from './TAnnouncement';
 
-const Admin = () => {
+const TNav = () => {
   const navigate = useNavigate();
   const [openTab, setOpenTab] = useState(1);
-  const [searchQuery, setSearchQuery] = useState(''); // State for search bar
 
   // Logout function
   const handleLogout = () => {
@@ -17,24 +16,13 @@ const Admin = () => {
   };
 
   // Tab titles mapping
-  const tabTitles = ['User Management', 'Classroom Management', 'Announcements']; 
+  const tabTitles = ['Home ', 'Grade', 'Announcement']; 
 
-  // Handle search input change
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
 
   return (
     <div className="h-screen flex flex-col items-center p-5">
       <div className="w-full flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">MSTIP Admin</h1>
-        <input
-          type="text"
-          placeholder="Search by name or email..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-          className="p-2 border border-gray-300 rounded mb-4 w-full max-w-md mx-auto"
-        />
+        <h1 className="text-2xl font-bold">Teacher Page</h1>
         <button
           onClick={handleLogout}
           className="cursor-pointer rounded-lg bg-red-700 px-5 py-3 text-sm font-semibold text-white hover:bg-red-800 transition duration-300"
@@ -54,12 +42,12 @@ const Admin = () => {
         ))}
       </ul>
       <div className="w-full text-center mt-6">
-        {openTab === 1 && <UserManagement searchQuery={searchQuery} />}
-        {openTab === 2 && <ClassroomManagement />}
-        {openTab === 3 && <Announcement />}
+        {openTab === 1 && <THome />}
+        {openTab === 2 && <TGrade />}
+        {openTab === 3 && <TAnnouncement />}
       </div>
     </div>
   );
 };
 
-export default Admin;
+export default TNav;

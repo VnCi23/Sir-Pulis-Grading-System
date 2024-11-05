@@ -2,9 +2,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from './Main';
-import Admin from './pages/AdminNav';
-import Teacher from './pages/Teacher';
-import Student from './pages/Student';
+import Admin from './pages/ANav';
+import Teacher from './pages/TNav';
+import Student from './pages/SNav';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
 
