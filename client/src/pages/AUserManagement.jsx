@@ -7,7 +7,7 @@ const UserManagement = () => {
       studentId: 'S123',
       name: 'Jansin Pakyu',
       email: 'jansin@example.com',
-      role: 'student',
+      userType: 'student',
       password: 'password123',
       course: 'Computer Science',
       schoolEmail: 'jansin.pakyu@school.edu',
@@ -20,7 +20,7 @@ const UserManagement = () => {
       studentId: 'T456',
       name: 'Revic Dolot',
       email: 'revic@example.com',
-      role: 'teacher',
+      userType: 'teacher',
       password: 'password456',
       course: 'Mathematics',
       schoolEmail: 'revic.dolot@school.edu',
@@ -33,7 +33,7 @@ const UserManagement = () => {
       studentId: 'A789',
       name: 'Albert Napal',
       email: 'albertsmith@example.com',
-      role: 'admin',
+      userType: 'admin',
       password: 'password456',
       course: '',
       schoolEmail: 'albert.napal@school.edu',
@@ -43,7 +43,7 @@ const UserManagement = () => {
     },
   ];
   const [users, setUsers] = useState(initialUsers);
-  const [newUser, setNewUser] = useState({ id: '', studentId: '', name: '', email: '', role: 'student', password: '', course: '', schoolEmail: '', contactNumber: '', yearOfEnrollment: '', address: '' });
+  const [newUser, setNewUser] = useState({ id: '', studentId: '', name: '', email: '', userType: 'student', password: '', course: '', schoolEmail: '', contactNumber: '', yearOfEnrollment: '', address: '' });
   const [editIndex, setEditIndex] = useState(null);
 
   const handleNewUserChange = (event) => {
@@ -58,7 +58,7 @@ const UserManagement = () => {
         : [...users, { ...newUser, id: Date.now().toString() }];
         
       setUsers(updatedUsers);
-      setNewUser({ id: '', studentId: '', name: '', email: '', role: 'student', password: '', course: '', schoolEmail: '', contactNumber: '', yearOfEnrollment: '', address: '' });
+      setNewUser({ id: '', studentId: '', name: '', email: '', userType: 'student', password: '', course: '', schoolEmail: '', contactNumber: '', yearOfEnrollment: '', address: '' });
       setEditIndex(null);
     }
   };
@@ -127,12 +127,12 @@ const UserManagement = () => {
               <td className="border px-2 py-1 text-xs">{user.contactNumber}</td>
               <td className="border px-2 py-1 text-xs">{user.yearOfEnrollment}</td>
               <td className="border px-2 py-1 text-xs">{user.address}</td>
-              <td className="border px-2 py-1 text-xs">{user.role}</td>
+              <td className="border px-2 py-1 text-xs">{user.userType}</td>
               <td className="border px-2 py-1 text-xs">{user.password}</td>
               <td className="border px-2 py-1 flex justify-center space-x-1">
                 <button onClick={() => handleEdit(index)} className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-1 rounded text-xs">Edit</button>
                 <button onClick={() => handleDelete(index)} className="bg-red-500 hover:bg-red-700 text-white py-1 px-1 rounded text-xs">Delete</button>
-                {user.role === 'student' && (
+                {user.userType === 'student' && (
                   <button className="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xs" onClick={() => alert(`Viewing grades for ${user.name}`)}>View Grades</button>
                 )}
               </td>
