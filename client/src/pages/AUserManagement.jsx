@@ -5,7 +5,7 @@ const UserManagement = () => {
     {
       id: '12-4345',
       studentId: 'S123',
-      name: 'Jansin Jinggoy',
+      Username: 'Jansin Jinggoy',
       email: 'jansin@example.com',
       userType: 'student',
       password: 'password123',
@@ -18,7 +18,7 @@ const UserManagement = () => {
     {
       id: '67-3890',
       studentId: 'T456',
-      name: 'Revic Dolot',
+      Username: 'Revic Dolot',
       email: 'revic@example.com',
       userType: 'teacher',
       password: 'password456',
@@ -31,7 +31,7 @@ const UserManagement = () => {
     {
       id: '23-0328',
       studentId: 'A789',
-      name: 'Albert Napal',
+      Username: 'Albert Napal',
       email: 'albertsmith@example.com',
       userType: 'admin',
       password: 'password456',
@@ -43,7 +43,7 @@ const UserManagement = () => {
     },
   ];
   const [users, setUsers] = useState(initialUsers);
-  const [newUser, setNewUser] = useState({ id: '', studentId: '', name: '', email: '', userType: '', password: '', course: '', schoolEmail: '', contactNumber: '', yearOfEnrollment: '', address: '' });
+  const [newUser, setNewUser] = useState({ id: '', studentId: '', Username: '', email: '', userType: 'student', password: '', course: '', schoolEmail: '', contactNumber: '', yearOfEnrollment: '', address: '' });
   const [editIndex, setEditIndex] = useState(null);
 
   const handleNewUserChange = (event) => {
@@ -52,13 +52,13 @@ const UserManagement = () => {
   };
 
   const handleSaveUser = () => {
-    if (newUser.name && newUser.email) {
+    if (newUser.Username && newUser.email) {
       const updatedUsers = editIndex !== null 
         ? users.map((user, index) => index === editIndex ? { ...newUser } : user)
         : [...users, { ...newUser, id: Date.now().toString() }];
         
       setUsers(updatedUsers);
-      setNewUser({ id: '', studentId: '', name: '', email: '', userType: '', password: '', course: '', schoolEmail: '', contactNumber: '', yearOfEnrollment: '', address: '' });
+      setNewUser({ id: '', studentId: '', Username: '', email: '', userType: 'student', password: '', course: '', schoolEmail: '', contactNumber: '', yearOfEnrollment: '', address: '' });
       setEditIndex(null);
     }
   };
@@ -68,7 +68,8 @@ const UserManagement = () => {
   };
 
   const handleEdit = (index) => {
-    setNewUser(users[index]);
+    const userToEdit = users[index];
+    setNewUser(userToEdit);
     setEditIndex(index);
   };
 
@@ -101,7 +102,7 @@ const UserManagement = () => {
         <button
           type="button"
           onClick={handleSaveUser}
-          className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded m-1"
+          className="bg-blue-700 hover:bg-blue-900 text-white py-2 px-4 rounded m-1"
         >
           {editIndex !== null ? 'Update User' : 'Add User'}
         </button>
@@ -110,7 +111,7 @@ const UserManagement = () => {
       <table className="min-w-full bg-blue-100 border border-gray-300">
         <thead>
           <tr className="bg-yellow-500">
-            {['User ID', 'Student ID', 'Name', 'Email', 'Course', 'School Email', 'Contact Number', 'Year of Enrollment', 'Address', 'Role', 'Password', 'Actions'].map((header) => (
+            {['User ID', 'Student ID', 'Username', 'Email', 'Course', 'School Email', 'Contact Number', 'Year of Enrollment', 'Address', 'Role', 'Password', 'Actions'].map((header) => (
               <th key={header} className="border px-2 py-1 text-xs">{header}</th>
             ))}
           </tr>
@@ -120,7 +121,7 @@ const UserManagement = () => {
             <tr key={user.id}>
               <td className="border px-2 py-1 text-xs">{user.id}</td>
               <td className="border px-2 py-1 text-xs">{user.studentId}</td>
-              <td className="border px-2 py-1 text-xs">{user.name}</td>
+              <td className="border px-2 py-1 text-xs">{user.Username}</td>
               <td className="border px-2 py-1 text-xs">{user.email}</td>
               <td className="border px-2 py-1 text-xs">{user.course}</td>
               <td className="border px-2 py-1 text-xs">{user.schoolEmail}</td>
@@ -130,10 +131,10 @@ const UserManagement = () => {
               <td className="border px-2 py-1 text-xs">{user.userType}</td>
               <td className="border px-2 py-1 text-xs">{user.password}</td>
               <td className="border px-2 py-1 flex justify-center space-x-1">
-                <button onClick={() => handleEdit(index)} className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-1 rounded text-xs">Edit</button>
-                <button onClick={() => handleDelete(index)} className="bg-red-500 hover:bg-red-700 text-white py-1 px-1 rounded text-xs">Delete</button>
+                <button onClick={() => handleEdit(index)} className="bg-blue-700 hover:bg-blue-900 text-white py-1 px-1 rounded text-xs">Edit</button>
+                <button onClick={() => handleDelete(index)} className="bg-red-700 hover:bg-red-900 text-white py-1 px-1 rounded text-xs">Delete</button>
                 {user.userType === 'student' && (
-                  <button className="bg-green-500 hover:bg-green-700 text-white py-1 px-1 rounded text-xs" onClick={() => alert(`Viewing grades for ${user.name}`)}>View Grades</button>
+                  <button className="bg-green-700 hover:bg-green-900 text-white py-1 px-1 rounded text-xs" onClick={() => alert(`Viewing grades for ${user.name}`)}>View Grades</button>
                 )}
               </td>
             </tr>
