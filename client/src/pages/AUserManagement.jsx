@@ -43,7 +43,7 @@ const UserManagement = () => {
     },
   ];
   const [users, setUsers] = useState(initialUsers);
-  const [newUser, setNewUser] = useState({ id: '', studentId: '', name: '', email: '', userType: 'student', password: '', course: '', schoolEmail: '', contactNumber: '', yearOfEnrollment: '', address: '' });
+  const [newUser, setNewUser] = useState({ id: '', studentId: '', name: '', email: '', userType: '', password: '', course: '', schoolEmail: '', contactNumber: '', yearOfEnrollment: '', address: '' });
   const [editIndex, setEditIndex] = useState(null);
 
   const handleNewUserChange = (event) => {
@@ -58,7 +58,7 @@ const UserManagement = () => {
         : [...users, { ...newUser, id: Date.now().toString() }];
         
       setUsers(updatedUsers);
-      setNewUser({ id: '', studentId: '', name: '', email: '', userType: 'student', password: '', course: '', schoolEmail: '', contactNumber: '', yearOfEnrollment: '', address: '' });
+      setNewUser({ id: '', studentId: '', name: '', email: '', userType: '', password: '', course: '', schoolEmail: '', contactNumber: '', yearOfEnrollment: '', address: '' });
       setEditIndex(null);
     }
   };
