@@ -144,7 +144,7 @@ const ClassroomManagement = () => {
       <table className="min-w-full bg-blue-100 border border-gray-300">
         <thead>
           <tr className="bg-yellow-500">
-            <th className="border px-4 py-2">Classroom Name</th>
+            <th className="border px-4 py-2">Class Code</th>
             <th className="border px-4 py-2">Teacher</th>
             <th className="border px-4 py-2">Subject</th>
             <th className="border px-4 py-2">Year</th>
