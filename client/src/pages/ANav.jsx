@@ -25,7 +25,7 @@ const ANav = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center p-5">
+    <div className="h-screen flex flex-col items-center p-5 bg-blue-100">
       <div className="w-full flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">MSTIP Admin</h1>
         <input
