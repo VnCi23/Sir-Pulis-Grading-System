@@ -91,7 +91,7 @@ const UserManagement = () => {
         ))}
         <select
           name="role"
-          value={newUser.role}
+          value={newUser.usertype}
           onChange={handleNewUserChange}
           className="p-2 border border-gray-300 rounded m-1"
         >
@@ -111,7 +111,7 @@ const UserManagement = () => {
       <table className="min-w-full bg-blue-100 border border-gray-300">
         <thead>
           <tr className="bg-yellow-500">
-            {['User ID', 'Student ID', 'Username', 'Email', 'Course', 'School Email', 'Contact Number', 'Year of Enrollment', 'Address', 'Role', 'Password', 'Actions'].map((header) => (
+            {['User ID', 'Student ID', 'Username', 'Email', 'Course', 'School Email', 'Contact Number', 'Year of Enrollment', 'Address', 'Usertype', 'Password', 'Actions'].map((header) => (
               <th key={header} className="border px-2 py-1 text-xs">{header}</th>
             ))}
           </tr>

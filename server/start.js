@@ -43,8 +43,7 @@ async function addUsersAndStartServer() {
   const users = [
     { username: 'admin', password: 'adminpassword', role: 'admin' },
     { username: 'teacher', password: 'teacherpassword', role: 'teacher' },
-    { username: 'student', password: 'studentpassword', role: 'student' },
-    { username: 'vince', password: '1234', role: 'student' }
+    { username: 'vince', password: '1234', role: 'student' },
   ];
 
   for (const user of users) {
