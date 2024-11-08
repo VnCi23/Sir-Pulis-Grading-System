@@ -7,19 +7,19 @@ import AAnnouncement from './AAnnouncement';
 const ANav = () => {
   const navigate = useNavigate();
   const [openTab, setOpenTab] = useState(1);
-  const [searchQuery, setSearchQuery] = useState(''); // State for search bar
+  const [searchQuery, setSearchQuery] = useState(''); 
 
-  // Logout function
+
   const handleLogout = () => {
     console.log("User logged out");
-    localStorage.removeItem('token'); // Clear the token if using JWT
-    navigate('/login'); // Navigate to the login page
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
-  // Tab titles mapping
+
   const tabTitles = ['User Management', 'Classroom Management', 'Announcements']; 
 
-  // Handle search input change
+
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };

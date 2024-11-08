@@ -8,14 +8,14 @@ const Student = () => {
   const navigate = useNavigate();
   const [openTab, setOpenTab] = useState(1);
 
-  // Logout function
+
   const handleLogout = () => {
     console.log("User logged out");
-    localStorage.removeItem('token'); // Clear the token if using JWT
-    navigate('/login'); // Navigate to the login page
+    localStorage.removeItem('token'); 
+    navigate('/login'); 
   };
 
-  // Tab titles mapping
+
   const tabTitles = ['Home ', 'Grade', 'Announcement']; 
 
 

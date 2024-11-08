@@ -9,7 +9,7 @@ const ClassroomManagement = () => {
       subject: "Mathematics",
       year: "1st",
       semester: "1st",
-      students: Array.from({ length: 70 }, (_, i) => ({ name: `Student ${i + 1}`, _id: `s${i + 1}` })),
+      students: Array.from({ length: 30 }, (_, i) => ({ name: `Student ${i + 1}`, _id: `s${i + 1}` })),
     },
     {
       _id: "2",
@@ -18,7 +18,7 @@ const ClassroomManagement = () => {
       subject: "Intorduction to IS",
       year: "1st",
       semester: "1st",
-      students: Array.from({ length: 100 }, (_, i) => ({ name: `Student ${i + 1}`, _id: `s${i + 1}` })),
+      students: Array.from({ length: 30 }, (_, i) => ({ name: `Student ${i + 1}`, _id: `s${i + 1}` })),
     },
   ];
 
@@ -95,7 +95,6 @@ const ClassroomManagement = () => {
   return (
     <div className="mx-auto">
 
-      {/* Classroom Creation Form */}
       <form onSubmit={handleCreateClassroom} className="mb-4">
         <input
           type="text"
@@ -140,7 +139,6 @@ const ClassroomManagement = () => {
         <button type="submit" className="bg-blue-500 text-white p-2">Create Classroom</button>
       </form>
 
-      {/* Classroom List in Table Format */}
       <table className="min-w-full bg-blue-100 border border-gray-300">
         <thead>
           <tr className="bg-yellow-500">
@@ -174,12 +172,10 @@ const ClassroomManagement = () => {
         </tbody>
       </table>
 
-      {/* Manage Students and Teachers for Selected Classroom */}
       {selectedClassroom && (
         <div className="mt-4">
           <h3 className="text-lg font-bold">Manage {selectedClassroom.name}</h3>
 
-          {/* Teacher Management */}
           <h4 className="mt-4 font-semibold">Current Teacher: {selectedClassroom.teacher_id.name}</h4>
           <input
             type="text"
@@ -190,7 +186,6 @@ const ClassroomManagement = () => {
           />
           <button onClick={() => handleUpdateTeacher(selectedClassroom._id)} className="bg-blue-500 text-white p-2">Update Teacher</button>
 
-          {/* Student Management */}
           <h4 className="mt-4 font-semibold">Manage Students:</h4>
           <input
             type="text"

@@ -11,19 +11,18 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault(); 
     try {
       const response = await axios.post('http://localhost:5000/api/users/login', {
         username,
         password,
       });
 
-      // Assuming the response contains a token
-      localStorage.setItem('token', response.data.token); // Store the JWT token
-      navigate(`/${userType}`); // Redirect based on userType
+      localStorage.setItem('token', response.data.token); 
+      navigate(`/${userType}`); 
     } catch (err) {
-      setError('Invalid credentials. Please try again.'); // Set error message
-      console.error(err); // Log the error for debugging
+      setError('Invalid credentials. Please try again.'); 
+      console.error(err); 
     }
   };
 
@@ -64,7 +63,7 @@ const Login = () => {
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              required // Optional: ensure this field is filled
+              required 
             />
           </div>
           <div className="mb-6">
@@ -78,7 +77,7 @@ const Login = () => {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required // Optional: ensure this field is filled
+              required 
             />
           </div>
           <div className="flex items-center justify-between">

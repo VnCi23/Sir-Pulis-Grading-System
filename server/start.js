@@ -20,18 +20,18 @@ mongoose.connect(process.env.MONGO_URI, {
   addUsersAndStartServer();
 }).catch(err => {
   console.error('Error connecting to MongoDB:', err);
-  process.exit(1); // Exit the process if unable to connect
+  process.exit(1); 
 });
 
-async function addUser(username, password, userType) {
+async function addUser(username, password, userType, course, schoolEmail, contactNumber, studentId, yearEnrolled, address) {
   try {
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       console.log(`User ${username} already exists.`);
-      return; // Exit if user already exists
+      return; 
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, password: hashedPassword, userType });
+    const newUser = new User({ username, password: hashedPassword, userType, course, schoolEmail, contactNumber, studentId, yearEnrolled, address });
     await newUser.save();
     console.log(`User ${username} created successfully as ${userType}.`);
   } catch (error) {
@@ -39,29 +39,28 @@ async function addUser(username, password, userType) {
   }
 }
 
+
 async function addUsersAndStartServer() {
   const users = [
-    { username: 'admin', password: 'adminpassword', role: 'admin' },
-    { username: 'teacher', password: 'teacherpassword', role: 'teacher' },
-    { username: 'student', password: 'studentpassword', role: 'student' },
-    { username: 'vince', password: '1234', role: 'student' }
+    { username: 'admin user', password: 'admin123', userType: 'admin', course: '', schoolEmail: 'admin@school.edu', contactNumber: '987-654-3210', studentId: '', yearEnrolled: '', address: 'san juan' },
+    { username: 'ginggoyy', password: '1234', userType: 'teacher', course: 'Mathematics', schoolEmail: 'teacher@school.edu', contactNumber: '555-555-5555', studentId: '', yearEnrolled: '', address: 'san juan' },
+    { username: 'vince', password: '1234', userType: 'student', course: 'BSIS', schoolEmail: 'vince@school.edu', contactNumber: '123-456-7890', studentId: 'S123456', yearEnrolled: '2020', address: 'san juan' },
   ];
 
   for (const user of users) {
-    await addUser(user.username, user.password, user.role);
+    await addUser(user.username, user.password, user.userType, user.course, user.schoolEmail, user.contactNumber, user.studentId, user.yearEnrolled, user.address);
   }
 
-  // Health check endpoint
+
   app.get('/health', (req, res) => {
     res.send('Server is healthy!');
   });
 
-  // Authentication Routes
+
   app.use('/api/users', authRoutes);
 
-  // Start the Express server
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
   });
 }

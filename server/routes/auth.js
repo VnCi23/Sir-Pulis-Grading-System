@@ -6,7 +6,7 @@ const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
 
-// User Registration
+
 router.post('/register', 
   [
     body('username').isString().notEmpty().withMessage('Username is required'),
@@ -21,7 +21,7 @@ router.post('/register',
 
     const { username, password, userType } = req.body;
 
-    // Check if the user already exists
+
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
@@ -40,12 +40,12 @@ router.post('/register',
   }
 );
 
-// User Login
+
 router.post('/login', 
   [
     body('username').isString().notEmpty().withMessage('Username is required'),
     body('password').isString().notEmpty().withMessage('Password is required')
-  ],
+  ], 
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -54,23 +54,37 @@ router.post('/login',
 
     const { username, password } = req.body;
 
-    try {
-      const user = await User.findOne({ username });
-      if (!user) {
-        return res.status(400).json({ message: 'Invalid credentials' });
-      }
 
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(400).json({ message: 'Invalid credentials' });
-      }
-
-      const token = jwt.sign({ id: user._id, userType: user.userType }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      res.json({ token, userType: user.userType }); // Optionally return userType
-    } catch (error) {
-      console.error('Error during login:', error);
-      res.status(500).json({ message: 'Server error' });
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid credentials' });
     }
+
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+
+    const token = jwt.sign({ id: user._id, userType: user.userType }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    res.json({
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        course: user.course,
+        schoolEmail: user.schoolEmail,
+        contactNumber: user.contactNumber,
+        studentId: user.studentId,
+        yearEnrolled: user.yearEnrolled,
+        address: user.address,
+        userType: user.userType
+      }
+    });
   }
 );
 

@@ -28,7 +28,6 @@ const Announcements = () => {
 
   return (
     <div className="container mx-auto p-6">
-      {/* New Announcement Form */}
       <div className="mx-5 border-2 bg-blue-100 border-blue-500 rounded-lg">
         <div className="mt-10 text-center font-bold">Create New Announcement</div>
         <div className="p-8">
@@ -69,7 +68,6 @@ const Announcements = () => {
         </div>
       </div>
 
-      {/* Filter Announcements */}
       <div className="mb-6 flex justify-center pt-8">
         <label className="mr-2 font-semibold">Filter by role:</label>
         <select
@@ -83,7 +81,6 @@ const Announcements = () => {
         </select>
       </div>
 
-      {/* Announcements List */}
       <h2 className="text-2xl font-semibold mb-4">Upcoming Announcements</h2>
       <ul className="flex flex-wrap justify-center gap-4 p-4">
         {filteredAnnouncements.map(announcement => (
