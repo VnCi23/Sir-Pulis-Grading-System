@@ -42,8 +42,8 @@ async function addUser(username, password, userType, course, schoolEmail, contac
 
 async function addUsersAndStartServer() {
   const users = [
-    { username: 'admin user', password: 'admin123', userType: 'admin', course: '', schoolEmail: 'admin@school.edu', contactNumber: '987-654-3210', studentId: '', yearEnrolled: '', address: 'san juan' },
-    { username: 'ginggoyy', password: '1234', userType: 'teacher', course: 'Mathematics', schoolEmail: 'teacher@school.edu', contactNumber: '555-555-5555', studentId: '', yearEnrolled: '', address: 'san juan' },
+    { username: 'adminuser', password: 'admin123', userType: 'admin', course: '', schoolEmail: 'admin@school.edu', contactNumber: '987-654-3210', studentId: '', yearEnrolled: '', address: 'san juan' },
+    { username: 'ginggoy', password: 'ginggoy123', userType: 'teacher', course: 'Mathematics', schoolEmail: 'teacher@school.edu', contactNumber: '555-555-5555', studentId: '', yearEnrolled: '', address: 'san juan' },
     { username: 'vince', password: '1234', userType: 'student', course: 'BSIS', schoolEmail: 'vince@school.edu', contactNumber: '123-456-7890', studentId: 'S123456', yearEnrolled: '2020', address: 'san juan' },
   ];
 

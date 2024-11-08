@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 const Announcements = () => {
   const [announcements, setAnnouncements] = useState([
-    { id: 1, title: 'School Closure', content: 'School will be closed for a holiday.', role: 'all' },
-    { id: 2, title: 'Parent-Teacher Conference', content: 'Join us for the parent-teacher conference next week.', role: 'teacher' },
-    { id: 3, title: 'New Library Hours', content: 'The library will open at 10 AM.', role: 'student' },
+    { id: 1, title: 'title1', content: 'content1', role: 'all' },
+    { id: 2, title: 'title2', content: 'content2', role: 'teacher' },
+    { id: 3, title: 'title3', content: 'kingina', role: 'student' },
   ]);
 
   const [newAnnouncement, setNewAnnouncement] = useState({ title: '', content: '', role: 'all' });

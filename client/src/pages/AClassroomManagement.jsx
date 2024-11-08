@@ -13,7 +13,7 @@ const ClassroomManagement = () => {
     },
     {
       _id: "2",
-      name: "Science 101",
+      name: "QAS 101",
       teacher_id: { name: "Fuck Bob", _id: "t2" },
       subject: "Intorduction to IS",
       year: "1st",
@@ -136,7 +136,7 @@ const ClassroomManagement = () => {
           className="border p-2 mr-2"
           required
         />
-        <button type="submit" className="bg-blue-500 text-white p-2">Create Classroom</button>
+        <button type="submit" className="bg-blue-700 text-white p-2">Create Classroom</button>
       </form>
 
       <table className="min-w-full bg-blue-100 border border-gray-300">
@@ -165,7 +165,7 @@ const ClassroomManagement = () => {
                 </div>
               </td>
               <td className="border px-4 py-2">
-                <button onClick={() => setSelectedClassroom(classroom)} className="bg-blue-500 text-white p-1">Manage</button>
+                <button onClick={() => setSelectedClassroom(classroom)} className="bg-blue-700 text-white p-1">Manage</button>
               </td>
             </tr>
           ))}
@@ -184,7 +184,7 @@ const ClassroomManagement = () => {
             onChange={(e) => setTeacherName(e.target.value)}
             className="border p-2 mb-2"
           />
-          <button onClick={() => handleUpdateTeacher(selectedClassroom._id)} className="bg-blue-500 text-white p-2">Update Teacher</button>
+          <button onClick={() => handleUpdateTeacher(selectedClassroom._id)} className="bg-blue-700 text-white p-2">Update Teacher</button>
 
           <h4 className="mt-4 font-semibold">Manage Students:</h4>
           <input
@@ -194,14 +194,14 @@ const ClassroomManagement = () => {
             onChange={(e) => setStudents(e.target.value)}
             className="border p-2 mb-2"
           />
-          <button onClick={() => handleAddStudents(selectedClassroom._id)} className="bg-blue-500 text-white p-2">Add Students</button>
+          <button onClick={() => handleAddStudents(selectedClassroom._id)} className="bg-blue-700 text-white p-2">Add Students</button>
           
           <h4 className="mt-4 font-semibold">Current Students:</h4>
           <ul className="mt-2">
             {selectedClassroom.students.map((student) => (
               <li key={student._id} className="flex justify-between border p-1 mb-1">
                 <span>{student.name}</span>
-                <button onClick={() => handleRemoveStudent(selectedClassroom._id, student._id)} className="bg-red-500 text-white p-1">Remove</button>
+                <button onClick={() => handleRemoveStudent(selectedClassroom._id, student._id)} className="bg-red-700 text-white p-1">Remove</button>
               </li>
             ))}
           </ul>

@@ -6,7 +6,7 @@ const SGrade = () => {
             classCode: 'CS101',
             year: '1st',
             semester: '1st',
-            subject: 'Computer Science',
+            subject: 'intro to IS',
             teacherName: 'teacher1',
             grade: '2.25',
             passOrFail: 'Pass'
