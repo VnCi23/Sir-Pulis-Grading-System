@@ -26,7 +26,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-blue-900">
+    <div className="flex items-center justify-center min-h-screen bg-blue-800">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
         <h2 className="text-xl font-bold mb-6 text-center">MSTIP Log in</h2>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
@@ -83,7 +83,7 @@ const Login = () => {
           </div>
           <div className="flex items-center justify-between">
             <button
-              className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
               Login
