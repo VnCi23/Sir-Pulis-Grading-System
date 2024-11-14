@@ -139,7 +139,7 @@ const ClassroomManagement = () => {
         <button type="submit" className="bg-blue-700 text-white p-2">Create Classroom</button>
       </form>
 
-      <table className="min-w-full bg-blue-100 border border-gray-300">
+      <table className="min-w-full bg-white border border-gray-300">
         <thead>
           <tr className="bg-yellow-500">
             <th className="border px-4 py-2">Class Code</th>

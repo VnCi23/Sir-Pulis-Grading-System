@@ -3,7 +3,8 @@ import React from 'react';
 const SHome = () => {
     return (
         <div>
-            <h1>Welcome Student</h1>
+            <h1 className='text-3xl p-5'>Welcome (Student Name)</h1>
+            <h3>sana masaya ka sa grade mo HAHAHAHA</h3>
         </div>
     );
 };

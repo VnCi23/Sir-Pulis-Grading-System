@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import mstiplogo from '../assets/mstiplogo.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,28 +29,30 @@ const Login = () => {
     <div className="flex items-center justify-center min-h-screen bg-blue-900">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
         <h2 className="text-xl font-bold mb-6 text-center">MSTIP Log in</h2>
-        <div className="flex justify-center mb-4">
-          <div className="bg-white rounded-full">
-            <img src={mstiplogo} alt="Logo" className="h-13 w-13" />
-          </div>
-        </div>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="userType">
-              User Type
-            </label>
-            <select
-              id="userType"
-              value={userType}
-              onChange={(e) => setUserType(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 bg-yellow-500 text-black leading-tight focus:outline-none focus:shadow-outline"
-            >
-              <option value="student">Student</option>
-              <option value="teacher">Teacher</option>
-              <option value="admin">Admin</option>
-            </select>
-          </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">
+            User Type
+          </label>
+          <form className="flex flex-col">
+            {['student', 'teacher', 'admin'].map((type) => (
+              <label key={type} className="flex cursor-pointer font-medium relative overflow-hidden mb-1.5">
+                <input
+                  type="radio"
+                  name="userType"
+                  value={type}
+                  className="absolute left-[-9999px]"
+                  checked={userType === type}
+                  onChange={(e) => setUserType(e.target.value)}
+                />
+                <span className={`flex items-center px-3 py-1.5 rounded-full transition-colors duration-200 ${userType === type ? 'bg-yellow-500 text-black' : 'text-[#1b1b1b] hover:bg-[#d6d6e5]'}`}>
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </span>
+              </label>
+            ))}
+          </form>
+        </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
               Username

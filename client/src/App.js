@@ -6,6 +6,7 @@ import Teacher from './pages/TNav';
 import Student from './pages/SNav';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
+import Cog from './pages/Cog';
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
           } 
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/cog" element={<Cog />} />
       </Routes>
     </Router>
   );
