@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Form = require('../models/Form');
 
-// Route to handle form submissions
 router.post('/submit-form', async (req, res) => {
   try {
     const formData = new Form(req.body);
@@ -14,7 +13,6 @@ router.post('/submit-form', async (req, res) => {
   }
 });
 
-// Route to retrieve submitted form data
 router.get('/form-data', async (req, res) => {
   try {
     const forms = await Form.find();

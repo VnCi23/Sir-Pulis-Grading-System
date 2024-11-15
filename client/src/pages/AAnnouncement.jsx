@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 const Announcements = () => {
   const [announcements, setAnnouncements] = useState([
-    { id: 1, title: 'title1', content: 'content1', role: 'all' },
-    { id: 2, title: 'title2', content: 'content2', role: 'teacher' },
-    { id: 3, title: 'title3', content: 'kingina', role: 'student' },
+    { id: 1, title: 'Announcement1', content: 'content1', role: 'all' },
+    { id: 2, title: 'Announcement2', content: 'content2', role: 'teacher' },
+    { id: 3, title: 'Announcement3', content: 'kingina', role: 'student' },
   ]);
 
   const [newAnnouncement, setNewAnnouncement] = useState({ title: '', content: '', role: 'all' });
@@ -84,7 +84,7 @@ const Announcements = () => {
       <h2 className="text-2xl font-semibold mb-4">Upcoming Announcements</h2>
       <ul className="flex flex-wrap justify-center gap-4 p-4">
         {filteredAnnouncements.map(announcement => (
-          <li key={announcement.id} className="p-4 max-w-sm flex flex-col rounded-lg shadow-lg bg-blue-100 border hover:bg-blue-200 transition duration-300">
+          <li key={announcement.id} className="p-4 max-w-sm flex flex-col rounded-lg shadow-lg bg-white border hover:bg-blue-100 transition duration-300">
             <h3 className="font-bold text-lg">{announcement.title}</h3>
             <p>{announcement.content}</p>
             <p className="text-gray-400 text-sm">Target Audience: {announcement.role}</p>
