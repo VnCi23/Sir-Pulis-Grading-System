@@ -18,7 +18,7 @@ const UserManagement = () => {
     },
     {
       id: '67-3890',
-      studentId: 'T456',
+      studentId: '',
       username: 'Revic Dolot',
       email: 'revic@example.com',
       userType: 'teacher',
@@ -32,7 +32,7 @@ const UserManagement = () => {
     },
     {
       id: '23-0328',
-      studentId: 'A789',
+      studentId: '',
       username: 'Albert Napal',
       email: 'albertsmith@example.com',
       userType: 'admin',
@@ -204,7 +204,7 @@ const UserManagement = () => {
       <table className="min-w-full bg-white border border-gray-300">
         <thead>
           <tr className="bg-yellow-500">
-            {['User ID', 'Student ID', 'Username', 'Email', 'Course', 'School Email', 'Contact Number', 'Year Enrolled', 'Address', 'Usertype', 'Password', 'Actions'].map((header) => (
+            {['User ID', 'Student ID', 'Username', 'Course', 'School Email', 'Contact Number', 'Year Enrolled', 'Address', 'Usertype', 'Password', 'Actions'].map((header) => (
               <th key={header} className="border px-2 py-1 text-xs">{header}</th>
             ))}
           </tr>
@@ -215,7 +215,6 @@ const UserManagement = () => {
               <td className="border px-2 py-1 text-xs">{user.id}</td>
               <td className="border px-2 py-1 text-xs">{user.studentId}</td>
               <td className="border px-2 py-1 text-xs">{user.username}</td>
-              <td className="border px-2 py-1 text-xs">{user.email}</td>
               <td className="border px-2 py-1 text-xs">{user.course}</td>
               <td className="border px-2 py-1 text-xs">{user.schoolEmail}</td>
               <td className="border px-2 py-1 text-xs">{user.contactNumber}</td>

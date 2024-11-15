@@ -54,8 +54,8 @@ async function addUser(username, password, userType, course, schoolEmail, contac
 async function addUsersAndStartServer() {
   const users = [
     {
-      username: 'pulis',
-      password: 'pulis123',
+      username: 'mstip',
+      password: 'mstip123',
       userType: 'admin',
       course: '',
       schoolEmail: 'admin@school.edu',

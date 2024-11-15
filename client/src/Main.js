@@ -33,7 +33,7 @@ const Main = () => {
                   </Link>
                   <Link to="/cog">
                     <button className="uppercase py-2 px-4 rounded-lg bg-yellow-500 border-2 border-transparent text-white text-md mr-4 hover:bg-yellow-400">
-                    Request Cog
+                    Request TOR
                     </button>
                   </Link>
                     <a href="http://mstip.edu.ph/" className="py-2 px-4 rounded-lg bg-transparent border-2 border-yellow-500 text-yellow-500 dark:text-white hover:bg-yellow-500 hover:text-white text-md">

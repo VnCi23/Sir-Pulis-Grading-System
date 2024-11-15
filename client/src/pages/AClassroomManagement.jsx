@@ -14,7 +14,7 @@ const ClassroomManagement = () => {
     {
       _id: "2",
       name: "QAS 101",
-      teacher_id: { name: "Fuck Bob", _id: "t2" },
+      teacher_id: { name: "jansin", _id: "t2" },
       subject: "Intorduction to IS",
       year: "1st",
       semester: "1st",

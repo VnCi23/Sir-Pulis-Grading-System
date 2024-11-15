@@ -33,9 +33,9 @@ const Cog = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-blue-800">
-      <div className="mx-14 m-3 border-2 border-yellow-500 rounded-lg">
-        <div className="mt-10 text-center text-white text-4xl font-bold">Cog Request Form</div>
-        <div className="mt-3 text-center text-white">You can obtain your COR after 5 days.</div>
+      <div className="mx-14 m-3 border-2 bg-white rounded-lg">
+        <div className="mt-10 text-center text-black text-4xl font-bold">TOR Request Form</div>
+        <div className="mt-3 text-center text-black">You can obtain your TOR after 3 days.</div>
         <form onSubmit={handleSubmit} className="p-8">
           <div className="flex gap-4">
             <input
@@ -108,7 +108,7 @@ const Cog = () => {
               className="block w-full rounded-md border border-slate-300 bg-white px-3 py-4 font-semibold text-gray-500 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
             >
               <option value="" disabled className="font-semibold text-slate-300">Through Email or Go to School *</option>
-              <option value="email" className="font-semibold text-gray-700">Through Email</option>
+              <option value="email" className="font-semibold text-gray-700">Send via Email</option>
               <option value="school" className="font-semibold text-gray-700">Go to School</option>
             </select>
           </div>

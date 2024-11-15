@@ -7,8 +7,8 @@ const TGrade = () => {
             course: 'BSIS',
             year: '1st',
             semester: '1st',
-            subject: 'progeaming',
-            teacherName: 'John Doe',
+            subject: 'programing',
+            teacherName: 'napal',
             students: [
                 { name: 'Student A', grade: '1.50' },
                 { name: 'Student B', grade: '1.25' },
@@ -27,8 +27,8 @@ const TGrade = () => {
             course: 'BSTM',
             year: '1st',
             semester: '1st',
-            subject: 'Mathematics',
-            teacherName: 'John Doe',
+            subject: 'into to IS',
+            teacherName: 'jansin',
             students: [
                 { name: 'Student E', grade: '3' },
                 { name: 'Student F', grade: '3' },

@@ -16,7 +16,7 @@ const ANav = () => {
     navigate('/login');
   }, [navigate]);
 
-  const tabTitles = useMemo(() => ['User Management', 'Classroom Management', 'Announcements', 'COG Request'], []);
+  const tabTitles = useMemo(() => ['User Management', 'Classroom Management', 'Announcements', 'TOR Request'], []);
 
   const handleSearchChange = useCallback((event) => {
     setSearchQuery(event.target.value);
