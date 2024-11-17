@@ -4,26 +4,28 @@ const ClassroomManagement = () => {
   const initialClassrooms = [
     {
       _id: "1",
-      name: "CC101",
-      teacher_id: { name: "Jinggoy", _id: "t1" },
+      classcode: "CC101",
+      teacherName: "Jinggoy",
       subject: "Mathematics",
       year: "1st",
       semester: "1st",
-      students: Array.from({ length: 30 }, (_, i) => ({ name: `Student ${i + 1}`, _id: `s${i + 1}` })),
-    },
-    {
-      _id: "2",
-      name: "QAS 101",
-      teacher_id: { name: "jansin", _id: "t2" },
-      subject: "Intorduction to IS",
-      year: "1st",
-      semester: "1st",
-      students: Array.from({ length: 30 }, (_, i) => ({ name: `Student ${i + 1}`, _id: `s${i + 1}` })),
+      students: [
+        { name: "Melmar Araneta", _id: "s1" },
+        { name: "Revic Dolot", _id: "s2" },
+        { name: "Albert Napal", _id: "s3" },
+        { name: "Johnysins Almoguera", _id: "s4" },
+        { name: "Carlo Noveno", _id: "s5" },
+        { name: "Christian Reyes", _id: "s6" },
+        { name: "Jeferson Obenza", _id: "s7" },
+        { name: "Jan Ebe", _id: "s8" },
+        { name: "Arronn Abejo", _id: "s9" },
+        { name: "Vince Christian Gaurino", _id: "s10" },
+      ],
     },
   ];
 
   const [classrooms, setClassrooms] = useState(initialClassrooms);
-  const [classroomName, setClassroomName] = useState('');
+  const [classcode, setClasscode] = useState('');
   const [teacherName, setTeacherName] = useState('');
   const [subject, setSubject] = useState('');
   const [year, setYear] = useState('');
@@ -35,19 +37,18 @@ const ClassroomManagement = () => {
     e.preventDefault();
     const newClassroom = {
       _id: (classrooms.length + 1).toString(),
-      name: classroomName,
-      teacher_id: { name: teacherName, _id: `t${classrooms.length + 1}` },
+      classcode,
+      teacherName,
       subject,
       year,
       semester,
-      students: [],
+      students,
     };
     setClassrooms([...classrooms, newClassroom]);
-    resetClassroomForm();
   };
 
   const resetClassroomForm = () => {
-    setClassroomName('');
+    setClasscode('');
     setTeacherName('');
     setSubject('');
     setYear('');
@@ -98,9 +99,9 @@ const ClassroomManagement = () => {
       <form onSubmit={handleCreateClassroom} className="mb-4">
         <input
           type="text"
-          placeholder="Classroom Name"
-          value={classroomName}
-          onChange={(e) => setClassroomName(e.target.value)}
+          placeholder="Class Code"
+          value={classcode}
+          onChange={(e) => setClasscode(e.target.value)}
           className="border p-2 mr-2"
           required
         />
@@ -154,8 +155,8 @@ const ClassroomManagement = () => {
         <tbody>
           {classrooms.map((classroom) => (
             <tr key={classroom._id}>
-              <td className="border px-4 py-2">{classroom.name}</td>
-              <td className="border px-4 py-2">{classroom.teacher_id.name}</td>
+              <td className="border px-4 py-2">{classroom.classcode}</td>
+              <td className="border px-4 py-2">{classroom.teacherName}</td>
               <td className="border px-4 py-2">{classroom.subject}</td>
               <td className="border px-4 py-2">{classroom.year}</td>
               <td className="border px-4 py-2">{classroom.semester}</td>
@@ -174,9 +175,9 @@ const ClassroomManagement = () => {
 
       {selectedClassroom && (
         <div className="mt-4">
-          <h3 className="text-lg font-bold">Manage {selectedClassroom.name}</h3>
+          <h3 className="text-lg font-bold">Manage {selectedClassroom.classcode}</h3>
 
-          <h4 className="mt-4 font-semibold">Current Teacher: {selectedClassroom.teacher_id.name}</h4>
+          <h4 className="mt-4 font-semibold">Current Teacher: {selectedClassroom.teacherName}</h4>
           <input
             type="text"
             placeholder="Update Teacher Name"

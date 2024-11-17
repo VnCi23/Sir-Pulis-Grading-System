@@ -5,43 +5,14 @@ const UserManagement = () => {
     {
       id: '12-4345',
       studentId: 'S123',
-      username: 'Jansin Jinggoy',
-      email: 'jansin@example.com',
+      username: 'Johnysins Almoguera',
+      email: 'jansin@gmail.com',
       userType: 'student',
       password: '********',
       course: 'BS. Information Systems',
-      schoolEmail: 'jansin.pakyu@school.edu',
-      contactNumber: '09123456789',
+      schoolEmail: 'jansin@school.edu',
       yearEnrolled: '2022',
-      address: 'san juan',
       grades: []
-    },
-    {
-      id: '67-3890',
-      studentId: '',
-      username: 'Revic Dolot',
-      email: 'revic@example.com',
-      userType: 'teacher',
-      password: '********',
-      course: '',
-      schoolEmail: 'revic.dolot@school.edu',
-      contactNumber: '09123456788',
-      yearEnrolled: '',
-      address: 'san juan',
-      grades: []
-    },
-    {
-      id: '23-0328',
-      studentId: '',
-      username: 'Albert Napal',
-      email: 'albertsmith@example.com',
-      userType: 'admin',
-      password: '********',
-      course: '',
-      schoolEmail: 'albert.napal@school.edu',
-      contactNumber: '09111223344',
-      yearEnrolled: '',
-      address: 'san juan'
     },
   ];
 
@@ -55,9 +26,7 @@ const UserManagement = () => {
     password: '',
     course: '',
     schoolEmail: '',
-    contactNumber: '',
     yearEnrolled: '',
-    address: '',
     grades: []
   });
   const [editIndex, setEditIndex] = useState(null);
@@ -90,9 +59,7 @@ const UserManagement = () => {
         password: '',
         course: '',
         schoolEmail: '',
-        contactNumber: '',
         yearEnrolled: '',
-        address: '',
         grades: []
       });
       setEditIndex(null);
@@ -162,14 +129,6 @@ const UserManagement = () => {
         />
         <input
           type="text"
-          name="contactNumber"
-          placeholder="Contact Number"
-          value={newUser.contactNumber}
-          onChange={handleNewUserChange}
-          className="p-2 border border-gray-300 rounded m-1"
-        />
-        <input
-          type="text"
           name="studentId"
           placeholder="Student ID"
           value={newUser.studentId}
@@ -181,14 +140,6 @@ const UserManagement = () => {
           name="yearEnrolled"
           placeholder="Year Enrolled"
           value={newUser.yearEnrolled}
-          onChange={handleNewUserChange}
-          className="p-2 border border-gray-300 rounded m-1"
-        />
-        <input
-          type="text"
-          name="address"
-          placeholder="Address"
-          value={newUser.address}
           onChange={handleNewUserChange}
           className="p-2 border border-gray-300 rounded m-1"
         />
@@ -204,24 +155,22 @@ const UserManagement = () => {
       <table className="min-w-full bg-white border border-gray-300">
         <thead>
           <tr className="bg-yellow-500">
-            {['User ID', 'Student ID', 'Username', 'Course', 'School Email', 'Contact Number', 'Year Enrolled', 'Address', 'Usertype', 'Password', 'Actions'].map((header) => (
-              <th key={header} className="border px-2 py-1 text-xs">{header}</th>
+            {['User ID', 'Student ID', 'Username', 'Course', 'School Email', 'Year Enrolled', 'Usertype', 'Password', 'Actions'].map((header) => (
+              <th key={header} className="border px-2 py-1">{header}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {users.map((user, index) => (
             <tr key={user.id}>
-              <td className="border px-2 py-1 text-xs">{user.id}</td>
-              <td className="border px-2 py-1 text-xs">{user.studentId}</td>
-              <td className="border px-2 py-1 text-xs">{user.username}</td>
-              <td className="border px-2 py-1 text-xs">{user.course}</td>
-              <td className="border px-2 py-1 text-xs">{user.schoolEmail}</td>
-              <td className="border px-2 py-1 text-xs">{user.contactNumber}</td>
-              <td className="border px-2 py-1 text-xs">{user.yearEnrolled}</td>
-              <td className="border px-2 py-1 text-xs">{user.address}</td>
-              <td className="border px-2 py-1 text-xs">{user.userType}</td>
-              <td className="border px-2 py-1 text-xs">{user.password}</td>
+              <td className="border px-2 py-1">{user.id}</td>
+              <td className="border px-2 py-1">{user.studentId}</td>
+              <td className="border px-2 py-1">{user.username}</td>
+              <td className="border px-2 py-1">{user.course}</td>
+              <td className="border px-2 py-1">{user.schoolEmail}</td>
+              <td className="border px-2 py-1">{user.yearEnrolled}</td>
+              <td className="border px-2 py-1">{user.userType}</td>
+              <td className="border px-2 py-1">{user.password}</td>
               <td className="border px-2 py-1 flex justify-center space-x-1">
                 <button onClick={() => handleEditUser(index)} className="bg-blue-700 hover:bg-blue-900 text-white py-1 px-1 rounded text-xs">Edit</button>
                 <button onClick={() => handleDeleteUser(index)} className="bg-red-700 hover:bg-red-900 text-white py-1 px-1 rounded text-xs">Delete</button>

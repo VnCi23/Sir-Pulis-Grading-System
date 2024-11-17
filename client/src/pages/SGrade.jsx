@@ -9,16 +9,14 @@ const SGrade = () => {
             subject: 'intro to IS',
             teacherName: 'teacher1',
             grade: '2.25',
-            passOrFail: 'Pass'
         },
         {
             classCode: 'MATH201',
             year: '1st',
             semester: '1st',
             subject: 'Mathematics',
-            teacherName: ' teacher2',
-            grade: '3.00',
-            passOrFail: 'Pass'
+            teacherName: 'teacher2',
+            grade: '4',
         }
     ];
 
@@ -45,7 +43,11 @@ const SGrade = () => {
                             <td className="py-2 px-4 border-b">{grade.subject}</td>
                             <td className="py-2 px-4 border-b">{grade.teacherName}</td>
                             <td className="py-2 px-4 border-b">{grade.grade}</td>
-                            <td className="py-2 px-4 border-b">{grade.passOrFail}</td>
+                            <td className="py-2 px-4 border-b">
+                                <span className={grade.grade > 3 ? 'text-red-500' : ''}>
+                                    {grade.grade <= 3 ? 'Pass' : 'Fail'}
+                                </span>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

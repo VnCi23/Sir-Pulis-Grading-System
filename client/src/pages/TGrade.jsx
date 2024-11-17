@@ -8,9 +8,9 @@ const TGrade = () => {
             year: '1st',
             semester: '1st',
             subject: 'programing',
-            teacherName: 'napal',
+            teacherName: 'albert napal',
             students: [
-                { name: 'Student A', grade: '1.50' },
+                { name: 'vince christian gaurino', grade: '1.50' },
                 { name: 'Student B', grade: '1.25' },
                 { name: 'Student C', grade: '2.00' },
                 { name: 'Student D', grade: '1.00' },
@@ -28,7 +28,7 @@ const TGrade = () => {
             year: '1st',
             semester: '1st',
             subject: 'into to IS',
-            teacherName: 'jansin',
+            teacherName: 'janysins almoguera',
             students: [
                 { name: 'Student E', grade: '3' },
                 { name: 'Student F', grade: '3' },
@@ -50,6 +50,10 @@ const TGrade = () => {
         setGrades(newGrades);
     };
 
+    const handleSave = () => {
+        console.log('Grades saved:', grades);
+    };
+
     return (
         <div className="container mx-auto p-4">
             {grades.map((grade, index) => (
@@ -66,17 +70,28 @@ const TGrade = () => {
                                 <th className="py-2 px-4 border-b">Teacher Name</th>
                                 <th className="py-2 px-4 border-b">Students</th>
                                 <th className="py-2 px-4 border-b">Input Grade</th>
+                                <tr>
+                                <td colSpan="8" className="py-2 px-4 border-b text-right">
+                                    <button className="bg-blue-800 text-white py-2 px-4 rounded" onClick={handleSave}>
+                                        Save
+                                    </button>
+                                </td>
+                            </tr>
                             </tr>
                         </thead>
                         <tbody>
                             {grade.students.map((student, studentIndex) => (
                                 <tr key={studentIndex}>
-                                    <td className="py-2 px-4 border-b">{grade.classCode}</td>
-                                    <td className="py-2 px-4 border-b">{grade.course}</td>
-                                    <td className="py-2 px-4 border-b">{grade.year}</td>
-                                    <td className="py-2 px-4 border-b">{grade.semester}</td>
-                                    <td className="py-2 px-4 border-b">{grade.subject}</td>
-                                    <td className="py-2 px-4 border-b">{grade.teacherName}</td>
+                                    {studentIndex === 0 && (
+                                        <>
+                                            <td className="py-2 px-4 border-b" rowSpan={grade.students.length}>{grade.classCode}</td>
+                                            <td className="py-2 px-4 border-b" rowSpan={grade.students.length}>{grade.course}</td>
+                                            <td className="py-2 px-4 border-b" rowSpan={grade.students.length}>{grade.year}</td>
+                                            <td className="py-2 px-4 border-b" rowSpan={grade.students.length}>{grade.semester}</td>
+                                            <td className="py-2 px-4 border-b" rowSpan={grade.students.length}>{grade.subject}</td>
+                                            <td className="py-2 px-4 border-b" rowSpan={grade.students.length}>{grade.teacherName}</td>
+                                        </>
+                                    )}
                                     <td className="py-2 px-4 border-b">{student.name}</td>
                                     <td className="py-2 px-4 border-b">
                                         <input

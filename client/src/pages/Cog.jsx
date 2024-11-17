@@ -34,8 +34,8 @@ const Cog = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-blue-800">
       <div className="mx-14 m-3 border-2 bg-white rounded-lg">
-        <div className="mt-10 text-center text-black text-4xl font-bold">TOR Request Form</div>
-        <div className="mt-3 text-center text-black">You can obtain your TOR after 3 days.</div>
+        <div className="mt-10 text-center text-black text-xl font-bold">TOR Request Form</div>
+        <div className="mt-3 text-center text-sm text-black">You can obtain your TOR after 3 days.</div>
         <form onSubmit={handleSubmit} className="p-8">
           <div className="flex gap-4">
             <input
@@ -44,7 +44,7 @@ const Cog = () => {
               value={formData.studentName}
               onChange={handleChange}
               required
-              className="mt-1 block w-1/2 rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:font-semibold placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              className="mt-1 block w-1/2 rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Student Name *"
             />
             <input
@@ -53,7 +53,7 @@ const Cog = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="mt-1 block w-1/2 rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:font-semibold placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              className="mt-1 block w-1/2 rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Email *"
             />
           </div>
@@ -64,7 +64,7 @@ const Cog = () => {
               value={formData.course}
               onChange={handleChange}
               required
-              className="block w-1/2 rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:font-semibold placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              className="block w-1/2 rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm  placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Course *"
             />
             <input
@@ -73,7 +73,7 @@ const Cog = () => {
               value={formData.contactNumber}
               onChange={handleChange}
               required
-              className="block w-1/2 rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:font-semibold placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              className="block w-1/2 rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Contact Number *"
             />
           </div>
@@ -84,7 +84,7 @@ const Cog = () => {
               value={formData.studentId}
               onChange={handleChange}
               required
-              className="block w-full rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:font-semibold placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              className="block w-full rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm  placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Student ID *"
             />
           </div>
@@ -95,7 +95,7 @@ const Cog = () => {
               value={formData.yearGraduate}
               onChange={handleChange}
               required
-              className="block w-full rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:font-semibold placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              className="block w-full rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Year Graduate *"
             />
           </div>
