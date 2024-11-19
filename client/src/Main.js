@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import aa from './assets/aa.jpg';
 import { Link } from 'react-router-dom';
 
-
 const Main = () => {
-  const [userType, setUserType] = useState('student');
-
   return (
     <main className="dark:bg-blue-800 bg-white relative overflow-hidden min-h-screen">
       <header className="h-24 sm:h-25 flex items-center z-30 w-full">

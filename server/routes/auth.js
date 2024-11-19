@@ -78,10 +78,8 @@ router.post('/login',
         username: user.username,
         course: user.course,
         schoolEmail: user.schoolEmail,
-        contactNumber: user.contactNumber,
         studentId: user.studentId,
         yearEnrolled: user.yearEnrolled,
-        address: user.address,
         userType: user.userType
       }
     });

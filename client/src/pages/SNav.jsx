@@ -20,7 +20,8 @@ const Student = () => {
 
 
   return (
-    <div className="h-screen flex flex-col items-center p-5">
+    <div className='h-screen bg-blue-100'> 
+      <div className="h-screen flex flex-col items-center p-5 bg-blue-100">
       <div className="w-full flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Student Page</h1>
         <button
@@ -46,6 +47,7 @@ const Student = () => {
         {openTab === 2 && <SGrade />}
         {openTab === 3 && <SAnnouncement />}
       </div>
+    </div>
     </div>
   );
 };

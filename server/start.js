@@ -35,74 +35,107 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-async function addUser(username, password, userType, course, schoolEmail, contactNumber, studentId, yearEnrolled, address, grades) {
+const saltRounds = 10;
+
+async function addUser(username, password, userType, course, schoolEmail, studentId, yearEnrolled, grades) {
   try {
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       console.log(`User ${username} already exists.`);
-      return; 
+      return;
     }
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, password: hashedPassword, userType, course, schoolEmail, contactNumber, studentId, yearEnrolled, address, grades });
-    await newUser.save();
-    console.log(`User ${username} created successfully as ${userType}.`);
-  } catch (error) {
-    console.error('Error creating user:', error);
+
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const user = new User({
+      username,
+      password: hashedPassword,
+      userType,
+      course,
+      schoolEmail,
+      studentId,
+      yearEnrolled,
+      grades
+    });
+
+    await user.save();
+    console.log(`User ${username} added successfully.`);
+  } catch (err) {
+    console.error('Error adding user:', err);
   }
 }
 
 async function addUsersAndStartServer() {
-  const users = [
-    {
-      username: 'mstip',
-      password: 'mstip123',
-      userType: 'admin',
-      course: '',
-      schoolEmail: 'admin@school.edu',
-      contactNumber: '987-654-3210',
-      studentId: '',
-      yearEnrolled: '',
-      address: 'san juan',
-      grades: []
-    },
-    {
-      username: 'ginggoy',
-      password: 'ginggoy123',
-      userType: 'teacher',
-      course: 'Mathematics',
-      schoolEmail: 'teacher@school.edu',
-      contactNumber: '555-555-5555',
-      studentId: '',
-      yearEnrolled: '',
-      address: 'san juan',
-      grades: []
-    },
-    {
-      username: 'vince',
-      password: '1234',
-      userType: 'student',
-      course: 'BSIS',
-      schoolEmail: 'vince@school.edu',
-      contactNumber: '123-456-7890',
-      studentId: 'S123456',
-      yearEnrolled: '2020',
-      address: 'san juan',
-      grades: [
-        {
-          classCode: 'CS101',
-          course: 'BSIS',
-          year: 2020,
-          semester: 'Fall',
-          subject: 'Introduction to Programming',
-          teacherName: 'Dr. Smith',
-          grade: 85,
-          passOrFail: 'Pass'
-        }
-      ]
-    }
-  ];
-
-  for (const user of users) {
-    await addUser(user.username, user.password, user.userType, user.course, user.schoolEmail, user.contactNumber, user.studentId, user.yearEnrolled, user.address, user.grades);
-  }
+  await addUser('vnci', '1234', 'admin', 'a1', 'vnci@mstip.edu', 'a1', '0000', []);
 }
+
+app.get('/api/users', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: 'Error fetching users' });
+  }
+});
+
+app.post('/api/users', async (req, res) => {
+  try {
+    const { studentId, username, userType, course, schoolEmail, password, yearEnrolled, grades } = req.body;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const newUser = new User({
+      studentId,
+      username,
+      userType,
+      course,
+      schoolEmail,
+      password: hashedPassword,
+      yearEnrolled,
+      grades
+    });
+    await newUser.save();
+    res.status(201).json(newUser);
+  } catch (err) {
+    res.status(500).json({ error: 'Error creating user' });
+  }
+});
+
+app.delete('/api/users/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    await User.findByIdAndDelete(userId);
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error deleting user' });
+  }
+});
+
+// Endpoint to get grades by username
+app.get('/api/grades/:username', async (req, res) => {
+  const { username } = req.params;
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user.grades);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+app.put('/api/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { studentId, username, userType, course, schoolEmail, password, yearEnrolled, grades } = req.body;
+
+    let updatedFields = { studentId, username, userType, course, schoolEmail, yearEnrolled, grades };
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      updatedFields.password = hashedPassword;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(id, updatedFields, { new: true });
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(500).json({ error: 'Error updating user' });
+  }
+});

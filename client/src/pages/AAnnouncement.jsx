@@ -27,40 +27,36 @@ const Announcements = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <div className="mx-5 border-2 bg-white border-yellow-500 rounded-lg">
-        <div className="mt-10 text-center font-bold">Create New Announcement</div>
+    <div className="container mx-auto">
+      <div className="mx-auto w-full max-w-md border-2 bg-white border-yellow-500 rounded-lg shadow-lg">
+        <div className="mt-10 text-center font-bold text-xl text-gray-800">Create New Announcement</div>
         <div className="p-8">
-          <input
-            type="text"
-            name="title"
-            placeholder="Announcement Title"
-            value={newAnnouncement.title}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-          />
           <textarea
-            name="content"
-            placeholder="Announcement Content"
-            value={newAnnouncement.content}
+            name="announcement"
+            placeholder="Title and Content"
+            value={newAnnouncement.announcement}
             onChange={handleChange}
-            className="mb-10 block w-full resize-none rounded-md border border-slate-300 p-5 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-          ></textarea>
-          <select
-            name="role"
-            value={newAnnouncement.role}
-            onChange={handleChange}
-            className="block w-full rounded-md border border-slate-300 bg-yellow-500 px-3 py-3 shadow-sm focus:border-yellow-500 focus:outline-none focus:ring-1 focus:ring-yellow-500 sm:text-sm"
-          >
-            <option value="all">All</option>
-            <option value="student">Students</option>
-            <option value="teacher">Teachers</option>
-          </select>
+            className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-4 py-6 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+            rows="5"
+          />
+          <div className="mt-4">
+            <label className="block text-sm font-medium text-gray-700">Send to</label>
+            <select
+              name="role"
+              value={newAnnouncement.role}
+              onChange={handleChange}
+              className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+            >
+              <option value="all">All</option>
+              <option value="student">Students</option>
+              <option value="teacher">Teachers</option>
+            </select>
+          </div>
           <div className="text-center mt-6">
             <button
               type="button"
               onClick={handleAddAnnouncement}
-              className="cursor-pointer rounded-lg bg-blue-700 px-8 py-5 text-sm font-semibold text-white hover:bg-blue-800 transition duration-300"
+              className="cursor-pointer rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-700 transition duration-300"
             >
               Add Announcement
             </button>
@@ -69,11 +65,11 @@ const Announcements = () => {
       </div>
 
       <div className="mb-6 flex justify-center pt-8">
-        <label className="mr-2 font-semibold">Filter by role:</label>
+        <label className="mr-2 font-semibold text-lg">Filter by role:</label>
         <select
           value={filterRole}
           onChange={(e) => setFilterRole(e.target.value)}
-          className="p-2 bg-yellow-500 border border-gray-300 rounded"
+          className="p-3 bg-yellow-500 border border-gray-300 rounded text-lg"
         >
           <option value="all">All</option>
           <option value="student">Students</option>
@@ -81,13 +77,13 @@ const Announcements = () => {
         </select>
       </div>
 
-      <h2 className="text-2xl font-semibold mb-4">Upcoming Announcements</h2>
-      <ul className="flex flex-wrap justify-center gap-4 p-4">
+      <h2 className="text-3xl font-semibold mb-6">Announcements</h2>
+      <ul className="flex flex-wrap justify-center gap-6 p-6">
         {filteredAnnouncements.map(announcement => (
-          <li key={announcement.id} className="p-4 max-w-sm flex flex-col rounded-lg shadow-lg bg-white border hover:bg-blue-100 transition duration-300">
-            <h3 className="font-bold text-lg">{announcement.title}</h3>
-            <p>{announcement.content}</p>
-            <p className="text-gray-400 text-sm">Target Audience: {announcement.role}</p>
+          <li key={announcement.id} className="p-6 max-w-md flex flex-col rounded-lg shadow-lg bg-white border hover:bg-yellow-100 transition duration-300">
+            <h3 className="font-bold">{announcement.title}</h3>
+            <p >{announcement.content}</p>
+            <p className="text-gray-400">Target Audience: {announcement.role}</p>
           </li>
         ))}
       </ul>

@@ -17,10 +17,8 @@ const userSchema = new mongoose.Schema({
   userType: { type: String, required: true },
   course: { type: String },
   schoolEmail: { type: String },
-  contactNumber: { type: String },
   studentId: { type: String },
   yearEnrolled: { type: String },
-  address: { type: String },
   grades: [gradeSchema]
 });
 
