@@ -8,7 +8,7 @@ const TGrade = () => {
             year: '1st',
             semester: '1st',
             subject: 'programing',
-            teacherName: 'albert napal',
+            teacherName: 'janysins almoguera',
             students: [
                 { name: 'vince christian gaurino', grade: '1.50' },
                 { name: 'Student B', grade: '1.25' },
