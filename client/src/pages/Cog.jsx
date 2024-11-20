@@ -32,8 +32,8 @@ const Cog = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-blue-800">
-      <div className="mx-14 m-3 border-2 bg-white rounded-lg">
+    <div className="flex justify-center items-center min-h-screen bg-blue-800 p-2 sm:p-3 md:p-5">
+      <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-md">
         <div className="mt-10 text-center text-black text-xl font-bold">TOR Request Form</div>
         <div className="mt-3 text-center text-sm text-black">You can obtain your TOR after 3 days.</div>
         <form onSubmit={handleSubmit} className="p-8">
@@ -113,7 +113,7 @@ const Cog = () => {
             </select>
           </div>
           <div className="text-center">
-            <button type="submit" className="cursor-pointer rounded-lg bg-yellow-500 px-8 py-5 text-sm font-semibold text-white hover:bg-yellow-600">
+            <button type="submit" className="cursor-pointer rounded-lg bg-yellow-500 px-8 py-5 text-sm font-semibold text-white hover:bg-yellow-400">
               Submit Request
             </button>
           </div>

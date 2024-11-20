@@ -23,4 +23,15 @@ router.get('/form-data', async (req, res) => {
   }
 });
 
+router.delete('/form-data/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Form.findByIdAndDelete(id);
+    res.status(200).send('Form data deleted successfully');
+  } catch (error) {
+    console.error('Error deleting form data:', error);
+    res.status(500).send('Error deleting form data');
+  }
+});
+
 module.exports = router;

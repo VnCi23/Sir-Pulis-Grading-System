@@ -8,6 +8,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const formRoutes = require('./routes/formRoutes');
 const healthRoutes = require('./routes/healthRoutes');
+const announcementRoutes = require('./routes/announcementRoutes');
 
 dotenv.config();
 
@@ -15,13 +16,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
+app.use(announcementRoutes);
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 }).then(() => {
   console.log('Connected to MongoDB');
-  addUsersAndStartServer();
 }).catch(err => {
   console.error('Error connecting to MongoDB:', err);
 });
@@ -123,6 +124,18 @@ async function addUsersAndStartServer() {
   );
 }
 
+// Create a new user
+app.post('/api/users', async (req, res) => {
+  try {
+    const newUser = new User(req.body);
+    const savedUser = await newUser.save();
+    res.json(savedUser);
+  } catch (err) {
+    res.status(500).json({ error: 'Error creating user' });
+  }
+});
+
+// Get all users
 app.get('/api/users', async (req, res) => {
   try {
     const users = await User.find();
@@ -132,32 +145,43 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
-app.post('/api/users', async (req, res) => {
+// Get a single user by ID
+app.get('/api/users/:id', async (req, res) => {
+  const { id } = req.params;
   try {
-    const { studentId, username, userType, course, schoolEmail, password, yearEnrolled, grades } = req.body;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const newUser = new User({
-      studentId,
-      username,
-      userType,
-      course,
-      schoolEmail,
-      password: hashedPassword,
-      yearEnrolled,
-      grades
-    });
-    await newUser.save();
-    res.status(201).json(newUser);
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(user);
   } catch (err) {
-    res.status(500).json({ error: 'Error creating user' });
+    res.status(500).json({ error: 'Error fetching user' });
   }
 });
 
-app.delete('/api/users/:id', async (req, res) => {
+// Update a user by ID
+app.put('/api/users/:id', async (req, res) => {
+  const { id } = req.params;
   try {
-    const userId = req.params.id;
-    await User.findByIdAndDelete(userId);
-    res.status(200).json({ message: 'User deleted successfully' });
+    const updatedUser = await User.findByIdAndUpdate(id, req.body, { new: true });
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(500).json({ error: 'Error updating user' });
+  }
+});
+
+// Delete a user by ID
+app.delete('/api/users/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (!deletedUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json({ message: 'User deleted successfully' });
   } catch (err) {
     res.status(500).json({ error: 'Error deleting user' });
   }
@@ -177,6 +201,19 @@ app.get('/api/grades/:username', async (req, res) => {
   }
 });
 
+app.get('/api/users/:username/grades', async (req, res) => {
+  const { username } = req.params;
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user.grades);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 app.put('/api/users/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -184,7 +221,7 @@ app.put('/api/users/:id', async (req, res) => {
 
     let updatedFields = { studentId, username, userType, course, schoolEmail, yearEnrolled, grades };
     if (password) {
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const hashedPassword = await bcrypt.hash(password, 10);
       updatedFields.password = hashedPassword;
     }
 

@@ -24,40 +24,80 @@ const UserManagement = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewUser({ ...newUser, [name]: value });
+    setNewUser(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
-  const handleAddUser = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setUsers([...users, newUser]);
-    setNewUser({
-      id: '',
-      studentId: '',
-      username: '',
-      userType: 'student',
-      password: '',
-      course: '',
-      schoolEmail: '',
-      yearEnrolled: '',
-      grades: []
-    }); // reset form
+    if (editIndex !== null) {
+      await handleUpdateUser(editIndex);
+    } else {
+      try {
+        const response = await fetch('http://localhost:5000/api/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newUser)
+        });
+        if (response.ok) {
+          const savedUser = await response.json();
+          setUsers(prevUsers => [...prevUsers, savedUser]);
+          setNewUser({
+            id: '',
+            studentId: '',
+            username: '',
+            userType: 'student',
+            password: '',
+            course: '',
+            schoolEmail: '',
+            yearEnrolled: '',
+            grades: []
+          });
+        } else {
+          console.error('Error adding user:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error adding user:', error);
+      }
+    }
   };
 
-  const handleUpdateUser = (index) => {
-    const updatedUsers = users.map((user, i) => (i === index ? newUser : user));
-    setUsers(updatedUsers);
-    setEditIndex(null);
-    setNewUser({
-      id: '',
-      studentId: '',
-      username: '',
-      userType: 'student',
-      password: '',
-      course: '',
-      schoolEmail: '',
-      yearEnrolled: '',
-      grades: []
-    }); // reset form
+  const handleUpdateUser = async (index) => {
+    const userToUpdate = users[index];
+    try {
+      const response = await fetch(`http://localhost:5000/api/users/${userToUpdate._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newUser)
+      });
+      if (response.ok) {
+        const updatedUser = await response.json();
+        const updatedUsers = users.map((user, i) => (i === index ? updatedUser : user));
+        setUsers(updatedUsers);
+        setEditIndex(null);
+        setNewUser({
+          id: '',
+          studentId: '',
+          username: '',
+          userType: 'student',
+          password: '',
+          course: '',
+          schoolEmail: '',
+          yearEnrolled: '',
+          grades: []
+        });
+      } else {
+        console.error('Error updating user:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error updating user:', error);
+    }
   };
 
   const handleEditUser = (index) => {
@@ -65,8 +105,20 @@ const UserManagement = () => {
     setNewUser(users[index]);
   };
 
-  const handleDeleteUser = (index) => {
-    setUsers(users.filter((_, i) => i !== index));
+  const handleDeleteUser = async (index) => {
+    const userToDelete = users[index];
+    try {
+      const response = await fetch(`http://localhost:5000/api/users/${userToDelete._id}`, {
+        method: 'DELETE'
+      });
+      if (response.ok) {
+        setUsers(users.filter((_, i) => i !== index));
+      } else {
+        console.error('Error deleting user:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
   };
 
   const handleViewGrades = (grades) => {
@@ -75,7 +127,7 @@ const UserManagement = () => {
 
   return (
     <div className="p-4">
-      <form onSubmit={editIndex !== null ? () => handleUpdateUser(editIndex) : handleAddUser}>
+      <form onSubmit={handleFormSubmit}>
         <input
           className="border p-2 mr-2"
           type="text"
@@ -134,31 +186,34 @@ const UserManagement = () => {
           <option value="teacher">Teacher</option>
           <option value="admin">Admin</option>
         </select>
-        {editIndex !== null ? (
-          <button className="bg-green-500 text-white px-4 py-2" type="button" onClick={() => handleUpdateUser(editIndex)}>Update User</button>
-        ) : (
-          <button className="bg-blue-500 text-white px-4 py-2" type="submit">Add User</button>
-        )}
+        <button className="bg-blue-500 text-white px-4 py-2" type="submit">
+          {editIndex !== null ? 'Update User' : 'Add User'}
+        </button>
       </form>
       <table className="min-w-full bg-white border border-gray-300 mt-3">
         <thead>
           <tr className="bg-yellow-500">
-            {['Student ID', 'Username', 'Course', 'School Email', 'Year Enrolled', 'Usertype', 'Password', 'Actions'].map((header) => (
-              <th key={header} className="border px-2 py-1">{header}</th>
-            ))}
+            <th className="border px-4 py-2">Student ID</th>
+            <th className="border px-4 py-2">Username</th>
+            <th className="border px-4 py-2">Course</th>
+            <th className="border px-4 py-2">School Email</th>
+            <th className="border px-4 py-2">Year Enrolled</th>
+            <th className="border px-4 py-2">User Type</th>
+            <th className="border px-4 py-2">Password</th>
+            <th className="border px-4 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user, index) => (
-            <tr key={user.id || index}>
-              <td className="border px-2 py-1">{user.studentId}</td>
-              <td className="border px-2 py-1">{user.username}</td>
-              <td className="border px-2 py-1">{user.course}</td>
-              <td className="border px-2 py-1">{user.schoolEmail}</td>
-              <td className="border px-2 py-1">{user.yearEnrolled}</td>
-              <td className="border px-2 py-1">{user.userType}</td>
-              <td className="border px-2 py-1">*****</td>
-              <td className="border px-2 py-1">
+            <tr key={user._id || index} className="hover:bg-gray-100">
+              <td className="border px-4 py-2">{user.studentId}</td>
+              <td className="border px-4 py-2">{user.username}</td>
+              <td className="border px-4 py-2">{user.course}</td>
+              <td className="border px-4 py-2">{user.schoolEmail}</td>
+              <td className="border px-4 py-2">{user.yearEnrolled}</td>
+              <td className="border px-4 py-2">{user.userType}</td>
+              <td className="border px-4 py-2">*****</td>
+              <td className="border px-4 py-2">
                 <button onClick={() => handleEditUser(index)} className="bg-blue-500 text-white m-1 px-2 py-1 mr-2">Edit</button>
                 <button onClick={() => handleDeleteUser(index)} className="bg-red-500 text-white m-1 px-2 py-1">Delete</button>
                 {user.userType === 'student' && (

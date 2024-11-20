@@ -19,7 +19,7 @@ const Main = () => {
                  MSTIP Online Grading System
                 </h1>
                 <p className="text-sm sm:text-base pt-5 text-blue-700 dark:text-white">
-                Welcome to the MSTIP Grading System! This platform is dedicated to empowering our students, teachers, and staff. Here, students can effortlessly check their progress, teachers can seamlessly update grades, and administrators can efficiently manage the entire process. Our mission is to make grading smooth, reliable, and transparent, so we can all achieve our best together. Let's work hand in hand to elevate our academic experience and reach new heights of success!
+                Welcome to the MSTIP Grading System! This platform helps students, teachers, and staff. Students can check their grades and progress. Teachers can update grades easily. Administrators can manage users and the grading process. Our goal is to make grading easy and clear. Only students, teachers, and administrators of MSTIP can log in.
                 </p>
                 <div className="flex mt-8">
                   <Link
