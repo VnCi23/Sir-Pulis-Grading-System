@@ -8,7 +8,6 @@ const gradeSchema = new mongoose.Schema({
   subject: { type: String, required: true },
   teacherName: { type: String, required: true },
   grade: { type: Number, required: true },
-  passOrFail: { type: String, required: true }
 });
 
 const userSchema = new mongoose.Schema({

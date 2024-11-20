@@ -19,7 +19,7 @@ const Main = () => {
                  MSTIP Online Grading System
                 </h1>
                 <p className="text-sm sm:text-base pt-5 text-blue-700 dark:text-white">
-                Ang programang ito ay Rated SPG. Striktong patnubay at gabay ng magulang ang kailangan. Maaaring may maseselang tema, lingguwahe, karanasan, sexual, horror, o droga. na hindi angkop sa mga bata. 
+                Welcome to the MSTIP Grading System! This platform is dedicated to empowering our students, teachers, and staff. Here, students can effortlessly check their progress, teachers can seamlessly update grades, and administrators can efficiently manage the entire process. Our mission is to make grading smooth, reliable, and transparent, so we can all achieve our best together. Let's work hand in hand to elevate our academic experience and reach new heights of success!
                 </p>
                 <div className="flex mt-8">
                   <Link

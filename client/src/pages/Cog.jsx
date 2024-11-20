@@ -107,7 +107,7 @@ const Cog = () => {
               required
               className="block w-full rounded-md border border-slate-300 bg-white px-3 py-4 font-semibold text-gray-500 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
             >
-              <option value="" disabled className="font-semibold text-slate-300">Through Email or Go to School *</option>
+              <option value="" disabled className="font-semibold text-slate-300">Get Through Email or Go to School *</option>
               <option value="email" className="font-semibold text-gray-700">Send via Email</option>
               <option value="school" className="font-semibold text-gray-700">Go to School</option>
             </select>

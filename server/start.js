@@ -65,7 +65,62 @@ async function addUser(username, password, userType, course, schoolEmail, studen
 }
 
 async function addUsersAndStartServer() {
-  await addUser('vnci', '1234', 'admin', 'a1', 'vnci@mstip.edu', 'a1', '0000', []);
+  await addUser(
+    'Vn Ci',
+    '12345',
+    'student',
+    'Computer Science',
+    'vnci@mstip.edu',
+    '123456789',
+    '2020',
+    [
+      {
+        classCode: 'CS101',
+        course: 'BSIS',
+        year: 1,
+        semester: '1ST',
+        subject: 'Computer Science',
+        teacherName: 'tc 1',
+        grade: 2.25,
+      },
+      {
+        classCode: 'MATH101',
+        course: 'BSIS',
+        year: 1,
+        semester: '1st',
+        subject: 'Mathematics',
+        teacherName: 'tc 2',
+        grade: 2.75,
+      },
+      {
+        classCode: 'PHYS101',
+        course: 'BSIS',
+        year: 1,
+        semester: '2nd',
+        subject: 'Physics',
+        teacherName: 'tc 3',
+        grade: 2.50,
+      },
+      {
+        classCode: 'ENG101',
+        course: 'BSIS ',
+        year: 1,
+        semester: '2nd',
+        subject: 'English',
+        teacherName: 'tc 4',
+        grade: 2.00,
+      },
+      {
+        classCode: 'HIST101',
+        course: 'BSIS',
+        year: 2,
+        semester: '1st',
+        subject: 'History',
+        teacherName: 'tc 5',
+        grade: 5.00,
+      }
+    ]
+  );
 }
 
 app.get('/api/users', async (req, res) => {
