@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import bcrypt from 'bcryptjs';
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
@@ -36,12 +37,15 @@ const UserManagement = () => {
       await handleUpdateUser(editIndex);
     } else {
       try {
+        const hashedPassword = await bcrypt.hash(newUser.password, 10);
+        const userToAdd = { ...newUser, password: hashedPassword };
+
         const response = await fetch('http://localhost:5000/api/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(newUser)
+          body: JSON.stringify(userToAdd)
         });
         if (response.ok) {
           const savedUser = await response.json();
@@ -217,7 +221,7 @@ const UserManagement = () => {
                 <button onClick={() => handleEditUser(index)} className="bg-blue-500 text-white m-1 px-2 py-1 mr-2">Edit</button>
                 <button onClick={() => handleDeleteUser(index)} className="bg-red-500 text-white m-1 px-2 py-1">Delete</button>
                 {user.userType === 'student' && (
-                  <button onClick={() => handleViewGrades(user.grades)} className="bg-yellow-500 text-white m-1 px-2 py-1">View Grades</button>
+                  <button onClick={() => handleViewGrades(user.grades)} className="bg-yellow-500 text-white m-1 px-2 py-1">Grades</button>
                 )}
               </td>
             </tr>
