@@ -40,7 +40,7 @@ const ACog = () => {
             <th className="border px-4 py-2">Student ID</th>
             <th className="border px-4 py-2">Year Graduate</th>
             <th className="border px-4 py-2">Get Method</th>
-            <th className="py-2 px-4 border-b">Actions</th>
+            <th className="py-2 px-4 border-b"></th>
           </tr>
         </thead>
         <tbody>
@@ -55,7 +55,7 @@ const ACog = () => {
               <td className="border px-4 py-2">{data.contactMethod}</td>
               <td className="py-2 px-4 border-b">
                 <button
-                  onClick={() => deleteData(data._id)} // Adjusted to use _id
+                  onClick={() => deleteData(data._id)}
                   className="bg-red-500 text-white px-4 py-2 rounded"
                 >
                   Delete

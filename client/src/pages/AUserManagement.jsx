@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import bcrypt from 'bcryptjs';
+import { useNavigate } from 'react-router-dom';
 
 const UserManagement = () => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [newUser, setNewUser] = useState({
     id: '',
@@ -15,6 +17,9 @@ const UserManagement = () => {
     grades: []
   });
   const [editIndex, setEditIndex] = useState(null);
+  const [courseFilter, setCourseFilter] = useState('');
+  const [yearEnrolledFilter, setYearEnrolledFilter] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:5000/api/users')
@@ -69,6 +74,7 @@ const UserManagement = () => {
       }
     }
   };
+  
 
   const handleUpdateUser = async (index) => {
     const userToUpdate = users[index];
@@ -126,14 +132,57 @@ const UserManagement = () => {
   };
 
   const handleViewGrades = (grades) => {
-    console.log('Viewing grades:', grades);
+    navigate('/grades', { state: { grades } });
   };
 
+  const filteredUsers = users.filter(user => 
+    (courseFilter === '' || user.course.includes(courseFilter)) &&
+    (yearEnrolledFilter === '' || user.yearEnrolled.includes(yearEnrolledFilter)) &&
+    (searchTerm === '' || (user.username && user.username.toLowerCase().includes(searchTerm.toLowerCase())))
+  );
+  
+
   return (
-    <div className="p-4">
+    <div>
       <form onSubmit={handleFormSubmit}>
+      <h1 className='text-lg p-1 font-bold'>
+          Search & Filter
+        </h1>
         <input
-          className="border p-2 mr-2"
+          type="text"
+          className="border p-2 m-1"
+          placeholder="Search by username"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <select
+          className="border p-2 m-1"
+          value={courseFilter}
+          onChange={(e) => setCourseFilter(e.target.value)}
+        >
+          <option value="">Filter Course</option>
+          <option value="BS. Computer Engineering">BS. Computer Engineering</option>
+          <option value="BS. Psychology">BS. Psychology</option>
+          <option value="BS. Education">BS. Education</option>
+          <option value="BS. Criminology">BS. Criminology</option>
+          <option value="BS. Tourism Management">BS. Tourism Management</option>
+          <option value="BS. Accountancy">BS. Accountancy</option>
+          <option value="BS. Information System">BS. Information System</option>
+        </select>
+        <input
+          className="border p-2 m-1"
+          type="text"
+          placeholder="Filter Year Enrolled"
+          value={yearEnrolledFilter}
+          onChange={(e) => setYearEnrolledFilter(e.target.value)}
+        />
+      </form>
+      <form onSubmit={handleFormSubmit}>
+        <h1 className='text-lg p-1 font-bold'>
+          Add User
+        </h1>
+        <input
+          className="border p-2 m-1"
           type="text"
           name="studentId"
           value={newUser.studentId}
@@ -141,7 +190,7 @@ const UserManagement = () => {
           placeholder="Student ID"
         />
         <input
-          className="border p-2 mr-2"
+          className="border p-2 m-1"
           type="text"
           name="username"
           value={newUser.username}
@@ -149,23 +198,30 @@ const UserManagement = () => {
           placeholder="Username"
         />
         <input
-          className="border p-2 mr-2"
+          className="border p-2 m-1"
           type="password"
           name="password"
           value={newUser.password}
           onChange={handleInputChange}
           placeholder="Password"
         />
-        <input
-          className="border p-2 mr-2"
-          type="text"
+        <select
+          className="border p-2 m-1"
           name="course"
           value={newUser.course}
           onChange={handleInputChange}
-          placeholder="Course"
-        />
+        >
+          <option value="" disabled>Select Course</option>
+          <option value="BS. Computer Engineering">BS. Computer Engineering</option>
+          <option value="BS. Psychology">BS. Psychology</option>
+          <option value="BS. Education">BS. Education</option>
+          <option value="BS. Criminology">BS. Criminology</option>
+          <option value="BS. Tourism Management">BS. Tourism Management</option>
+          <option value="BS. Accountancy">BS. Accountancy</option>
+          <option value="BS. Information System">BS. Information System</option>
+        </select>
         <input
-          className="border p-2 mr-2"
+          className="border p-2 m-1"
           type="email"
           name="schoolEmail"
           value={newUser.schoolEmail}
@@ -173,7 +229,7 @@ const UserManagement = () => {
           placeholder="School Email"
         />
         <input
-          className="border p-2 mr-2"
+          className="border p-2 m-1"
           type="text"
           name="yearEnrolled"
           value={newUser.yearEnrolled}
@@ -181,53 +237,57 @@ const UserManagement = () => {
           placeholder="Year Enrolled"
         />
         <select
-          className="border p-2 mr-2"
+          className="border p-2 m-1"
           name="userType"
           value={newUser.userType}
           onChange={handleInputChange}
         >
           <option value="student">Student</option>
-          <option value="teacher">Teacher</option>
           <option value="admin">Admin</option>
         </select>
         <button className="bg-blue-500 text-white px-4 py-2" type="submit">
           {editIndex !== null ? 'Update User' : 'Add User'}
         </button>
       </form>
-      <table className="min-w-full bg-white border border-gray-300 mt-3">
-        <thead>
-          <tr className="bg-yellow-500">
-            <th className="border px-4 py-2">Student ID</th>
-            <th className="border px-4 py-2">Username</th>
-            <th className="border px-4 py-2">Course</th>
-            <th className="border px-4 py-2">School Email</th>
-            <th className="border px-4 py-2">Year Enrolled</th>
-            <th className="border px-4 py-2">User Type</th>
-            <th className="border px-4 py-2">Password</th>
-            <th className="border px-4 py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={user._id || index} className="hover:bg-gray-100">
-              <td className="border px-4 py-2">{user.studentId}</td>
-              <td className="border px-4 py-2">{user.username}</td>
-              <td className="border px-4 py-2">{user.course}</td>
-              <td className="border px-4 py-2">{user.schoolEmail}</td>
-              <td className="border px-4 py-2">{user.yearEnrolled}</td>
-              <td className="border px-4 py-2">{user.userType}</td>
-              <td className="border px-4 py-2">*****</td>
-              <td className="border px-4 py-2">
-                <button onClick={() => handleEditUser(index)} className="bg-blue-500 text-white m-1 px-2 py-1 mr-2">Edit</button>
-                <button onClick={() => handleDeleteUser(index)} className="bg-red-500 text-white m-1 px-2 py-1">Delete</button>
-                {user.userType === 'student' && (
-                  <button onClick={() => handleViewGrades(user.grades)} className="bg-yellow-500 text-white m-1 px-2 py-1">Grades</button>
-                )}
-              </td>
+      <div className="overflow-y-auto max-h-96">
+        <table className="min-w-full bg-white">
+          <thead className="bg-yellow-500 sticky top-0">
+            <tr>
+            <th className="border px-4 py-1">Grade</th>
+              <th className="border px-4 py-1">Student ID</th>
+              <th className="border px-4 py-1">Username</th>
+              <th className="border px-4 py-1">Course</th>
+              <th className="border px-4 py-1">School Email</th>
+              <th className="border px-4 py-1">Year Enrolled</th>
+              <th className="border px-4 py-1">User Type</th>
+              <th className="border px-4 py-1">Password</th>
+              <th className="border px-4 py-1">Edit/delete</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="overflow-y-auto max-h-80">
+            {filteredUsers.map((user, index) => (
+              <tr key={user._id || index} className="hover:bg-gray-100">
+                <td className='border px-4 py-1'>
+                {user.userType === 'student' && (
+                    <button onClick={() => handleViewGrades(user.grades)} className="bg-yellow-500 hover:bg-yellow-300 text-white m-1 px-1 py-1">Grade</button>
+                  )}
+                </td>
+                <td className="border px-4 py-1">{user.studentId}</td>
+                <td className="border px-4 py-1">{user.username}</td>
+                <td className="border px-4 py-1">{user.course}</td>
+                <td className="border px-4 py-1">{user.schoolEmail}</td>
+                <td className="border px-4 py-1">{user.yearEnrolled}</td>
+                <td className="border px-4 py-1">{user.userType}</td>
+                <td className="border px-4 py-1">*******</td>
+                <td className="border px-4 py-1">
+                  <button onClick={() => handleEditUser(index)} className="bg-blue-500 text-white m-1 px-1 py-1 mr-2">Edit</button>
+                  <button onClick={() => handleDeleteUser(index)} className="bg-red-500 text-white m-1 px-1 py-1">Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

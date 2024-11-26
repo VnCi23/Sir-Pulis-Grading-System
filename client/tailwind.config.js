@@ -4,6 +4,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'custom-black': '5px 5px 35px 10px rgba(0,0,0,0.91)',
+      },
       keyframes: {
         fadeIn: {
           '0%': { opacity: 0 },

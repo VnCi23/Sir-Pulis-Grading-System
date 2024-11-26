@@ -19,6 +19,7 @@ const Login = () => {
 
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('username', username);
+      localStorage.setItem('userType', userType);
       navigate(`/${userType}`);
     } catch (err) {
       setError('Invalid credentials. Please try again.');
@@ -27,17 +28,17 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-blue-800">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
-        <h2 className="text-xl font-bold mb-6 text-center">MSTIP Log in</h2>
+    <div className="flex justify-center items-center min-h-screen bg-blue-800 p-2 sm:p-3 md:p-5">
+      <div className="bg-white p-4 m-auto shadow-custom-black border-8 border-yellow-500 w-full max-w-md">
+        <div className="mt-10 text-center text-black text-2xl font-extrabold">MSTIP User Log in</div>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
+        <form onSubmit={handleLogin} className="p-8">
+        <div className="mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               User Type
             </label>
             <div className="flex flex-col">
-              {['student', 'teacher', 'admin'].map((type) => (
+              {['student', 'admin'].map((type) => (
                 <label key={type} className="inline-flex items-center mt-2">
                   <input
                     type="radio"
@@ -52,39 +53,30 @@ const Login = () => {
               ))}
             </div>
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-              Username
-            </label>
+          <div className="mb-6">
             <input
               type="text"
-              id="username"
               name="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
+              className="block w-full rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              placeholder="Username *"
             />
           </div>
           <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-              Password
-            </label>
             <input
               type="password"
-              id="password"
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               required
+              className="block w-full rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              placeholder="Password *"
             />
           </div>
-          <div className="flex items-center justify-between">
-            <button
-              type="submit"
-              className="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
+          <div className="text-center">
+            <button type="submit" className="cursor-pointer rounded-lg bg-yellow-500 px-8 py-5 text-sm font-semibold text-white hover:bg-yellow-400">
               Log In
             </button>
           </div>

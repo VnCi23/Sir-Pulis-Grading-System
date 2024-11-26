@@ -2,11 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Main from './Main';
 import Admin from './pages/ANav';
-import Teacher from './pages/TNav';
 import Student from './pages/SNav';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
 import Cog from './pages/Cog';
+import AGrade from './pages/AGrade';
 
 const App = () => {
   return (
@@ -22,14 +22,6 @@ const App = () => {
           } 
         />
         <Route 
-          path="/teacher" 
-          element={
-            <PrivateRoute allowedUserTypes={['teacher']}>
-              <Teacher />
-            </PrivateRoute>
-          } 
-        />
-        <Route 
           path="/student" 
           element={
             <PrivateRoute allowedUserTypes={['student']}>
@@ -38,7 +30,15 @@ const App = () => {
           } 
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/cog" element={<Cog />} />
+        <Route path="/tor" element={<Cog />} />
+        <Route 
+          path="/grades" 
+          element={
+            <PrivateRoute allowedUserTypes={['student', 'admin']}>
+              <AGrade />
+            </PrivateRoute>
+          } 
+        />
       </Routes>
     </Router>
   );
