@@ -23,7 +23,7 @@ const Student = () => {
     <div className='h-screen bg-blue-100'> 
       <div className="h-screen flex flex-col items-center p-5 bg-blue-100">
       <div className="w-full flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Student Page</h1>
+        <h1 className="text-2xl font-extrabold">Student Page</h1>
         <button
           onClick={handleLogout}
           className="cursor-pointer rounded-lg bg-red-700 px-5 py-3 text-sm font-semibold text-white hover:bg-red-800 transition duration-300"
