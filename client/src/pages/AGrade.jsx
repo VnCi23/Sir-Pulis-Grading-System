@@ -8,7 +8,6 @@ const GradePage = () => {
   const [newGrade, setNewGrade] = useState({ year: '', semester: '', subject: '', grade: '' });
 
   useEffect(() => {
-    // Fetch grades from the database
     const fetchGrades = async () => {
       try {
         const response = await axios.get('/api/grades', { params: { studentId: location.state.studentId } });
