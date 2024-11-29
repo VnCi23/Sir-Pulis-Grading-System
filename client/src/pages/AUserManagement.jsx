@@ -211,7 +211,7 @@ const UserManagement = () => {
           value={newUser.course}
           onChange={handleInputChange}
         >
-          <option value="" disabled>Select Course</option>
+          <option value="">Select Course</option>
           <option value="BS. Computer Engineering">BS. Computer Engineering</option>
           <option value="BS. Psychology">BS. Psychology</option>
           <option value="BS. Education">BS. Education</option>

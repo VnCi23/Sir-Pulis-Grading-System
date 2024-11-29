@@ -46,7 +46,7 @@ const Announcements = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="mx-auto w-full max-w-md border-2 bg-white rounded-lg shadow-lg">
+      <div className="mx-auto w-full max-w-md  bg-white border-8 border-yellow-500">
         <div className="mt-10 text-center font-bold text-xl text-gray-800">Create New Announcement</div>
         <div className="p-8">
           <input
