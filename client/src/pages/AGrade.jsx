@@ -91,7 +91,7 @@ const GradePage = () => {
       </div>
       <table className="min-w-full bg-white border border-gray-300 mb-4 rounded-lg shadow-md">
         <thead>
-          <tr className="bg-yellow-500 text-white">
+          <tr className="bg-yellow-500 text-black">
             <th className="border px-4 py-1">Year</th>
             <th className="border px-4 py-1">Semester</th>
             <th className="border px-4 py-1">Subject</th>
