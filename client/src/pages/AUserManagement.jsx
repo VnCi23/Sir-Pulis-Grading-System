@@ -131,8 +131,8 @@ const UserManagement = () => {
     }
   };
 
-  const handleViewGrades = (grades) => {
-    navigate('/grades', { state: { grades } });
+  const handleViewGrades = (user) => {
+    navigate('/grades', { state: { username: user.username } });
   };
 
   const filteredUsers = users.filter(user => 
@@ -269,7 +269,7 @@ const UserManagement = () => {
               <tr key={user._id || index} className="hover:bg-gray-100">
                 <td className='border px-4 py-1'>
                 {user.userType === 'student' && (
-                    <button onClick={() => handleViewGrades(user.grades)} className="bg-yellow-500 hover:bg-yellow-300 text-white m-1 px-1 py-1">Grade</button>
+                    <button onClick={() => handleViewGrades(user)} className="bg-yellow-500 hover:bg-yellow-300 text-white m-1 px-1 py-1">Grade</button>
                   )}
                 </td>
                 <td className="border px-4 py-1">{user.studentId}</td>

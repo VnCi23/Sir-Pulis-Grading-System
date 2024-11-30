@@ -1,6 +1,6 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
-const User = require('../models/User'); // Adjust the path as necessary
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');
 const router = express.Router();
 
 const saltRounds = 10;
@@ -27,10 +27,44 @@ async function addUser(username, password, userType, course, schoolEmail, studen
 
     await user.save();
     console.log(`User ${username} added successfully.`);
-  } catch (err) {
-    console.error('Error adding user:', err);
+  } catch (error) {
+    console.error('Error adding user:', error);
   }
 }
+
+async function addUsersAndStartServer() {
+  await addUser(
+    'Vn Ci',
+    '12345',
+    'student',
+    'Computer Science',
+    'vnci@mstip.edu',
+    '123456789',
+    '2020',
+    [
+      {
+        year: '1st',
+        semester: '1st',
+        subject: 'Science',
+        grade: 2.25,
+      },
+      {
+        year: '1st',
+        semester: '1st',
+        subject: 'English',
+        grade: 2.00,
+      },
+      {
+        year: '1st',
+        semester: '1st',
+        subject: 'History',
+        grade: 5.00,
+      }
+    ]
+  );
+}
+
+addUsersAndStartServer();
 
 router.post('/api/users', async (req, res) => {
   try {
@@ -131,6 +165,102 @@ router.put('/api/users/:id', async (req, res) => {
     res.json(updatedUser);
   } catch (err) {
     res.status(500).json({ error: 'Error updating user' });
+  }
+});
+
+//grade routes
+
+router.put('/update/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedFields = req.body;
+
+    if (updatedFields.password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(updatedFields.password, salt);
+      updatedFields.password = hashedPassword;
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(id, updatedFields, { new: true });
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(500).json({ error: 'Error updating user' });
+  }
+});
+
+router.post('/api/grades', async (req, res) => {
+  try {
+    const { username, year, semester, subject, grade } = req.body;
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    user.grades.push({ year, semester, subject, grade });
+    await user.save();
+
+    res.status(201).json(user.grades[user.grades.length - 1]);
+  } catch (err) {
+    res.status(500).json({ error: 'Error adding grade' });
+  }
+});
+
+router.get('/grades/:username', async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json(user.grades);
+  } catch (err) {
+    res.status(500).json({ error: 'Error fetching grades' });
+  }
+});
+
+router.delete('/api/grades/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findOne({ 'grades._id': id });
+
+    if (!user) {
+      return res.status(404).json({ error: 'Grade not found' });
+    }
+
+    user.grades.id(id).remove();
+    await user.save();
+
+    res.json({ message: 'Grade deleted' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error deleting grade' });
+  }
+});
+
+router.put('/api/grades/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedFields = req.body;
+
+    const user = await User.findOne({ 'grades._id': id });
+
+    if (!user) {
+      return res.status(404).json({ error: 'Grade not found' });
+    }
+
+    const gradeToUpdate = user.grades.id(id);
+    if (updatedFields.year) gradeToUpdate.year = updatedFields.year;
+    if (updatedFields.semester) gradeToUpdate.semester = updatedFields.semester;
+    if (updatedFields.subject) gradeToUpdate.subject = updatedFields.subject;
+    if (updatedFields.grade) gradeToUpdate.grade = updatedFields.grade;
+
+    await user.save();
+
+    res.json(gradeToUpdate);
+  } catch (err) {
+    res.status(500).json({ error: 'Error updating grade' });
   }
 });
 

@@ -6,23 +6,30 @@ const GradePage = () => {
   const location = useLocation();
   const [grades, setGrades] = useState([]);
   const [newGrade, setNewGrade] = useState({ year: '', semester: '', subject: '', grade: '' });
+  const username = location.state?.username;
 
   useEffect(() => {
+    console.log('Username:', username); 
+
     const fetchGrades = async () => {
       try {
-        const response = await axios.get('/api/grades', { params: { studentId: location.state.studentId } });
+        const response = await axios.get(`http://localhost:5000/api/grades/${username}`);
+        console.log('Grades fetched:', response.data); 
         setGrades(response.data);
       } catch (error) {
         console.error('Error fetching grades:', error);
+        console.log('Error details:', error.response); 
       }
     };
 
-    fetchGrades();
-  }, [location.state.studentId]);
+    if (username) {
+      fetchGrades();
+    }
+  }, [username]);
 
   const handleAddGrade = async () => {
     try {
-      const response = await axios.post('/api/grades', { ...newGrade, studentId: location.state.studentId });
+      const response = await axios.post('http://localhost:5000/api/grades', { ...newGrade, username });
       setGrades([...grades, response.data]);
       setNewGrade({ year: '', semester: '', subject: '', grade: '' });
     } catch (error) {
@@ -30,23 +37,21 @@ const GradePage = () => {
     }
   };
 
-  const handleDeleteGrade = async (index) => {
+  const handleDeleteGrade = async (gradeId) => {
     try {
-      const gradeToDelete = grades[index];
-      await axios.delete(`/api/grades/${gradeToDelete.id}`);
-      const updatedGrades = grades.filter((_, i) => i !== index);
-      setGrades(updatedGrades);
+      await axios.delete(`http://localhost:5000/api/grades/${gradeId}`);
+      console.log('Grade deleted');
+      setGrades(grades.filter(grade => grade._id !== gradeId));
     } catch (error) {
       console.error('Error deleting grade:', error);
     }
   };
 
-  const handleUpdateGrade = async (index, updatedGrade) => {
+  const handleUpdateGrade = async (gradeId, updatedGrade) => {
     try {
-      const gradeToUpdate = grades[index];
-      const response = await axios.put(`/api/grades/${gradeToUpdate.id}`, updatedGrade);
-      const updatedGrades = grades.map((grade, i) => (i === index ? response.data : grade));
-      setGrades(updatedGrades);
+      const response = await axios.put(`http://localhost:5000/api/grades/${gradeId}`, updatedGrade);
+      console.log('Grade updated:', response.data);
+      setGrades(grades.map(grade => (grade._id === gradeId ? response.data : grade)));
     } catch (error) {
       console.error('Error updating grade:', error);
     }
@@ -55,7 +60,7 @@ const GradePage = () => {
   return (
     <div className="p-10 h-screen bg-blue-100 rounded-lg shadow-md">
       <div className="mb-4">
-        <label className="block text-gray-700 text-3xl font-bold mb-2">Grade</label>
+        <label className="block text-gray-700 text-3xl font-bold mb-2">Grade for {username}</label>
         <input
           type="text"
           placeholder="Year"
@@ -106,8 +111,8 @@ const GradePage = () => {
               <td className="border px-4 py-1">{data.subject}</td>
               <td className="border px-4 py-1">{data.grade}</td>
               <td className="border px-4 py-1">
-                <button onClick={() => handleDeleteGrade(index)} className="bg-red-500 hover:bg-red-300 text-white px-2 py-1 rounded m-1">Delete</button>
-                <button onClick={() => handleUpdateGrade(index, { ...data, grade: 'A+' })} className="bg-blue-500 hover:bg-blue-300 text-white px-2 py-1 rounded m-1">Update</button>
+                <button onClick={() => handleDeleteGrade(data._id)} className="bg-red-500 hover:bg-red-300 text-white px-2 py-1 rounded m-1">Delete</button>
+                <button onClick={() => handleUpdateGrade(data._id, { ...data, grade: 'A+' })} className="bg-blue-500 hover:bg-blue-300 text-white px-2 py-1 rounded m-1">Update</button>
               </td>
             </tr>
           ))}

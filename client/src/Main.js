@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Main = () => {
   return (
     <main className="dark:bg-blue-800 bg-white relative overflow-hidden min-h-screen">
-      <header className="h-24 sm:h-25 flex items-center z-30 w-full">
+      <header className="mt-8 h-24 sm:h-25 flex items-center z-30 w-full">
         <div className="container mx-auto px-6 flex items-center justify-between">
           <div className="uppercase dark:text-white font-black text-2xl">
           Makati Science Technological Institute of the Philippines 
@@ -19,7 +19,7 @@ const Main = () => {
                  MSTIP Online Grading System
                 </h1>
                 <p className="text-sm sm:text-base font-medium pt-5 text-blue-700 dark:text-white">
-                Welcome to the MSTIP Grading System! This platform helps students and mstip staff. Students can check their grades and progress. Administrators can manage users and the other processes. Our goal is to make grading easy and clear. Only students and administrators of MSTIP can log in.
+                Welcome to the MSTIP Grading System! Our platform makes tracking academic progress easy. Students can quickly check their grades and monitor their success. Administrators will find it simple to manage users, grades, and processes. Only MSTIP students and administrators can log in. Let's succeed together! 🚀
                 </p>
                 <div className="flex mt-8">
                   <Link

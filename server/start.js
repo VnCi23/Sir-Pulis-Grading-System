@@ -58,42 +58,6 @@ async function addUsersAndStartServer() {
         teacherName: 'tc 1',
         grade: 2.25,
       },
-      {
-        classCode: 'MATH101',
-        course: 'BSIS',
-        year: 1,
-        semester: '1st',
-        subject: 'Mathematics',
-        teacherName: 'tc 2',
-        grade: 2.75,
-      },
-      {
-        classCode: 'PHYS101',
-        course: 'BSIS',
-        year: 1,
-        semester: '2nd',
-        subject: 'Physics',
-        teacherName: 'tc 3',
-        grade: 2.50,
-      },
-      {
-        classCode: 'ENG101',
-        course: 'BSIS ',
-        year: 1,
-        semester: '2nd',
-        subject: 'English',
-        teacherName: 'tc 4',
-        grade: 2.00,
-      },
-      {
-        classCode: 'HIST101',
-        course: 'BSIS',
-        year: 2,
-        semester: '1st',
-        subject: 'History',
-        teacherName: 'tc 5',
-        grade: 5.00,
-      }
     ]
   );
 }
