@@ -39,7 +39,9 @@ const SGrade = () => {
                   <td className="py-2 px-4 border-b">{grade.year}</td>
                   <td className="py-2 px-4 border-b">{grade.semester}</td>
                   <td className="py-2 px-4 border-b">{grade.subject}</td>
-                  <td className="py-2 px-4 border-b">{grade.grade}</td>
+                  <td className={`py-2 px-4 border-b ${grade.grade > 3 ? 'text-red-500' : ''}`}>
+                    {grade.grade}
+                  </td>
                 </tr>
               ))
             ) : (

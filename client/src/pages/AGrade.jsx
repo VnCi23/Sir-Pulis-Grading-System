@@ -59,39 +59,59 @@ const GradePage = () => {
 
   return (
     <div className="p-10 h-screen bg-blue-100 rounded-lg shadow-md">
-      <div className="mb-4">
-        <label className="block text-gray-700 text-3xl font-bold mb-2">Grade for {username}</label>
-        <input
-          type="text"
-          placeholder="Year"
-          value={newGrade.year}
-          onChange={(e) => setNewGrade({ ...newGrade, year: e.target.value })}
-          className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          type="text"
-          placeholder="Semester"
-          value={newGrade.semester}
-          onChange={(e) => setNewGrade({ ...newGrade, semester: e.target.value })}
-          className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          type="text"
-          placeholder="Subject"
-          value={newGrade.subject}
-          onChange={(e) => setNewGrade({ ...newGrade, subject: e.target.value })}
-          className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          type="text"
-          placeholder="Grade"
-          value={newGrade.grade}
-          onChange={(e) => setNewGrade({ ...newGrade, grade: e.target.value })}
-          className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <button onClick={handleAddGrade} className="bg-blue-500 hover:bg-blue-300 text-white px-4 py-2 rounded">
-          Add Grade
-        </button>
+      <div className="flex justify-center items-center mb-4">
+        <div>
+          <label className="block text-gray-700 text-3xl font-bold mb-2">Grade for {username}</label>
+          <select
+            value={newGrade.year}
+            onChange={(e) => setNewGrade({ ...newGrade, year: e.target.value })}
+            className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Year</option>
+            <option value="1st">1st</option>
+            <option value="2nd">2nd</option>
+            <option value="3rd">3rd</option>
+            <option value="4th">4th</option>
+            <option value="5th">5th</option>
+          </select>
+
+          <select
+            value={newGrade.semester}
+            onChange={(e) => setNewGrade({ ...newGrade, semester: e.target.value })}
+            className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Semester</option>
+            <option value="1st">1st</option>
+            <option value="2nd">2nd</option>
+          </select>
+          <input
+            type="text"
+            placeholder="Subject"
+            value={newGrade.subject}
+            onChange={(e) => setNewGrade({ ...newGrade, subject: e.target.value })}
+            className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <select
+            value={newGrade.grade}
+            onChange={(e) => setNewGrade({ ...newGrade, grade: e.target.value })}
+            className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Select Grade</option>
+            <option value="1.00">1.00</option>
+            <option value="1.25">1.25</option>
+            <option value="1.50">1.50</option>
+            <option value="1.75">1.75</option>
+            <option value="2.00">2.00</option>
+            <option value="2.25">2.25</option>
+            <option value="2.50">2.50</option>
+            <option value="2.75">2.75</option>
+            <option value="3.00">3.00</option>
+            <option value="5.00">5.00</option>
+          </select>
+          <button onClick={handleAddGrade} className="bg-blue-500 hover:bg-blue-300 text-white px-4 py-2 rounded">
+            Add Grade
+          </button>
+        </div>
       </div>
       <table className="min-w-full bg-white border border-gray-300 mb-4 rounded-lg shadow-md">
         <thead>
