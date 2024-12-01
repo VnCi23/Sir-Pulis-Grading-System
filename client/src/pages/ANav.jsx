@@ -2,12 +2,12 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AUserManagement from './AUserManagement';
 import AAnnouncement from './AAnnouncement';
-import ACog from './ACog';
+// import ACog from './ACog';
 
 const ANav = () => {
   const navigate = useNavigate();
   const [openTab, setOpenTab] = useState(1);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery] = useState('');
 
   const handleLogout = useCallback(() => {
     console.log("User logged out");

@@ -78,17 +78,30 @@ const UserManagement = () => {
 
   const handleUpdateUser = async (index) => {
     const userToUpdate = users[index];
+    const updatedUser = { ...newUser };
+
+
+    if (newUser.password !== userToUpdate.password) {
+      try {
+        const hashedPassword = await bcrypt.hash(newUser.password, 10);
+        updatedUser.password = hashedPassword;
+      } catch (error) {
+        console.error('Error hashing password:', error);
+        return;
+      }
+    }
+
     try {
       const response = await fetch(`http://localhost:5000/api/users/${userToUpdate._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newUser)
+        body: JSON.stringify(updatedUser)
       });
       if (response.ok) {
-        const updatedUser = await response.json();
-        const updatedUsers = users.map((user, i) => (i === index ? updatedUser : user));
+        const updatedUserFromServer = await response.json();
+        const updatedUsers = users.map((user, i) => (i === index ? updatedUserFromServer : user));
         setUsers(updatedUsers);
         setEditIndex(null);
         setNewUser({
@@ -110,24 +123,30 @@ const UserManagement = () => {
     }
   };
 
-  const handleEditUser = (index) => {
-    setEditIndex(index);
-    setNewUser(users[index]);
+  const handleEditUser = (userId) => {
+    const userIndex = users.findIndex(user => user._id === userId);
+    if (userIndex !== -1) {
+      setEditIndex(userIndex);
+      setNewUser(users[userIndex]);
+    }
   };
 
-  const handleDeleteUser = async (index) => {
-    const userToDelete = users[index];
-    try {
-      const response = await fetch(`http://localhost:5000/api/users/${userToDelete._id}`, {
-        method: 'DELETE'
-      });
-      if (response.ok) {
-        setUsers(users.filter((_, i) => i !== index));
-      } else {
-        console.error('Error deleting user:', response.statusText);
+  const handleDeleteUser = async (userId) => {
+    const userIndex = users.findIndex(user => user._id === userId);
+    if (userIndex !== -1) {
+      const userToDelete = users[userIndex];
+      try {
+        const response = await fetch(`http://localhost:5000/api/users/${userToDelete._id}`, {
+          method: 'DELETE'
+        });
+        if (response.ok) {
+          setUsers(users.filter((_, i) => i !== userIndex));
+        } else {
+          console.error('Error deleting user:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error);
       }
-    } catch (error) {
-      console.error('Error deleting user:', error);
     }
   };
 
@@ -265,8 +284,8 @@ const UserManagement = () => {
             </tr>
           </thead>
           <tbody className="overflow-y-auto max-h-80">
-            {filteredUsers.map((user, index) => (
-              <tr key={user._id || index} className="hover:bg-gray-100">
+            {filteredUsers.map((user) => (
+              <tr key={user._id} className="hover:bg-gray-100">
                 <td className='border px-4 py-1'>
                 {user.userType === 'student' && (
                     <button onClick={() => handleViewGrades(user)} className="bg-yellow-500 hover:bg-yellow-300 text-white m-1 px-1 py-1">Grade</button>
@@ -280,8 +299,8 @@ const UserManagement = () => {
                 <td className="border px-4 py-1">{user.userType}</td>
                 <td className="border px-4 py-1">*******</td>
                 <td className="border px-4 py-1">
-                  <button onClick={() => handleEditUser(index)} className="bg-blue-500 text-white m-1 px-1 py-1 mr-2">Edit</button>
-                  <button onClick={() => handleDeleteUser(index)} className="bg-red-500 text-white m-1 px-1 py-1">Delete</button>
+                  <button onClick={() => handleEditUser(user._id)} className="bg-blue-500 text-white m-1 px-1 py-1 mr-2">Edit</button>
+                  <button onClick={() => handleDeleteUser(user._id)} className="bg-red-500 text-white m-1 px-1 py-1">Delete</button>
                 </td>
               </tr>
             ))}
