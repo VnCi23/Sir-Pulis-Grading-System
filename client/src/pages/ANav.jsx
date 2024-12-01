@@ -15,7 +15,9 @@ const ANav = () => {
     navigate('/login');
   }, [navigate]);
 
-  const tabTitles = useMemo(() => ['User Management', 'Announcements', 'TOR Request'], []);
+  const tabTitles = useMemo(() => ['User Management', 'Announcements'
+    , //'TOR Request'
+  ], []);
 
   return (
     <div className='h-screen bg-blue-100'>
@@ -43,7 +45,7 @@ const ANav = () => {
       <div className="w-full text-center">
         {openTab === 1 && <AUserManagement searchQuery={searchQuery} />}
         {openTab === 2 && <AAnnouncement />}
-        {openTab === 3 && <ACog />}
+        {/* {openTab === 3 && <ACog />} */}
       </div>
     </div>
     </div>
