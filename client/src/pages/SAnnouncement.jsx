@@ -21,7 +21,7 @@ const SAnnouncements = () => {
     <div className="container mx-auto p-4">
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {announcements.map(announcement => (
-          <div key={announcement._id} className="mb-4 p-4 border rounded-lg shadow-md bg-white">
+          <div key={announcement._id} className="mb-4 p-4 border rounded-lg shadow-md bg-gray-100">
             <h2 className="text-xl font-bold">{announcement.title}</h2>
             <p className="mt-2">{announcement.content}</p>
           </div>

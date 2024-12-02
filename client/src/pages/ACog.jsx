@@ -16,7 +16,7 @@ const ACog = () => {
   const deleteData = useCallback(async (id) => {
     try {
       await axios.delete(`http://localhost:5000/api/forms/form-data/${id}`);
-      setFormDataList(prevList => prevList.filter(item => item._id !== id)); // Adjusted to use _id
+      setFormDataList(prevList => prevList.filter(item => item._id !== id)); 
     } catch (error) {
       console.error('Error deleting form data:', error);
     }

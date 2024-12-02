@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Announcement = require('../models/Announcement'); // Adjust the path as necessary
+const Announcement = require('../models/Announcement'); 
 
-// Create a new announcement
 router.post('/api/announcements', async (req, res) => {
   try {
     const newAnnouncement = new Announcement(req.body);
@@ -13,7 +12,6 @@ router.post('/api/announcements', async (req, res) => {
   }
 });
 
-// Get all announcements
 router.get('/api/announcements', async (req, res) => {
   try {
     const announcements = await Announcement.find();
@@ -23,7 +21,6 @@ router.get('/api/announcements', async (req, res) => {
   }
 });
 
-// Get a single announcement by ID
 router.get('/api/announcements/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -37,7 +34,6 @@ router.get('/api/announcements/:id', async (req, res) => {
   }
 });
 
-// Update an announcement
 router.put('/api/announcements/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -51,7 +47,6 @@ router.put('/api/announcements/:id', async (req, res) => {
   }
 });
 
-// Delete an announcement
 router.delete('/api/announcements/:id', async (req, res) => {
   const { id } = req.params;
   try {
