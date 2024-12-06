@@ -4,7 +4,10 @@ const gradeSchema = new mongoose.Schema({
   year: { type: String, required: true },
   semester: { type: String, required: true },
   subject: { type: String, required: true },
+  classcode: { type: String },
   grade: { type: Number, required: true },
+  units: { type: Number },
+  remarks: { type: String }
 });
 
 const userSchema = new mongoose.Schema({

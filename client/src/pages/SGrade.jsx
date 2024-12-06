@@ -21,52 +21,33 @@ const SGrade = () => {
 
   return (
     <div className="container mx-auto px-4">
-      {error && <p>{error}</p>}
-      <section className="my-8 sm:my-10 grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 p-6">
-        {grades.length > 0 ? (
-          Object.entries(
-            grades.reduce((acc, grade) => {
-              if (!acc[grade.year]) acc[grade.year] = {};
-              if (!acc[grade.year][grade.semester]) acc[grade.year][grade.semester] = [];
-              acc[grade.year][grade.semester].push(grade);
-              return acc;
-            }, {})
-          ).map(([year, semesters]) => (
-            <div key={year} className="flex flex-col justify-center">
-              <div className="flex flex-col h-full shadow justify-between rounded-lg pb-8 p-6 xl:p-8 mt-3 bg-blue-100">
-                <div>
-                  <h4 className="font-bold text-2xl leading-tight">{year} Year</h4>
-                  {Object.entries(semesters).map(([semester, semesterGrades]) => (
-                    <div key={semester} className="my-4">
-                      <h5 className="text-lg font-semibold mb-2">{semester} Semester</h5>
-                      <table className="min-w-full bg-white border border-gray-200">
-                        <thead>
-                          <tr className="bg-yellow-500">
-                            <th className="py-2 px-2 border-b">Subject</th>
-                            <th className="py-2 px-2 border-b">Grade</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {semesterGrades.map((grade, index) => (
-                            <tr key={index}>
-                              <td className="py-2 px-2 border-b">{grade.subject}</td>
-                              <td className={`py-2 px-2 border-b ${grade.grade > 3 ? 'text-red-500' : ''}`}>
-                                {grade.grade}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>No grades available</p>
-        )}
-      </section>
+      {error && <p className="text-red-500">{error}</p>}
+      <table className="min-w-full bg-white border border-gray-300 mb-4 rounded-lg shadow-md">
+        <thead>
+          <tr className="bg-yellow-500 text-black">
+            <th className="border px-4 py-1">Year</th>
+            <th className="border px-4 py-1">Semester</th>
+            <th className="border px-4 py-1">Subject Title</th>
+            <th className="border px-4 py-1">Class Code</th>
+            <th className="border px-4 py-1">Units</th>
+            <th className="border px-4 py-1">Grade</th>
+            <th className="border px-4 py-1">Remarks</th>
+          </tr>
+        </thead>
+        <tbody>
+          {grades.map((data, index) => (
+            <tr key={index} className="hover:bg-gray-100">
+              <td className="border px-4 py-1">{data.year}</td>
+              <td className="border px-4 py-1">{data.semester}</td>
+              <td className="border px-4 py-1">{data.subject}</td>
+              <td className="border px-4 py-1">{data.classcode}</td>
+              <td className="border px-4 py-1">{data.units}</td>
+              <td className="border px-4 py-1">{data.grade}</td>
+              <td className="border px-4 py-1">{data.remarks}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

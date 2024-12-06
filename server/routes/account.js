@@ -190,14 +190,14 @@ router.put('/update/:id', async (req, res) => {
 
 router.post('/api/grades', async (req, res) => {
   try {
-    const { username, year, semester, subject, grade } = req.body;
+    const { username, year, semester, subject, classcode, grade, units, remarks } = req.body;
     const user = await User.findOne({ username });
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    user.grades.push({ year, semester, subject, grade });
+    user.grades.push({ year, semester, subject, classcode, grade, units, remarks });
     await user.save();
 
     res.status(201).json(user.grades[user.grades.length - 1]);
@@ -254,7 +254,10 @@ router.put('/api/grades/:id', async (req, res) => {
     if (updatedFields.year) gradeToUpdate.year = updatedFields.year;
     if (updatedFields.semester) gradeToUpdate.semester = updatedFields.semester;
     if (updatedFields.subject) gradeToUpdate.subject = updatedFields.subject;
+    if (updatedFields.classcode) gradeToUpdate.classcode = updatedFields.classcode;
     if (updatedFields.grade) gradeToUpdate.grade = updatedFields.grade;
+    if (updatedFields.units) gradeToUpdate.units = updatedFields.units;
+    if (updatedFields.remarks) gradeToUpdate.remarks = updatedFields.remarks;
 
     await user.save();
 

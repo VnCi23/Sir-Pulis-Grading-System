@@ -5,7 +5,7 @@ import axios from 'axios';
 const GradePage = () => {
   const location = useLocation();
   const [grades, setGrades] = useState([]);
-  const [newGrade, setNewGrade] = useState({ year: '', semester: '', subject: '', grade: '' });
+  const [newGrade, setNewGrade] = useState({ year: '', semester: '', subject: '', classcode: '', grade: '', units: '', remarks: '' });
   const username = location.state?.username;
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const GradePage = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/grades', { ...newGrade, username });
       setGrades([...grades, response.data]);
-      setNewGrade({ year: '', semester: '', subject: '', grade: '' });
+      setNewGrade({ year: '', semester: '', subject: '', classcode: '', grade: '', units: '', remarks: '' });
     } catch (error) {
       console.error('Error adding grade:', error);
     }
@@ -91,6 +91,20 @@ const GradePage = () => {
             onChange={(e) => setNewGrade({ ...newGrade, subject: e.target.value })}
             className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <input
+            type="text"
+            placeholder="Class Code"
+            value={newGrade.classcode}
+            onChange={(e) => setNewGrade({ ...newGrade, classcode: e.target.value })}
+            className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="number"
+            placeholder="Units"
+            value={newGrade.units}
+            onChange={(e) => setNewGrade({ ...newGrade, units: e.target.value })}
+            className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
           <select
             value={newGrade.grade}
             onChange={(e) => setNewGrade({ ...newGrade, grade: e.target.value })}
@@ -108,6 +122,15 @@ const GradePage = () => {
             <option value="3.00">3.00</option>
             <option value="5.00">5.00</option>
           </select>
+          <select
+            value={newGrade.remarks}
+            onChange={(e) => setNewGrade({ ...newGrade, remarks: e.target.value })}
+            className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Remarks</option>
+            <option value="Passed">Passed</option>
+            <option value="Failed">Failed</option>
+          </select>
           <button onClick={handleAddGrade} className="bg-blue-500 hover:bg-blue-300 text-white px-4 py-2 rounded">
             Add Grade
           </button>
@@ -118,8 +141,11 @@ const GradePage = () => {
           <tr className="bg-yellow-500 text-black">
             <th className="border px-4 py-1">Year</th>
             <th className="border px-4 py-1">Semester</th>
-            <th className="border px-4 py-1">Subject</th>
+            <th className="border px-4 py-1">Subject Title</th>
+            <th className="border px-4 py-1">Class Code</th>
+            <th className="border px-4 py-1">Units</th>
             <th className="border px-4 py-1">Grade</th>
+            <th className="border px-4 py-1">Remarks</th>
             <th className="border px-4 py-1">Edit/Delete</th>
           </tr>
         </thead>
@@ -129,7 +155,10 @@ const GradePage = () => {
               <td className="border px-4 py-1">{data.year}</td>
               <td className="border px-4 py-1">{data.semester}</td>
               <td className="border px-4 py-1">{data.subject}</td>
+              <td className="border px-4 py-1">{data.classcode}</td>
+              <td className="border px-4 py-1">{data.units}</td>
               <td className="border px-4 py-1">{data.grade}</td>
+              <td className="border px-4 py-1">{data.remarks}</td>
               <td className="border px-4 py-1">
                 <button onClick={() => handleDeleteGrade(data._id)} className="bg-red-500 hover:bg-red-300 text-white px-2 py-1 rounded m-1">Delete</button>
                 <button onClick={() => handleUpdateGrade(data._id, { ...data, grade: 'A+' })} className="bg-blue-500 hover:bg-blue-300 text-white px-2 py-1 rounded m-1">Update</button>
