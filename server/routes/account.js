@@ -34,10 +34,10 @@ async function addUser(username, password, userType, course, schoolEmail, studen
 
 async function addUsersAndStartServer() {
   await addUser(
-    'Vn Ci',
+    'Vince Gaurino',
     '12345',
     'student',
-    'Computer Science',
+    'BS. Information System',
     'vnci@mstip.edu',
     '123456789',
     '2020',

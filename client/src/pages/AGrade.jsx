@@ -15,7 +15,11 @@ const GradePage = () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/grades/${username}`);
         console.log('Grades fetched:', response.data); 
-        setGrades(response.data);
+        const sortedGrades = response.data.sort((a, b) => {
+          const yearOrder = ['1st', '2nd', '3rd', '4th', '5th'];
+          return yearOrder.indexOf(a.year) - yearOrder.indexOf(b.year);
+        });
+        setGrades(sortedGrades);
       } catch (error) {
         console.error('Error fetching grades:', error);
         console.log('Error details:', error.response); 
@@ -39,7 +43,7 @@ const GradePage = () => {
 
   const handleDeleteGrade = async (gradeId) => {
     try {
-      await axios.delete(`http://localhost:5000/api/grades/${gradeId}`);
+      await axios.delete('http://localhost:5000/api/grades', { ...newGrade, username });
       console.log('Grade deleted');
       setGrades(grades.filter(grade => grade._id !== gradeId));
     } catch (error) {
@@ -49,7 +53,7 @@ const GradePage = () => {
 
   const handleUpdateGrade = async (gradeId, updatedGrade) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/grades/${gradeId}`, updatedGrade);
+      const response = await axios.put('http://localhost:5000/api/grades', { ...newGrade, username });
       console.log('Grade updated:', response.data);
       setGrades(grades.map(grade => (grade._id === gradeId ? response.data : grade)));
     } catch (error) {
@@ -84,33 +88,47 @@ const GradePage = () => {
             <option value="1st">1st</option>
             <option value="2nd">2nd</option>
           </select>
-          <input
-            type="text"
-            placeholder="Subject"
+          <select
             value={newGrade.subject}
             onChange={(e) => setNewGrade({ ...newGrade, subject: e.target.value })}
             className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          >
+            <option value="">Subject</option>
+            <option value="Introduction to Information System">Introduction to Information System</option>
+            <option value="Data structure and Algorithms">Data structure and Algorithms</option>
+            <option value="System Analysis and Design">System Analysis and Design</option>
+            <option value="IS Professional Elective">IS Professional Elective</option>
+          </select>
           <input
             type="text"
-            placeholder="Class Code"
+            placeholder="Subject Code"
             value={newGrade.classcode}
             onChange={(e) => setNewGrade({ ...newGrade, classcode: e.target.value })}
             className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <input
-            type="number"
-            placeholder="Units"
+          <select
             value={newGrade.units}
             onChange={(e) => setNewGrade({ ...newGrade, units: e.target.value })}
             className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          >
+            <option value="">Units</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
           <select
             value={newGrade.grade}
             onChange={(e) => setNewGrade({ ...newGrade, grade: e.target.value })}
             className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="">Select Grade</option>
+            <option value="">Grade</option>
             <option value="1.00">1.00</option>
             <option value="1.25">1.25</option>
             <option value="1.50">1.50</option>
@@ -142,7 +160,7 @@ const GradePage = () => {
             <th className="border px-4 py-1">Year</th>
             <th className="border px-4 py-1">Semester</th>
             <th className="border px-4 py-1">Subject Title</th>
-            <th className="border px-4 py-1">Class Code</th>
+            <th className="border px-4 py-1">Subject Code</th>
             <th className="border px-4 py-1">Units</th>
             <th className="border px-4 py-1">Grade</th>
             <th className="border px-4 py-1">Remarks</th>
@@ -152,16 +170,16 @@ const GradePage = () => {
         <tbody>
           {grades.map((data, index) => (
             <tr key={index} className="hover:bg-gray-100">
-              <td className="border px-4 py-1">{data.year}</td>
-              <td className="border px-4 py-1">{data.semester}</td>
-              <td className="border px-4 py-1">{data.subject}</td>
-              <td className="border px-4 py-1">{data.classcode}</td>
-              <td className="border px-4 py-1">{data.units}</td>
-              <td className="border px-4 py-1">{data.grade}</td>
-              <td className="border px-4 py-1">{data.remarks}</td>
-              <td className="border px-4 py-1">
+              <td className="border px-3 py-1">{data.year}</td>
+              <td className="border px-3 py-1">{data.semester}</td>
+              <td className="border px-3 py-1">{data.subject}</td>
+              <td className="border px-3 py-1">{data.classcode}</td>
+              <td className="border px-3 py-1">{data.units}</td>
+              <td className="border px-3 py-1">{data.grade}</td>
+              <td className="border px-3 py-1">{data.remarks}</td>
+              <td className="border px-3 py-1">
                 <button onClick={() => handleDeleteGrade(data._id)} className="bg-red-500 hover:bg-red-300 text-white px-2 py-1 rounded m-1">Delete</button>
-                <button onClick={() => handleUpdateGrade(data._id, { ...data, grade: 'A+' })} className="bg-blue-500 hover:bg-blue-300 text-white px-2 py-1 rounded m-1">Update</button>
+                <button onClick={() => handleUpdateGrade(data._id, { ...data, grade: 'A+' })} className="bg-blue-500 hover:bg-blue-300 text-white px-2 py-1 rounded m-1">Edit</button>
               </td>
             </tr>
           ))}

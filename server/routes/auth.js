@@ -7,38 +7,38 @@ const { body, validationResult } = require('express-validator');
 const router = express.Router();
 
 
-router.post('/register', 
-  [
-    body('username').isString().notEmpty().withMessage('Username is required'),
-    body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
-    body('userType').isIn(['admin', 'teacher', 'student']).withMessage('Invalid user type')
-  ], 
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+// router.post('/register', 
+//   [
+//     body('username').isString().notEmpty().withMessage('Username is required'),
+//     body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
+//     body('userType').isIn(['admin', 'teacher', 'student']).withMessage('Invalid user type')
+//   ], 
+//   async (req, res) => {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//       return res.status(400).json({ errors: errors.array() });
+//     }
 
-    const { username, password, userType } = req.body;
+//     const { username, password, userType } = req.body;
 
 
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
-    }
+//     const existingUser = await User.findOne({ username });
+//     if (existingUser) {
+//       return res.status(400).json({ message: 'User already exists' });
+//     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, password: hashedPassword, userType });
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     const newUser = new User({ username, password: hashedPassword, userType });
 
-    try {
-      await newUser.save();
-      res.status(201).json({ message: 'User created successfully' });
-    } catch (error) {
-      console.error('Error creating user:', error);
-      res.status(500).json({ message: 'Server error' });
-    }
-  }
-);
+//     try {
+//       await newUser.save();
+//       res.status(201).json({ message: 'User created successfully' });
+//     } catch (error) {
+//       console.error('Error creating user:', error);
+//       res.status(500).json({ message: 'Server error' });
+//     }
+//   }
+// );
 
 
 router.post('/login', 

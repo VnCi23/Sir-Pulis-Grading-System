@@ -24,7 +24,10 @@ const UserManagement = () => {
   useEffect(() => {
     fetch('http://localhost:5000/api/users')
       .then(response => response.json())
-      .then(data => setUsers(data))
+      .then(data => {
+        const sortedData = data.sort((a, b) => a.username.localeCompare(b.username));
+        setUsers(sortedData);
+      })
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
@@ -41,6 +44,12 @@ const UserManagement = () => {
     if (editIndex !== null) {
       await handleUpdateUser(editIndex);
     } else {
+      const isDuplicate = users.some(user => user.username === newUser.username);
+      if (isDuplicate) {
+        alert('Username already exists. Please choose a different username.');
+        return;
+      }
+
       try {
         const hashedPassword = await bcrypt.hash(newUser.password, 10);
         const userToAdd = { ...newUser, password: hashedPassword };
@@ -59,15 +68,8 @@ const UserManagement = () => {
             id: '',
             studentId: '',
             username: '',
-            userType: 'student',
-            password: '',
-            course: '',
-            schoolEmail: '',
-            yearEnrolled: '',
-            grades: []
+            password: ''
           });
-        } else {
-          console.error('Error adding user:', response.statusText);
         }
       } catch (error) {
         console.error('Error adding user:', error);
@@ -169,13 +171,13 @@ const UserManagement = () => {
         </h1>
         <input
           type="text"
-          className="border p-2 m-1"
+          className="border p-2 m-1 rounded-lg"
           placeholder="Search by username"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <select
-          className="border p-2 m-1"
+          className="border p-2 m-1 rounded-lg"
           value={courseFilter}
           onChange={(e) => setCourseFilter(e.target.value)}
         >
@@ -189,7 +191,7 @@ const UserManagement = () => {
           <option value="BS. Information System">BS. Information System</option>
         </select>
         <input
-          className="border p-2 m-1"
+          className="border p-2 m-1 rounded-lg"
           type="text"
           placeholder="Filter Year Enrolled"
           value={yearEnrolledFilter}
@@ -201,7 +203,7 @@ const UserManagement = () => {
           Add User
         </h1>
         <input
-          className="border p-2 m-1"
+          className="border p-2 m-1 rounded-lg"
           type="text"
           name="studentId"
           value={newUser.studentId}
@@ -209,7 +211,7 @@ const UserManagement = () => {
           placeholder="Student ID"
         />
         <input
-          className="border p-2 m-1"
+          className="border p-2 m-1 rounded-lg"
           type="text"
           name="username"
           value={newUser.username}
@@ -217,7 +219,7 @@ const UserManagement = () => {
           placeholder="Username"
         />
         <input
-          className="border p-2 m-1"
+          className="border p-2 m-1 rounded-lg"
           type="password"
           name="password"
           value={newUser.password}
@@ -225,12 +227,12 @@ const UserManagement = () => {
           placeholder="Password"
         />
         <select
-          className="border p-2 m-1"
+          className="border p-2 m-1 rounded-lg"
           name="course"
           value={newUser.course}
           onChange={handleInputChange}
         >
-          <option value="">Select Course</option>
+          <option value="">Course</option>
           <option value="BS. Computer Engineering">BS. Computer Engineering</option>
           <option value="BS. Psychology">BS. Psychology</option>
           <option value="BS. Education">BS. Education</option>
@@ -240,7 +242,7 @@ const UserManagement = () => {
           <option value="BS. Information System">BS. Information System</option>
         </select>
         <input
-          className="border p-2 m-1"
+          className="border p-2 m-1 rounded-lg"
           type="email"
           name="schoolEmail"
           value={newUser.schoolEmail}
@@ -248,7 +250,7 @@ const UserManagement = () => {
           placeholder="School Email"
         />
         <input
-          className="border p-2 m-1"
+          className="border p-2 m-1 rounded-lg"
           type="text"
           name="yearEnrolled"
           value={newUser.yearEnrolled}
@@ -256,7 +258,7 @@ const UserManagement = () => {
           placeholder="Year Enrolled"
         />
         <select
-          className="border p-2 m-1"
+          className="border p-2 m-1 rounded-lg"
           name="userType"
           value={newUser.userType}
           onChange={handleInputChange}
@@ -264,48 +266,50 @@ const UserManagement = () => {
           <option value="student">Student</option>
           <option value="admin">Admin</option>
         </select>
-        <button className="bg-blue-500 text-white px-4 py-2" type="submit">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded-lg" type="submit">
           {editIndex !== null ? 'Update User' : 'Add User'}
         </button>
       </form>
       <div className="overflow-y-auto max-h-96">
-        <table className="min-w-full bg-white">
-          <thead className="bg-yellow-500 sticky top-0">
-            <tr>
-            <th className="border px-4 py-1">Grade</th>
-              <th className="border px-4 py-1">Student ID</th>
-              <th className="border px-4 py-1">Username</th>
-              <th className="border px-4 py-1">Course</th>
-              <th className="border px-4 py-1">School Email</th>
-              <th className="border px-4 py-1">Year Enrolled</th>
-              <th className="border px-4 py-1">User Type</th>
-              <th className="border px-4 py-1">Password</th>
-              <th className="border px-4 py-1">Edit/delete</th>
-            </tr>
-          </thead>
-          <tbody className="overflow-y-auto max-h-80">
-            {filteredUsers.map((user) => (
-              <tr key={user._id} className="hover:bg-gray-100">
-                <td className='border px-4 py-1'>
+      <table className="min-w-full bg-white">
+        <thead className="bg-yellow-500 sticky top-0">
+          <tr>
+            <th className="border px-3 py-1 text-left">Grade</th>
+            <th className="border px-3 py-1 text-left">User ID</th>
+            <th className="border px-3 py-1 text-left">Student ID</th>
+            <th className="border px-3 py-1 text-left">Username</th>
+            <th className="border px-3 py-1 text-left">Course</th>
+            <th className="border px-3 py-1 text-left">School Email</th>
+            <th className="border px-3 py-1 text-left">Year Enrolled</th>
+            <th className="border px-3 py-1 text-left">User Type</th>
+            <th className="border px-3 py-1 text-left">Password</th>
+            <th className="border px-3 py-1 text-left">Edit/Delete</th>
+          </tr>
+        </thead>
+        <tbody className="overflow-y-auto max-h-80">
+          {filteredUsers.map((user) => (
+            <tr key={user._id} className="hover:bg-gray-100">
+              <td className='border px-3 text-left'>
                 {user.userType === 'student' && (
-                    <button onClick={() => handleViewGrades(user)} className="bg-yellow-500 hover:bg-yellow-300 text-white m-1 px-1 py-1">Grade</button>
-                  )}
-                </td>
-                <td className="border px-4 py-1">{user.studentId}</td>
-                <td className="border px-4 py-1">{user.username}</td>
-                <td className="border px-4 py-1">{user.course}</td>
-                <td className="border px-4 py-1">{user.schoolEmail}</td>
-                <td className="border px-4 py-1">{user.yearEnrolled}</td>
-                <td className="border px-4 py-1">{user.userType}</td>
-                <td className="border px-4 py-1">*******</td>
-                <td className="border px-4 py-1">
-                  <button onClick={() => handleEditUser(user._id)} className="bg-blue-500 text-white m-1 px-1 py-1 mr-2">Edit</button>
-                  <button onClick={() => handleDeleteUser(user._id)} className="bg-red-500 text-white m-1 px-1 py-1">Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                  <button onClick={() => handleViewGrades(user)} className="bg-yellow-500 hover:bg-yellow-300 rounded-lg text-black m-1 px-1 py-1">Grade</button>
+                )}
+              </td>
+              <td className="border px-3 text-left">{user._id}</td>
+              <td className="border px-3 text-left">{user.studentId}</td>
+              <td className="border px-3 text-left">{user.username}</td>
+              <td className="border px-3 text-left">{user.course}</td>
+              <td className="border px-3 text-left">{user.schoolEmail}</td>
+              <td className="border px-3 text-left">{user.yearEnrolled}</td>
+              <td className="border px-3 text-left">{user.userType}</td>
+              <td className="border px-3 text-left">*******</td>
+              <td className="border px-3 text-left">
+                <button onClick={() => handleEditUser(user._id)} className="bg-blue-500 rounded-md hover:bg-blue-700 text-white m-1 px-1 mr-2">Edit</button>
+                <button onClick={() => handleDeleteUser(user._id)} className="bg-red-500 rounded-md hover:bg-red-700 text-white m-1 px-1">Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       </div>
     </div>
   );

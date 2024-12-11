@@ -29,7 +29,7 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-blue-800 p-2 sm:p-3 md:p-5">
-      <div className="bg-white p-4 m-auto shadow-custom-black border-8 border-yellow-500 w-full max-w-md">
+      <div className="bg-white p-4 m-auto shadow-custom-black border-8 border-yellow-500 w-full max-w-md rounded-3xl">
         <div className="mt-10 text-center text-black text-2xl font-extrabold">MSTIP User Log in</div>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <form onSubmit={handleLogin} className="p-8">
@@ -60,7 +60,7 @@ const Login = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              className="block w-full rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              className="block w-full rounded-xl border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Username *"
             />
           </div>
@@ -71,12 +71,15 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="block w-full rounded-md border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              className="block w-full rounded-xl border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               placeholder="Password *"
             />
           </div>
-          <div className="text-center">
-            <button type="submit" className="cursor-pointer rounded-lg bg-yellow-500 px-8 py-5 text-sm font-semibold text-white hover:bg-yellow-400">
+          <div className="text-center flex items-center justify-center">
+            <button
+              type="submit"
+              className="flex items-center justify-center outline-none cursor-pointer w-36 h-12 bg-gradient-to-t from-yellow-300 via-yellow-500 to-yellow-300 rounded-lg border border-yellow-500 transition-all duration-200 ease-in font-sans text-sm font-semibold text-gray-600 shadow-sm hover:shadow-lg active:shadow-inner focus:shadow-inner"
+            >
               Log In
             </button>
           </div>
