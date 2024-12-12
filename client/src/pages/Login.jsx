@@ -46,7 +46,7 @@ const Login = () => {
                     value={type}
                     checked={userType === type}
                     onChange={(e) => setUserType(e.target.value)}
-                    className="form-radio"
+                    className="form-radio h-5 w-5"
                   />
                   <span className="ml-2">{type}</span>
                 </label>
@@ -60,7 +60,7 @@ const Login = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              className="block w-full rounded-xl border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              className="block w-full rounded-xl border border-gray-500 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-700 sm:text-sm"
               placeholder="Username *"
             />
           </div>
@@ -71,7 +71,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="block w-full rounded-xl border border-slate-300 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              className="block w-full rounded-xl border border-gray-500 bg-white px-3 py-4 placeholder-slate-400 shadow-sm placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-700 sm:text-sm"
               placeholder="Password *"
             />
           </div>

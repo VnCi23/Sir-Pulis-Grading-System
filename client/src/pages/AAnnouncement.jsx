@@ -74,27 +74,27 @@ const Announcements = () => {
             name="title"
             value={newAnnouncement.title}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-4 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+            className="mt-1 block w-full rounded-xl border border-slate-300 bg-white px-4 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
             placeholder="Title"
           />
           <textarea
             name="content"
             value={newAnnouncement.content}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border border-slate-300 bg-white px-4 py-6 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+            className="mt-1 block w-full rounded-xl border border-slate-300 bg-white px-4 py-6 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
             rows="5"
             placeholder="Content"
           />
           <button
             onClick={editingAnnouncement ? handleUpdateAnnouncement : handleAddAnnouncement}
-            className="mt-4 w-full bg-yellow-500 text-white py-2 rounded-md shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
+            className="mt-4 w-full bg-yellow-500 text-white py-2 rounded-xl shadow-sm hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
           >
             {editingAnnouncement ? 'Update Announcement' : 'Add Announcement'}
           </button>
         </div>
       </div>
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {announcements.map(announcement => (
+        {announcements.slice().reverse().map(announcement => (
           <div key={announcement._id} className="relative mx-auto w-full max-w-md p-5 pb-16 bg-white border-8 border-yellow-500 rounded-3xl">
             <h2 className="text-xl font-bold">{announcement.title}</h2>
             <p className="mt-2">{announcement.content}</p>
@@ -102,13 +102,13 @@ const Announcements = () => {
               <div className="flex space-x-2">
                 <button
                   onClick={() => handleEditAnnouncement(announcement)}
-                  className="w-20 bg-blue-500 text-white py-1 rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="w-20 bg-blue-500 text-white py-1 rounded-full shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDeleteAnnouncement(announcement._id)}
-                  className="w-20 bg-red-500 text-white py-1 rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  className="w-20 bg-red-500 text-white py-1 rounded-full shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                 >
                   Delete
                 </button>
