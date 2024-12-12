@@ -37,37 +37,39 @@ const SGrade = () => {
           <span className="relative z-1">Print</span>
         </button>
       </div>
-      <table className="min-w-full bg-white border border-gray-300 mb-4 rounded-lg shadow-md">
-        <thead>
-          <tr className="bg-yellow-500 text-black">
-            <th className="border px-4 py-1 text-left">Year</th>
-            <th className="border px-4 py-1 text-left">Semester</th>
-            <th className="border px-4 py-1 text-left">Subject Title</th>
-            <th className="border px-4 py-1 text-left">Subject Code</th>
-            <th className="border px-4 py-1 text-left">Units</th>
-            <th className="border px-4 py-1 text-left">Grade</th>
-            <th className="border px-4 py-1 text-left">Remarks</th>
-          </tr>
-        </thead>
-        <tbody>
-          {grades
-            .sort((a, b) => {
-              const yearOrder = ['1st', '2nd', '3rd', '4th', '5th'];
-              return yearOrder.indexOf(a.year) - yearOrder.indexOf(b.year);
-            })
-            .map((grade, index) => (
-              <tr key={index}>
-                <td className="border px-4 py-1 text-left">{grade.year}</td>
-                <td className="border px-4 py-1 text-left">{grade.semester}</td>
-                <td className="border px-4 py-1 text-left">{grade.subject}</td>
-                <td className="border px-4 py-1 text-left">{grade.classcode}</td>
-                <td className="border px-4 py-1 text-left">{grade.units}</td>
-                <td className="border px-4 py-1 text-left">{grade.grade}</td>
-                <td className="border px-4 py-1 text-left">{grade.remarks}</td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-300 mb-4 rounded-lg shadow-md">
+          <thead>
+            <tr className="bg-yellow-500 text-black">
+              <th className="border px-4 py-1 text-left">Year</th>
+              <th className="border px-4 py-1 text-left">Semester</th>
+              <th className="border px-4 py-1 text-left">Subject Title</th>
+              <th className="border px-4 py-1 text-left">Subject Code</th>
+              <th className="border px-4 py-1 text-left">Units</th>
+              <th className="border px-4 py-1 text-left">Grade</th>
+              <th className="border px-4 py-1 text-left">Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+            {grades
+              .sort((a, b) => {
+                const yearOrder = ['1st', '2nd', '3rd', '4th', '5th'];
+                return yearOrder.indexOf(a.year) - yearOrder.indexOf(b.year);
+              })
+              .map((grade, index) => (
+                <tr key={index}>
+                  <td className="border px-4 py-1 text-left">{grade.year}</td>
+                  <td className="border px-4 py-1 text-left">{grade.semester}</td>
+                  <td className="border px-4 py-1 text-left">{grade.subject}</td>
+                  <td className="border px-4 py-1 text-left">{grade.classcode}</td>
+                  <td className="border px-4 py-1 text-left">{grade.units}</td>
+                  <td className="border px-4 py-1 text-left">{grade.grade}</td>
+                  <td className="border px-4 py-1 text-left">{grade.remarks}</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
