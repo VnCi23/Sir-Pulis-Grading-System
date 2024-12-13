@@ -66,8 +66,15 @@ const UserManagement = () => {
             id: '',
             studentId: '',
             username: '',
-            password: ''
+            userType: 'student',
+            password: '',
+            course: '',
+            schoolEmail: '',
+            grades: []
           });
+          alert('User added successfully!');
+        } else {
+          alert('Failed to add user.');
         }
       } catch (error) {
         console.error('Error adding user:', error);
@@ -112,8 +119,9 @@ const UserManagement = () => {
           schoolEmail: '',
           grades: []
         });
+        alert('User updated successfully!');
       } else {
-        console.error('Error updating user:', response.statusText);
+        alert('Failed to update user.');
       }
     } catch (error) {
       console.error('Error updating user:', error);
@@ -138,8 +146,9 @@ const UserManagement = () => {
         });
         if (response.ok) {
           setUsers(users.filter((_, i) => i !== userIndex));
+          alert('User deleted successfully!');
         } else {
-          console.error('Error deleting user:', response.statusText);
+          alert('Failed to delete user.');
         }
       } catch (error) {
         console.error('Error deleting user:', error);

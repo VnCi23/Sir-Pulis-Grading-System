@@ -8,10 +8,10 @@ const GradePage = () => {
   const [newGrade, setNewGrade] = useState({ year: '', semester: '', subject: '', classcode: '', grade: '', units: '', remarks: '', schoolYear: '' });
   const [editingGrade, setEditingGrade] = useState(null);
   const username = location.state?.username;
-
+  
   useEffect(() => {
     console.log('Username:', username); 
-
+  
     const fetchGrades = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/grades/${username}`);
@@ -26,46 +26,47 @@ const GradePage = () => {
         console.log('Error details:', error.response); 
       }
     };
-
+  
     if (username) {
       fetchGrades();
     }
   }, [username]);
-
+  
   const handleAddGrade = async () => {
-    // Check for duplicate subject
     const duplicate = grades.some(grade => 
       grade.year === newGrade.year && 
       grade.semester === newGrade.semester && 
       grade.subject === newGrade.subject
     );
-
+  
     if (duplicate) {
       alert('This subject already exists for the selected year and semester.');
       return;
     }
-
+  
     try {
       const response = await axios.post('http://localhost:5000/api/grades', { ...newGrade, username });
       setGrades([...grades, response.data]);
       setNewGrade({ year: '', semester: '', subject: '', classcode: '', grade: '', units: '', remarks: '', schoolYear: '' });
+      alert('Grade added successfully!');
     } catch (error) {
       console.error('Error adding grade:', error);
       alert('Failed to add grade. Please try again.');
     }
   };
-
+  
   const handleDeleteGrade = async (grade) => {
     try {
       await axios.delete(`http://localhost:5000/api/grades/${username}`, { data: grade });
       console.log('Grade deleted');
       setGrades(grades.filter(g => !(g.year === grade.year && g.semester === grade.semester && g.subject === grade.subject)));
+      alert('Grade deleted successfully!');
     } catch (error) {
       console.error('Error deleting grade:', error);
       alert('Failed to delete grade. Please try again.');
     }
   };
-
+  
   const handleUpdateGrade = async () => {
     const duplicate = grades.some(grade => 
       grade.year === newGrade.year && 
@@ -73,24 +74,25 @@ const GradePage = () => {
       grade.subject === newGrade.subject &&
       grade._id !== newGrade._id 
     );
-
+  
     if (duplicate) {
       alert('This subject already exists for the selected year and semester.');
       return;
     }
-
+  
     try {
       const response = await axios.put(`http://localhost:5000/api/grades/${username}`, { ...newGrade, username });
       console.log('Grade updated:', response.data);
       setGrades(grades.map(grade => (grade._id === newGrade._id ? response.data : grade)));
       setEditingGrade(null);
       setNewGrade({ year: '', semester: '', subject: '', classcode: '', grade: '', units: '', remarks: '', schoolYear: '' });
+      alert('Grade updated successfully!');
     } catch (error) {
       console.error('Error updating grade:', error);
       alert('Failed to update grade. Please try again.');
     }
   };
-
+  
   const startEditing = (grade) => {
     setEditingGrade(grade);
     setNewGrade(grade);
