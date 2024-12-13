@@ -5,7 +5,7 @@ const router = express.Router();
 
 const saltRounds = 10;
 
-async function addUser(username, password, userType, course, schoolEmail, studentId, yearEnrolled, grades) {
+async function addUser(username, password, userType, course, schoolEmail, studentId, grades) {
   try {
     const existingUser = await User.findOne({ username });
     if (existingUser) {
@@ -21,7 +21,6 @@ async function addUser(username, password, userType, course, schoolEmail, studen
       course,
       schoolEmail,
       studentId,
-      yearEnrolled,
       grades
     });
 
@@ -33,35 +32,57 @@ async function addUser(username, password, userType, course, schoolEmail, studen
 }
 
 async function addUsersAndStartServer() {
-  await addUser(
-    'Vince Gaurino',
-    '12345',
-    'student',
-    'BS. Information System',
-    'vnci@mstip.edu',
-    '123456789',
-    '2020',
-    [
+  const user = {
+    username: "vincegaurino",
+    password: "yourpassword", 
+    userType: "student",
+    course: "BS. Information System",
+    schoolEmail: "vnci@mstip.edu",
+    studentId: "12345",
+    grades: [
       {
-        year: '1st',
-        semester: '1st',
-        subject: 'Science',
+        year: "1st",
+        semester: "1st",
+        subject: "Science",
+        classcode: "SCI101",
         grade: 2.25,
+        units: 3,
+        remarks: "Passed"
       },
       {
-        year: '1st',
-        semester: '1st',
-        subject: 'English',
+        year: "1st",
+        semester: "1st",
+        subject: "English",
+        classcode: "ENG101",
         grade: 2.00,
+        units: 3,
+        remarks: "Passed"
       },
       {
-        year: '1st',
-        semester: '1st',
-        subject: 'History',
+        year: "1st",
+        semester: "1st",
+        subject: "History",
+        classcode: "HIS101",
         grade: 5.00,
+        units: 3,
+        remarks: "Failed"
       }
     ]
-  );
+  };
+
+  try {
+    await addUser(
+      user.username,
+      user.password,
+      user.userType,
+      user.course,
+      user.schoolEmail,
+      user.studentId,
+      user.grades
+    );
+  } catch (error) {
+    console.error('Error adding user:', error);
+  }
 }
 
 addUsersAndStartServer();
@@ -153,9 +174,9 @@ router.get('/api/users/:username/grades', async (req, res) => {
 router.put('/api/users/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { studentId, username, userType, course, schoolEmail, password, yearEnrolled, grades } = req.body;
+    const { studentId, username, userType, course, schoolEmail, password, grades } = req.body;
 
-    let updatedFields = { studentId, username, userType, course, schoolEmail, yearEnrolled, grades };
+    let updatedFields = { studentId, username, userType, course, schoolEmail, grades };
     if (password) {
       const hashedPassword = await bcrypt.hash(password, 10);
       updatedFields.password = hashedPassword;
@@ -165,105 +186,6 @@ router.put('/api/users/:id', async (req, res) => {
     res.json(updatedUser);
   } catch (err) {
     res.status(500).json({ error: 'Error updating user' });
-  }
-});
-
-//grade routes
-
-router.put('/update/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const updatedFields = req.body;
-
-    if (updatedFields.password) {
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(updatedFields.password, salt);
-      updatedFields.password = hashedPassword;
-    }
-
-    const updatedUser = await User.findByIdAndUpdate(id, updatedFields, { new: true });
-    res.json(updatedUser);
-  } catch (err) {
-    res.status(500).json({ error: 'Error updating user' });
-  }
-});
-
-router.post('/api/grades', async (req, res) => {
-  try {
-    const { username, year, semester, subject, classcode, grade, units, remarks } = req.body;
-    const user = await User.findOne({ username });
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    user.grades.push({ year, semester, subject, classcode, grade, units, remarks });
-    await user.save();
-
-    res.status(201).json(user.grades[user.grades.length - 1]);
-  } catch (err) {
-    res.status(500).json({ error: 'Error adding grade' });
-  }
-});
-
-router.get('/grades/:username', async (req, res) => {
-  try {
-    const { username } = req.params;
-    const user = await User.findOne({ username });
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    res.json(user.grades);
-  } catch (err) {
-    res.status(500).json({ error: 'Error fetching grades' });
-  }
-});
-
-router.delete('/api/grades/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const user = await User.findOne({ 'grades._id': id });
-
-    if (!user) {
-      return res.status(404).json({ error: 'Grade not found' });
-    }
-
-    user.grades.id(id).remove();
-    await user.save();
-
-    res.json({ message: 'Grade deleted' });
-  } catch (err) {
-    res.status(500).json({ error: 'Error deleting grade' });
-  }
-});
-
-router.put('/api/grades/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const updatedFields = req.body;
-
-    const user = await User.findOne({ 'grades._id': id });
-
-    if (!user) {
-      return res.status(404).json({ error: 'Grade not found' });
-    }
-
-    const gradeToUpdate = user.grades.id(id);
-    if (updatedFields.year) gradeToUpdate.year = updatedFields.year;
-    if (updatedFields.semester) gradeToUpdate.semester = updatedFields.semester;
-    if (updatedFields.subject) gradeToUpdate.subject = updatedFields.subject;
-    if (updatedFields.classcode) gradeToUpdate.classcode = updatedFields.classcode;
-    if (updatedFields.grade) gradeToUpdate.grade = updatedFields.grade;
-    if (updatedFields.units) gradeToUpdate.units = updatedFields.units;
-    if (updatedFields.remarks) gradeToUpdate.remarks = updatedFields.remarks;
-
-    await user.save();
-
-    res.json(gradeToUpdate);
-  } catch (err) {
-    res.status(500).json({ error: 'Error updating grade' });
   }
 });
 

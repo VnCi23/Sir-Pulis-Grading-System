@@ -10,6 +10,8 @@ const formRoutes = require('./routes/formRoutes');
 const healthRoutes = require('./routes/healthRoutes');
 const announcementRoutes = require('./routes/announcementRoutes');
 const accountRoutes = require('./routes/account'); 
+const gradeRoutes = require('./routes/gradeRoutes'); 
+const userInfoRoute = require('./routes/userInfo');
 
 dotenv.config();
 
@@ -19,6 +21,8 @@ app.use(cors());
 app.use(express.json());
 app.use(announcementRoutes);
 app.use(accountRoutes);
+app.use(gradeRoutes);
+app.use('/api/user', userInfoRoute);
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,

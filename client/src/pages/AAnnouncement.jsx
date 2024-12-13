@@ -81,7 +81,7 @@ const Announcements = () => {
             name="content"
             value={newAnnouncement.content}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-xl border border-slate-300 bg-white px-4 py-6 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+            className="mt-1 block w-full rounded-xl border border-slate-300 bg-white px-4 py-6 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 text-left"
             rows="5"
             placeholder="Content"
           />
@@ -97,7 +97,8 @@ const Announcements = () => {
         {announcements.slice().reverse().map(announcement => (
           <div key={announcement._id} className="relative mx-auto w-full max-w-md p-5 pb-16 bg-white border-8 border-yellow-500 rounded-3xl">
             <h2 className="text-xl font-bold">{announcement.title}</h2>
-            <p className="mt-2">{announcement.content}</p>
+            <hr />
+            <p className="mt-2 text-left">{announcement.content}</p>
             <div className="absolute bottom-0 left-0 right-0 flex justify-between p-3 bg-yellow-500">
               <div className="flex space-x-2">
                 <button

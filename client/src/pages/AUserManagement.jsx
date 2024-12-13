@@ -13,12 +13,10 @@ const UserManagement = () => {
     password: '',
     course: '',
     schoolEmail: '',
-    yearEnrolled: '',
     grades: []
   });
   const [editIndex, setEditIndex] = useState(null);
   const [courseFilter, setCourseFilter] = useState('');
-  const [yearEnrolledFilter, setYearEnrolledFilter] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -76,12 +74,10 @@ const UserManagement = () => {
       }
     }
   };
-  
 
   const handleUpdateUser = async (index) => {
     const userToUpdate = users[index];
     const updatedUser = { ...newUser };
-
 
     if (newUser.password !== userToUpdate.password) {
       try {
@@ -114,7 +110,6 @@ const UserManagement = () => {
           password: '',
           course: '',
           schoolEmail: '',
-          yearEnrolled: '',
           grades: []
         });
       } else {
@@ -158,15 +153,13 @@ const UserManagement = () => {
 
   const filteredUsers = users.filter(user => 
     (courseFilter === '' || user.course.includes(courseFilter)) &&
-    (yearEnrolledFilter === '' || user.yearEnrolled.includes(yearEnrolledFilter)) &&
     (searchTerm === '' || (user.username && user.username.toLowerCase().includes(searchTerm.toLowerCase())))
   );
-  
 
   return (
     <div>
       <form onSubmit={handleFormSubmit}>
-      <h1 className='text-lg p-1 font-bold'>
+        <h1 className='text-lg p-1 font-bold'>
           Search & Filter
         </h1>
         <input
@@ -190,13 +183,6 @@ const UserManagement = () => {
           <option value="BS. Accountancy">BS. Accountancy</option>
           <option value="BS. Information System">BS. Information System</option>
         </select>
-        <input
-          className="border p-2 m-1 rounded-lg"
-          type="text"
-          placeholder="Filter Year Enrolled"
-          value={yearEnrolledFilter}
-          onChange={(e) => setYearEnrolledFilter(e.target.value)}
-        />
       </form>
       <form onSubmit={handleFormSubmit}>
         <h1 className='text-lg p-1 font-bold'>
@@ -249,14 +235,6 @@ const UserManagement = () => {
           onChange={handleInputChange}
           placeholder="School Email"
         />
-        <input
-          className="border p-2 m-1 rounded-lg"
-          type="text"
-          name="yearEnrolled"
-          value={newUser.yearEnrolled}
-          onChange={handleInputChange}
-          placeholder="Year Enrolled"
-        />
         <select
           className="border p-2 m-1 rounded-lg"
           name="userType"
@@ -266,8 +244,11 @@ const UserManagement = () => {
           <option value="student">Student</option>
           <option value="admin">Admin</option>
         </select>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-lg" type="submit">
-          {editIndex !== null ? 'Update User' : 'Add User'}
+        <button 
+          className="relative overflow-hidden h-10 px-5 rounded-full bg-yellow-500 bg-[length:400%] text-white border-none cursor-pointer before:content-[''] before:absolute before:top-0 before:left-0 before:transform before:scale-x-0 before:origin-[0_50%] before:w-full before:h-full before:rounded-full before:bg-gradient-to-r before:from-[#4f66ff] before:to-[#b59c41] before:transition-transform before:duration-[0.475s] hover:before:scale-x-100" 
+          type="submit"
+        >
+          <span className="relative z-1">{editIndex !== null ? 'Update User' : 'Add User'}</span>
         </button>
       </form>
       <div className="overflow-y-auto max-h-96">
@@ -280,7 +261,6 @@ const UserManagement = () => {
             <th className="border px-3 py-1 text-left">Username</th>
             <th className="border px-3 py-1 text-left">Course</th>
             <th className="border px-3 py-1 text-left">School Email</th>
-            <th className="border px-3 py-1 text-left">Year Enrolled</th>
             <th className="border px-3 py-1 text-left">User Type</th>
             <th className="border px-3 py-1 text-left">Password</th>
             <th className="border px-3 py-1 text-left">Edit/Delete</th>
@@ -291,7 +271,7 @@ const UserManagement = () => {
             <tr key={user._id} className="hover:bg-gray-100">
               <td className='border px-3 text-left'>
                 {user.userType === 'student' && (
-                  <button onClick={() => handleViewGrades(user)} className="bg-yellow-500 hover:bg-yellow-300 rounded-lg text-black m-1 px-1 py-1">Grade</button>
+                  <button onClick={() => handleViewGrades(user)} className="bg-yellow-500 hover:bg-yellow-300 rounded-xl text-black m-1 px-1 py-1">Grade</button>
                 )}
               </td>
               <td className="border px-3 text-left">{user._id}</td>
@@ -299,7 +279,6 @@ const UserManagement = () => {
               <td className="border px-3 text-left">{user.username}</td>
               <td className="border px-3 text-left">{user.course}</td>
               <td className="border px-3 text-left">{user.schoolEmail}</td>
-              <td className="border px-3 text-left">{user.yearEnrolled}</td>
               <td className="border px-3 text-left">{user.userType}</td>
               <td className="border px-3 text-left">*******</td>
               <td className="border px-3 text-left">

@@ -24,7 +24,7 @@ const SAnnouncements = () => {
           <div key={announcement._id} className="mx-auto w-full max-w-md p-5  bg-white border-8 border-yellow-500 rounded-3xl">
             <h2 className="text-xl font-bold">{announcement.title}</h2>
             <hr />
-            <p className="mt-2">{announcement.content}</p>
+            <p className="mt-2 text-left">{announcement.content}</p>
           </div>
         ))}
       </div>

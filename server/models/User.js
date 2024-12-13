@@ -3,11 +3,12 @@ const mongoose = require('mongoose');
 const gradeSchema = new mongoose.Schema({
   year: { type: String, required: true },
   semester: { type: String, required: true },
+  schoolYear: { type: String },
   subject: { type: String, required: true },
   classcode: { type: String },
   grade: { type: Number, required: true },
   units: { type: Number },
-  remarks: { type: String }
+  remarks: { type: String },
 });
 
 const userSchema = new mongoose.Schema({
@@ -17,7 +18,6 @@ const userSchema = new mongoose.Schema({
   course: { type: String },
   schoolEmail: { type: String },
   studentId: { type: String },
-  yearEnrolled: { type: String },
   grades: [gradeSchema]
 });
 
