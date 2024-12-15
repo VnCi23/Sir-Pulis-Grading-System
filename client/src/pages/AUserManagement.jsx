@@ -295,7 +295,7 @@ const UserManagement = () => {
               <tr key={user._id} className="hover:bg-gray-100">
                 <td className='border px-1 text-left text-sm'>
                   {user.userType === 'student' && (
-                    <button onClick={() => handleViewGrades(user)} className="bg-yellow-500 hover:bg-yellow-300 rounded-xl text-black m-1 px-1 py-1 text-xs">Grade</button>
+                    <button onClick={() => handleViewGrades(user)} className="bg-yellow-500 hover:bg-yellow-300 rounded-md text-black m-1 px-1 py-1 text-xs">Grade</button>
                   )}
                 </td>
                 <td className="border px-1 text-left text-sm">{user._id}</td>
