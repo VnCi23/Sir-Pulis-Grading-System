@@ -107,7 +107,7 @@ const GradePage = () => {
             <select
               value={newGrade.year}
               onChange={(e) => setNewGrade({ ...newGrade, year: e.target.value })}
-              className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border-2 border-blue-300 bg-white p-1 m-1"
             >
               <option value="">Year</option>
               <option value="1st">1st</option>
@@ -120,7 +120,7 @@ const GradePage = () => {
             <select
               value={newGrade.semester}
               onChange={(e) => setNewGrade({ ...newGrade, semester: e.target.value })}
-              className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border-2 border-blue-300 bg-white p-1 m-1"
             >
               <option value="">Semester</option>
               <option value="1st">1st</option>
@@ -129,7 +129,7 @@ const GradePage = () => {
             <select
               value={newGrade.schoolYear}
               onChange={(e) => setNewGrade({ ...newGrade, schoolYear: e.target.value })}
-              className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border-2 border-blue-300 bg-white p-1 m-1"
             >
               <option value="">School Year</option>
               <option value="2020-2021">2020-2021</option>
@@ -147,7 +147,7 @@ const GradePage = () => {
             <select
               value={newGrade.subject}
               onChange={(e) => setNewGrade({ ...newGrade, subject: e.target.value })}
-              className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border-2 border-blue-300 bg-white p-1 m-1"
             >
               <option value="">Subject Title</option>
               <option value="Introduction to Computing">Introduction to Computing</option>
@@ -194,12 +194,12 @@ const GradePage = () => {
               placeholder="Subject Code"
               value={newGrade.classcode}
               onChange={(e) => setNewGrade({ ...newGrade, classcode: e.target.value })}
-              className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border-2 border-blue-300 bg-white p-1 m-1"
             />
             <select
               value={newGrade.units}
               onChange={(e) => setNewGrade({ ...newGrade, units: e.target.value })}
-              className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border-2 border-blue-300 bg-white p-1 m-1"
             >
               <option value="">Credit Units</option>
               <option value="1">1</option>
@@ -216,7 +216,7 @@ const GradePage = () => {
             <select
               value={newGrade.grade}
               onChange={(e) => setNewGrade({ ...newGrade, grade: e.target.value })}
-              className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border-2 border-blue-300 bg-white p-1 m-1"
             >
               <option value="">Grade</option>
               <option value="1.00">1.00</option>
@@ -228,13 +228,13 @@ const GradePage = () => {
               <option value="2.50">2.50</option>
               <option value="2.75">2.75</option>
               <option value="3.00">3.00</option>
-              <option value="3.00">4.00</option>
+              <option value="4.00">4.00</option>
               <option value="5.00">5.00</option>
             </select>
             <select
               value={newGrade.remarks}
               onChange={(e) => setNewGrade({ ...newGrade, remarks: e.target.value })}
-              className="border border-gray-300 rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border-2 border-blue-300 bg-white p-1 m-1"
             >
               <option value="">Remarks</option>
               <option value="Passed">Passed</option>
@@ -242,43 +242,44 @@ const GradePage = () => {
             </select>
             {editingGrade ? (
               <>
-                <button onClick={handleUpdateGrade} className="bg-blue-500 hover:bg-blue-300 text-white px-4 py-2 rounded">
+                <button onClick={handleUpdateGrade} className="bg-yellow-500 hover:bg-yellow-300 text-white px-4 py-1">
                   Update Grade
                 </button>
               </>
             ) : (
-              <button onClick={handleAddGrade} className="bg-blue-500 hover:bg-blue-300 text-white px-4 py-2 rounded">
+              <button onClick={handleAddGrade} className="bg-yellow-500 hover:bg-yellow-300 text-white px-4 py-1 ">
                 Add Grade
               </button>
             )}
           </div>
         </div>
-        <table className="min-w-full bg-white border border-gray-300 mb-4 rounded-lg shadow-md">
-          <thead>
+        <div className='overflow-y-auto max-h-96'>
+        <table className="min-w-full bg-white">
+          <thead className='bg-yellow-500 sticky top-0'>
             <tr className="bg-yellow-500 text-black">
-              <th className="border px-4 py-1">Year</th>
-              <th className="border px-4 py-1">Semester</th>
-              <th className="border px-4 py-1">School Year</th>
-              <th className="border px-4 py-1">Subject Title</th>
-              <th className="border px-4 py-1">Subject Code</th>
-              <th className="border px-4 py-1">Units</th>
-              <th className="border px-4 py-1">Grade</th>
-              <th className="border px-4 py-1">Remarks</th>
-              <th className="border px-4 py-1">Edit/Delete</th>
+              <th className="border px-1 py-1 text-left text-sm">Year</th>
+              <th className="border px-1 py-1 text-left text-sm">Semester</th>
+              <th className="border px-1 py-1 text-left text-sm">School Year</th>
+              <th className="border px-1 py-1 text-left text-sm">Subject Title</th>
+              <th className="border px-1 py-1 text-left text-sm">Subject Code</th>
+              <th className="border px-1 py-1 text-left text-sm">Units</th>
+              <th className="border px-1 py-1 text-left text-sm">Grade</th>
+              <th className="border px-1 py-1 text-left text-sm">Remarks</th>
+              <th className="border px-1 py-1 text-left text-sm">Edit/Delete</th>
             </tr>
           </thead>
           <tbody>
             {grades.map((data, index) => (
               <tr key={index} className="hover:bg-gray-100">
-                <td className="border px-4">{data.year}</td>
-                <td className="border px-4">{data.semester}</td>
-                <td className="border px-4">{data.schoolYear}</td>
-                <td className="border px-4">{data.subject}</td>
-                <td className="border px-4">{data.classcode}</td>
-                <td className="border px-4">{data.units}</td>
-                <td className="border px-4">{data.grade}</td>
-                <td className="border px-4">{data.remarks}</td>
-                <td className="border px-4">
+                <td className="border px-1 py-1 text-left text-sm">{data.year}</td>
+                <td className="border px-1 py-1 text-left text-sm">{data.semester}</td>
+                <td className="border px-1 py-1 text-left text-sm">{data.schoolYear}</td>
+                <td className="border px-1 py-1 text-left text-sm">{data.subject}</td>
+                <td className="border px-1 py-1 text-left text-sm">{data.classcode}</td>
+                <td className="border px-1 py-1 text-left text-sm">{data.units}</td>
+                <td className="border px-1 py-1 text-left text-sm">{data.grade}</td>
+                <td className="border px-1 py-1 text-left text-sm">{data.remarks}</td>
+                <td className="border px-1 py-1 text-left text-sm">
                   <button onClick={() => handleDeleteGrade(data)} className="bg-red-500 hover:bg-red-300 text-white px-2 rounded m-1">Delete</button>
                   <button onClick={() => startEditing(data)} className="bg-blue-500 hover:bg-blue-300 text-white px-2 rounded m-1">Edit</button>
                 </td>
@@ -286,6 +287,7 @@ const GradePage = () => {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

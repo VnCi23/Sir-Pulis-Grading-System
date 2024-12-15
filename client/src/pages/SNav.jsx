@@ -43,7 +43,7 @@ const Student = () => {
           <li
             key={index}
             onClick={() => setOpenTab(index + 1)}
-            className={`cursor-pointer ${openTab === index + 1 ? 'text-white bg-blue-700' : 'text-gray-500 hover:text-black'} py-2 px-4 font-semibold rounded-3xl transition duration-300`}
+            className={`cursor-pointer ${openTab === index + 1 ? 'text-white bg-blue-700' : 'text-gray-500 hover:text-black'} py-1 px-4 font-semibold rounded-xl transition duration-300`}
           >
             {title}
           </li>
