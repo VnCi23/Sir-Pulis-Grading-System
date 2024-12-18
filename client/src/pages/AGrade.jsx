@@ -107,7 +107,7 @@ const GradePage = () => {
             <select
               value={newGrade.year}
               onChange={(e) => setNewGrade({ ...newGrade, year: e.target.value })}
-              className="border-2 border-blue-300 bg-white p-1 m-1"
+              className="border-2 border-blue-300 bg-yellow-100 p-1 m-1"
             >
               <option value="">Year</option>
               <option value="1st">1st</option>
@@ -120,7 +120,7 @@ const GradePage = () => {
             <select
               value={newGrade.semester}
               onChange={(e) => setNewGrade({ ...newGrade, semester: e.target.value })}
-              className="border-2 border-blue-300 bg-white p-1 m-1"
+              className="border-2 border-blue-300 bg-yellow-100 p-1 m-1"
             >
               <option value="">Semester</option>
               <option value="1st">1st</option>
@@ -129,7 +129,7 @@ const GradePage = () => {
             <select
               value={newGrade.schoolYear}
               onChange={(e) => setNewGrade({ ...newGrade, schoolYear: e.target.value })}
-              className="border-2 border-blue-300 bg-white p-1 m-1"
+              className="border-2 border-blue-300 bg-yellow-100 p-1 m-1"
             >
               <option value="">School Year</option>
               <option value="2020-2021">2020-2021</option>
@@ -147,7 +147,7 @@ const GradePage = () => {
             <select
               value={newGrade.subject}
               onChange={(e) => setNewGrade({ ...newGrade, subject: e.target.value })}
-              className="border-2 border-blue-300 bg-white p-1 m-1"
+              className="border-2 border-blue-300 bg-yellow-100 p-1 m-1"
             >
               <option value="">Subject Title</option>
               <option value="Introduction to Computing">Introduction to Computing</option>
@@ -194,12 +194,12 @@ const GradePage = () => {
               placeholder="Subject Code"
               value={newGrade.classcode}
               onChange={(e) => setNewGrade({ ...newGrade, classcode: e.target.value })}
-              className="border-2 border-blue-300 bg-white p-1 m-1"
+              className="border-2 border-blue-300 bg-yellow-100 p-1 m-1"
             />
             <select
               value={newGrade.units}
               onChange={(e) => setNewGrade({ ...newGrade, units: e.target.value })}
-              className="border-2 border-blue-300 bg-white p-1 m-1"
+              className="border-2 border-blue-300 bg-yellow-100 p-1 m-1"
             >
               <option value="">Credit Units</option>
               <option value="1">1</option>
@@ -216,7 +216,7 @@ const GradePage = () => {
             <select
               value={newGrade.grade}
               onChange={(e) => setNewGrade({ ...newGrade, grade: e.target.value })}
-              className="border-2 border-blue-300 bg-white p-1 m-1"
+              className="border-2 border-blue-300 bg-yellow-100 p-1 m-1"
             >
               <option value="">Grade</option>
               <option value="1.00">1.00</option>
@@ -234,7 +234,7 @@ const GradePage = () => {
             <select
               value={newGrade.remarks}
               onChange={(e) => setNewGrade({ ...newGrade, remarks: e.target.value })}
-              className="border-2 border-blue-300 bg-white p-1 m-1"
+              className="border-2 border-blue-300 bg-yellow-100 p-1 m-1"
             >
               <option value="">Remarks</option>
               <option value="Passed">Passed</option>
@@ -253,7 +253,7 @@ const GradePage = () => {
             )}
           </div>
         </div>
-        <div className='overflow-y-auto max-h-96'>
+        <div className='overflow-y-auto max-h-[30rem]'>
         <table className="min-w-full bg-white">
           <thead className='bg-yellow-500 sticky top-0'>
             <tr className="bg-yellow-500 text-black">
@@ -280,8 +280,8 @@ const GradePage = () => {
                 <td className="border px-1 py-1 text-left text-sm">{data.grade}</td>
                 <td className="border px-1 py-1 text-left text-sm">{data.remarks}</td>
                 <td className="border px-1 py-1 text-left text-sm">
-                  <button onClick={() => handleDeleteGrade(data)} className="bg-red-500 hover:bg-red-300 text-white px-2 rounded m-1">Delete</button>
-                  <button onClick={() => startEditing(data)} className="bg-blue-500 hover:bg-blue-300 text-white px-2 rounded m-1">Edit</button>
+                  <button onClick={() => handleDeleteGrade(data)} className="bg-red-500 rounded-md hover:bg-red-700 text-white m-1 px-1 text-xs">Delete</button>
+                  <button onClick={() => startEditing(data)} className="bg-blue-500 rounded-md hover:bg-blue-700 text-white m-1 px-1 text-xs">Edit</button>
                 </td>
               </tr>
             ))}

@@ -39,6 +39,19 @@ const UserManagement = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    if (newUser.userType === 'student') {
+      if (!newUser.studentId || !newUser.username || !newUser.password || !newUser.course || !newUser.schoolEmail) {
+        alert('All fields are required for students.');
+        return;
+      }
+    } else if (newUser.userType === 'admin') {
+      if (!newUser.username || !newUser.password) {
+        alert('Username and password are required for admins.');
+        return;
+      }
+    }
+
     if (editIndex !== null) {
       await handleUpdateUser(editIndex);
     } else {
@@ -166,7 +179,7 @@ const UserManagement = () => {
   );
 
   return (
-    <div>
+    <div className='p-4'>
       <form onSubmit={handleFormSubmit} className="flex flex-col items-center space-y-2">
         <div className="flex items-center space-x-2">
           <div className="relative">
@@ -209,7 +222,7 @@ const UserManagement = () => {
         </div>
       </form>
       <form onSubmit={handleFormSubmit}>
-        <h1 className='text-base m-3 font-bold'>
+        <h1 className='text-base m-2 font-bold'>
           Add User
         </h1>
         <input
@@ -275,7 +288,7 @@ const UserManagement = () => {
           <span className="relative z-1">{editIndex !== null ? 'Update User' : 'Add User'}</span>
         </button>
       </form>
-      <div className="overflow-y-auto max-h-96">
+      <div className="overflow-y-auto max-h-[25rem]">
         <table className="min-w-full bg-white">
           <thead className="bg-yellow-500 sticky top-0">
             <tr>

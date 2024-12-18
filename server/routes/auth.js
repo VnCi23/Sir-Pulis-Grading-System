@@ -9,7 +9,8 @@ const router = express.Router();
 router.post('/login', 
   [
     body('username').isString().notEmpty().withMessage('Username is required'),
-    body('password').isString().notEmpty().withMessage('Password is required')
+    body('password').isString().notEmpty().withMessage('Password is required'),
+    body('userType').isString().notEmpty().withMessage('User type is required')
   ], 
   async (req, res) => {
     const errors = validationResult(req);
@@ -17,7 +18,7 @@ router.post('/login',
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { username, password } = req.body;
+    const { username, password, userType } = req.body;
 
     const user = await User.findOne({ username });
     if (!user) {
@@ -27,6 +28,11 @@ router.post('/login',
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    // Check userType
+    if (user.userType !== userType) {
+      return res.status(400).json({ message: 'Incorrect user type' });
     }
 
     const token = jwt.sign({ id: user._id, userType: user.userType }, process.env.JWT_SECRET, {

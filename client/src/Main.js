@@ -13,13 +13,13 @@ const Main = () => {
         </div>
       </header>
       <div className="bg-white dark:bg-blue-800 flex justify-center items-center relative z-20 overflow-hidden">
-        <div className="container mx-auto px-5 flex flex-col md:flex-row py-12">
+        <div className="container mx-auto px-10 flex flex-col md:flex-row py-12">
           <div className="w-full md:w-2/3 lg:w-2/5 flex flex-col">
-            <h1 className="text-6xl font-extraboldy text-yellow-400 drop-shadow-lg">
+            <h1 className="text-6xl font-extrabold text-yellow-400 drop-shadow-lg">
               MSTIP Online Grading System
             </h1>
             <p className="text-base font-medium py-7 text-white">
-              Welcome to the MSTIP Grading System! Our platform makes tracking academic progress easy. Students can quickly check their grades. Administrators will find it simple to manage users and grades. Only MSTIP students and administrators can log in. Let's succeed together!
+              Welcome to the MSTIP Grading System! Our platform makes tracking academic progress easy. Students can quickly check their grades. Administrators will find it simple to manage users and grades. Only MSTIP students and administrators can log in.
             </p>
             <div className="flex mt-6">
               <Link
@@ -41,7 +41,7 @@ const Main = () => {
               </a>
             </div>
           </div>
-          <div className="hidden p-7 md:block md:w-1/3 lg:w-3/5 relative">
+          <div className="hidden p-5 md:block md:w-1/3 lg:w-3/5 relative">
             <img src={aa} className="max-w-[14rem] md:max-w-[18rem] m-auto shadow-custom-black border-8 border-yellow-500 rounded-3xl"/>
           </div>
         </div>

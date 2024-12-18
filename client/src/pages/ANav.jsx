@@ -1,14 +1,16 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AUserManagement from './AUserManagement';
 import AAnnouncement from './AAnnouncement';
 // import ACog from './ACog';
 import ADashboard from './ADashboard';
+import aa from '../assets/mstiplogo.png';
 
 const ANav = () => {
   const navigate = useNavigate();
   const [openTab, setOpenTab] = useState(1);
   const [searchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const handleLogout = useCallback(() => {
     console.log("User logged out");
@@ -20,11 +22,30 @@ const ANav = () => {
     , //'TOR Request'
   ], []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className='flex space-x-2 justify-center items-center bg-blue-800 h-screen'>
+        <span className='sr-only'>Loading...</span>
+        <div className='h-3 w-5 bg-yellow-400 rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+        <div className='h-3 w-5 bg-yellow-400 rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+        <div className='h-3 w-5 bg-yellow-400 rounded-full animate-bounce'></div>
+      </div>
+    );
+  }
+
   return (
     <div className='h-screen bg-blue-100'>
       <div className="h-auto flex flex-col items-center p-3 bg-blue-100">
         <div className="w-full flex justify-between items-center mb-2">
-          <h1 className="text-2xl font-extrabold">MSTIP Admin</h1>
+          <div className="flex items-center">
+            <img src={aa} alt="MSTIP Logo" className="h-14  rounded-full mr-2" />
+            <h1 className="text-2xl font-extrabold">MSTIP Admin</h1>
+          </div>
           <button
             onClick={handleLogout}
             className="flex items-center justify-start w-11 h-11 border-none rounded-full cursor-pointer relative overflow-hidden transition-all duration-500 shadow-md bg-red-500 hover:w-32 hover:rounded-lg active:translate-x-0.5 active:translate-y-0.5 group"
@@ -44,19 +65,41 @@ const ANav = () => {
             <li
               key={index}
               onClick={() => setOpenTab(index + 1)}
-              className={`cursor-pointer py-1 px-3 font-semibold rounded-lg transition duration-300 ${openTab === index + 1 ? 'text-white bg-blue-700' : 'text-gray-500 hover:text-black'}`}
+              className={`cursor-pointer py-1 px-3 font-semibold rounded-lg transition duration-500 ${openTab === index + 1 ? 'text-white bg-blue-800' : 'text-gray-500 hover:text-black'}`}
             >
               {title}
             </li>
           ))}
         </ul>
-        <div className="w-full text-center p-5">
-          {openTab === 1 && <ADashboard />}
-          {openTab === 2 && <AUserManagement searchQuery={searchQuery} />}
-          {openTab === 3 && <AAnnouncement />}
-          {/* {openTab === 3 && <ACog />} */}
+        <div className="w-full text-center transition-container">
+          <div className={`transition-content ${openTab === 1 ? 'active' : ''}`}>
+            {openTab === 1 && <ADashboard />}
+          </div>
+          <div className={`transition-content ${openTab === 2 ? 'active' : ''}`}>
+            {openTab === 2 && <AUserManagement searchQuery={searchQuery} />}
+          </div>
+          <div className={`transition-content ${openTab === 3 ? 'active' : ''}`}>
+            {openTab === 3 && <AAnnouncement />}
+          </div>
         </div>
       </div>
+      <style>{`
+        .transition-container {
+          position: relative;
+        }
+        .transition-content {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          opacity: 0;
+          transition: opacity 2s cubic-bezier(0.2, 0, 0.5, 1);
+        }
+        .transition-content.active {
+          opacity: 1;
+          position: relative;
+        }
+      `}</style>
     </div>
   );
 };

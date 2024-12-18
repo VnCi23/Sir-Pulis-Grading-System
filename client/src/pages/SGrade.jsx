@@ -42,6 +42,9 @@ const SGrade = () => {
   <style>
     {`
       @media print {
+        @page {
+          margin: 0;
+        }
         body * {
           visibility: hidden;
         }
@@ -49,10 +52,9 @@ const SGrade = () => {
           visibility: visible;
         }
         .printable-area {
-          position: absolute;
-          left: 0;
-          top: 0;
           width: 100%;
+          margin: 0;
+          padding-top: 0;
         }
         .printable-area .table-container {
           overflow: visible;
