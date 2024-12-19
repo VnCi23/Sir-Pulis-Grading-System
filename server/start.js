@@ -18,7 +18,7 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'https://sir-pulis-grading-system-wnvm.vercel.app/', 
+  origin: '*', // Allow all origins
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
