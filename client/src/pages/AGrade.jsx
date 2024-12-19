@@ -277,7 +277,7 @@ const GradePage = () => {
                 <td className="border px-1 py-1 text-left text-sm">{data.subject}</td>
                 <td className="border px-1 py-1 text-left text-sm">{data.classcode}</td>
                 <td className="border px-1 py-1 text-left text-sm">{data.units}</td>
-                <td className="border px-1 py-1 text-left text-sm">{data.grade}</td>
+                <td className="border px-1 py-1 text-left text-sm">{parseFloat(data.grade).toFixed(2)}</td>
                 <td className="border px-1 py-1 text-left text-sm">{data.remarks}</td>
                 <td className="border px-1 py-1 text-left text-sm">
                   <button onClick={() => handleDeleteGrade(data)} className="bg-red-500 rounded-md hover:bg-red-700 text-white m-1 px-1 text-xs">Delete</button>

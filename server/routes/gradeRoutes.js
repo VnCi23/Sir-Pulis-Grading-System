@@ -30,7 +30,7 @@ router.post('/api/grades', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    user.grades.push({ year, semester, subject, classcode, grade, units, remarks, schoolYear });
+    user.grades.push({ year, semester, subject, classcode, grade: grade.toString(), units, remarks, schoolYear });
     await user.save();
 
     res.status(201).json(user.grades[user.grades.length - 1]);
@@ -73,7 +73,7 @@ router.put('/api/grades/:username', async (req, res) => {
     }
 
     gradeToUpdate.classcode = classcode;
-    gradeToUpdate.grade = grade;
+    gradeToUpdate.grade = grade.toString();
     gradeToUpdate.units = units;
     gradeToUpdate.remarks = remarks;
     gradeToUpdate.schoolYear = schoolYear;

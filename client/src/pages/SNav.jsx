@@ -79,7 +79,7 @@ const Student = () => {
           </div>
         </div>
       </div>
-      <style jsx>{`
+      <style>{`
         .transition-container {
           position: relative;
         }

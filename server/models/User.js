@@ -6,7 +6,7 @@ const gradeSchema = new mongoose.Schema({
   schoolYear: { type: String },
   subject: { type: String, required: true },
   classcode: { type: String },
-  grade: { type: Number, required: true },
+  grade: { type: String, required: true },
   units: { type: Number },
   remarks: { type: String },
 });

@@ -117,7 +117,7 @@ const SGrade = () => {
                 <td className="border px-1 py-1 text-left text-sm">{grade.subject}</td>
                 <td className="border px-1 py-1 text-left text-sm">{grade.classcode}</td>
                 <td className="border px-1 py-1 text-left text-sm">{grade.units}</td>
-                <td className="border px-1 py-1 text-left text-sm">{grade.grade}</td>
+                <td className="border px-1 py-1 text-left text-sm">{parseFloat(grade.grade).toFixed(2)}</td>
                 <td className="border px-1 py-1 text-left text-sm">{grade.remarks}</td>
               </tr>
             ))}

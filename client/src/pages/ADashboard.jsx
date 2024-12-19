@@ -31,13 +31,13 @@ function ADashboard() {
         setCourseStats(courseCounts);
         console.log('Course Stats:', courseCounts); 
 
-        const allGrades = data.flatMap(user => user.grades.map(grade => grade.grade));
+        const allGrades = data.flatMap(user => user.grades.map(grade => parseFloat(grade.grade).toFixed(2)));
         const gradeCounts = allGrades.reduce((acc, grade) => {
           acc[grade] = (acc[grade] || 0) + 1;
           return acc;
         }, {});
 
-        const gradeLabels = ["1", "1.25", "1.5", "1.75", "2", "2.25", "2.5", "2.75", "3", "4", "5"];
+        const gradeLabels = ["1.00", "1.25", "1.50", "1.75", "2.00", "2.25", "2.50", "2.75", "3.00", "4.00", "5.00"];
         const gradeData = gradeLabels.map(label => gradeCounts[label] || 0);
 
         setGradesChartData({
