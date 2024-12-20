@@ -9,7 +9,12 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/start.js"
+      "dest": "start.js"
     }
-  ]
+  ],
+  "functions": {
+    "start.js": {
+      "maxDuration": 10
+    }
+  }
 }
