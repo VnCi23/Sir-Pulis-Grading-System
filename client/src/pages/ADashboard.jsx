@@ -10,7 +10,6 @@ function ADashboard() {
   const [courseStats, setCourseStats] = useState({});
   const [announcementCount, setAnnouncementCount] = useState(0);
   const [gradesChartData, setGradesChartData] = useState({ labels: [], datasets: [] });
-  const [activityLog, setActivityLog] = useState([]);
 
   useEffect(() => {
     fetch('http://localhost:5000/api/users')
@@ -50,12 +49,9 @@ function ADashboard() {
             },
           ],
         });
-
-        logActivity('Fetched user data', data, 'system', new Date().toLocaleString());
       })
       .catch(error => {
         console.error('Error fetching data:', error);
-        logActivity('Error fetching user data', error, 'system', new Date().toLocaleString());
       });
   }, []);
 
@@ -65,17 +61,11 @@ function ADashboard() {
       .then(data => {
         console.log('Fetched Announcements:', data);
         setAnnouncementCount(data.length);
-        logActivity('Fetched announcements', data, 'system', new Date().toLocaleString());
       })
       .catch(error => {
         console.error('Error fetching announcements:', error);
-        logActivity('Error fetching announcements', error, 'system', new Date().toLocaleString());
       });
   }, []);
-
-  const logActivity = (message, data, user, timestamp) => {
-    setActivityLog(prevLog => [{ message, data, user, timestamp }, ...prevLog]);
-  };
 
   const courseStatsData = {
     labels: Object.keys(courseStats),
@@ -98,7 +88,7 @@ function ADashboard() {
   };
 
   return (
-      <div className="bg-gradient-to-r from-blue-100 to-blue-100 min-h-60 overflow-y-auto max-h-[32rem]">
+      <div className="bg-gradient-to-r from-blue-100 to-blue-100 min-h-60">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3 m-5 mb-2">
           {[
             { title: "Total Students", count: studentCount },
@@ -123,23 +113,6 @@ function ADashboard() {
             </div>
           </div>
         ))}
-        <div className="p-5 border-2 border-yellow-500 bg-blue-100 rounded-lg shadow-md m-5">
-          <h2 className="text-sm font-semibold text-gray-700 mb-2">Activity Log</h2>
-          <div className="overflow-y-auto max-h-96">
-            <ul className="list-disc pl-5">
-              {activityLog.map((log, index) => (
-                <li key={index} className="text-sm text-gray-700 mb-2">
-                  <div className="border-b border-gray-300 pb-2 mb-2">
-                    <strong>{log.timestamp}:</strong> {log.message} - 
-                    <pre className="whitespace-pre-wrap text-left bg-blue-100 p-2 rounded">{JSON.stringify(log.data, null, 2)}</pre>
-                    <div className="text-xs text-gray-500">User: {log.user}</div>
-                    <div className="text-xs text-gray-500">Date: {new Date(log.timestamp).toLocaleDateString()}</div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
       </div>
   );
 }

@@ -4,7 +4,10 @@ const Announcement = require('../models/Announcement');
 
 router.post('/api/announcements', async (req, res) => {
   try {
-    const newAnnouncement = new Announcement(req.body);
+    const newAnnouncement = new Announcement({
+      ...req.body,
+      date: new Date().toISOString() 
+    });
     const savedAnnouncement = await newAnnouncement.save();
     res.json(savedAnnouncement);
   } catch (err) {

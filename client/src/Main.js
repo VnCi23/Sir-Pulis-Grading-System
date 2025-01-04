@@ -29,7 +29,7 @@ const Main = () => {
                 Log In
               </Link>
               {/* <Link to="/tor">
-                  <button className="uppercase py-2 px-4 rounded-lg bg-yellow-500 border-2 border-transparent text-white text-md mr-4 hover:bg-yellow-400">
+                  <button className="flex items-center justify-center outline-none cursor-pointer w-32 h-10 bg-gradient-to-t from-yellow-300 via-yellow-500 to-yellow-300 rounded-lg border border-yellow-500 transition-all duration-200 ease-in font-sans text-sm font-semibold text-gray-600 shadow-sm hover:shadow-2xl active:shadow-2xl focus:shadow-inherit mr-3">
                   Request TOR
                   </button>
               </Link> */}

@@ -3,11 +3,10 @@
 @tailwind utilities;
 
 body {
-  margin: 0;
   font-family: 'Calibri', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(30 64 175 / var(--tw-bg-opacity, 1));
+  background-color: rgb(30,64,175);
 }
 
 code {

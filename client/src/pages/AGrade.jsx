@@ -33,14 +33,10 @@ const GradePage = () => {
   }, [username]);
   
   const handleAddGrade = async () => {
-    const duplicate = grades.some(grade => 
-      grade.year === newGrade.year && 
-      grade.semester === newGrade.semester && 
-      grade.subject === newGrade.subject
-    );
+    const duplicate = grades.some(grade => grade.subject === newGrade.subject);
   
     if (duplicate) {
-      alert('This subject already exists for the selected year and semester.');
+      alert('This subject already exists.');
       return;
     }
   
@@ -59,7 +55,7 @@ const GradePage = () => {
     try {
       await axios.delete(`http://localhost:5000/api/grades/${username}`, { data: grade });
       console.log('Grade deleted');
-      setGrades(grades.filter(g => !(g.year === grade.year && g.semester === grade.semester && g.subject === grade.subject)));
+      setGrades(grades.filter(g => g.subject !== grade.subject));
       alert('Grade deleted successfully!');
     } catch (error) {
       console.error('Error deleting grade:', error);
@@ -69,14 +65,12 @@ const GradePage = () => {
   
   const handleUpdateGrade = async () => {
     const duplicate = grades.some(grade => 
-      grade.year === newGrade.year && 
-      grade.semester === newGrade.semester && 
       grade.subject === newGrade.subject &&
       grade._id !== newGrade._id 
     );
   
     if (duplicate) {
-      alert('This subject already exists for the selected year and semester.');
+      alert('This subject already exists.');
       return;
     }
   
@@ -97,7 +91,6 @@ const GradePage = () => {
     setEditingGrade(grade);
     setNewGrade(grade);
   };
-
   return (
     <div className='h-screen bg-blue-100'>
       <div className="p-10 h-auto bg-blue-100">
@@ -125,24 +118,6 @@ const GradePage = () => {
               <option value="">Semester</option>
               <option value="1st">1st</option>
               <option value="2nd">2nd</option>
-            </select>
-            <select
-              value={newGrade.schoolYear}
-              onChange={(e) => setNewGrade({ ...newGrade, schoolYear: e.target.value })}
-              className="border-2 border-blue-300 bg-yellow-100 p-1 m-1"
-            >
-              <option value="">School Year</option>
-              <option value="2020-2021">2020-2021</option>
-              <option value="2021-2022">2021-2022</option>
-              <option value="2022-2023">2022-2023</option>
-              <option value="2023-2024">2023-2024</option>
-              <option value="2024-2025">2024-2025</option>
-              <option value="2025-2026">2025-2026</option>
-              <option value="2026-2027">2026-2027</option>
-              <option value="2027-2028">2027-2028</option>
-              <option value="2028-2029">2028-2029</option>
-              <option value="2029-2030">2029-2030</option>
-              <option value="2030-2031">2030-2031</option>
             </select>
             <select
               value={newGrade.subject}
@@ -188,6 +163,24 @@ const GradePage = () => {
               <option value="Capstone Project 2">Capstone Project 2</option>
               <option value="Job Skills and Career Preparation">Job Skills and Career Preparation</option>
               <option value="Practicum">Practicum</option>
+            </select>
+            <select
+              value={newGrade.schoolYear}
+              onChange={(e) => setNewGrade({ ...newGrade, schoolYear: e.target.value })}
+              className="border-2 border-blue-300 bg-yellow-100 p-1 m-1"
+            >
+              <option value="">School Year</option>
+              <option value="2020-2021">2020-2021</option>
+              <option value="2021-2022">2021-2022</option>
+              <option value="2022-2023">2022-2023</option>
+              <option value="2023-2024">2023-2024</option>
+              <option value="2024-2025">2024-2025</option>
+              <option value="2025-2026">2025-2026</option>
+              <option value="2026-2027">2026-2027</option>
+              <option value="2027-2028">2027-2028</option>
+              <option value="2028-2029">2028-2029</option>
+              <option value="2029-2030">2029-2030</option>
+              <option value="2030-2031">2030-2031</option>
             </select>
             <input
               type="text"
@@ -259,8 +252,8 @@ const GradePage = () => {
             <tr className="bg-yellow-500 text-black">
               <th className="border px-1 py-1 text-left text-sm">Year</th>
               <th className="border px-1 py-1 text-left text-sm">Semester</th>
-              <th className="border px-1 py-1 text-left text-sm">School Year</th>
               <th className="border px-1 py-1 text-left text-sm">Subject Title</th>
+              <th className="border px-1 py-1 text-left text-sm">School Year</th>
               <th className="border px-1 py-1 text-left text-sm">Subject Code</th>
               <th className="border px-1 py-1 text-left text-sm">Units</th>
               <th className="border px-1 py-1 text-left text-sm">Grade</th>
@@ -273,8 +266,8 @@ const GradePage = () => {
               <tr key={index} className="hover:bg-gray-100">
                 <td className="border px-1 py-1 text-left text-sm">{data.year}</td>
                 <td className="border px-1 py-1 text-left text-sm">{data.semester}</td>
-                <td className="border px-1 py-1 text-left text-sm">{data.schoolYear}</td>
                 <td className="border px-1 py-1 text-left text-sm">{data.subject}</td>
+                <td className="border px-1 py-1 text-left text-sm">{data.schoolYear}</td>
                 <td className="border px-1 py-1 text-left text-sm">{data.classcode}</td>
                 <td className="border px-1 py-1 text-left text-sm">{data.units}</td>
                 <td className="border px-1 py-1 text-left text-sm">{parseFloat(data.grade).toFixed(2)}</td>
