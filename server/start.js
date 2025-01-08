@@ -30,10 +30,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(announcementRoutes);
-app.use(accountRoutes);
-app.use(gradeRoutes);
+// Define routes with appropriate prefixes
+app.use('/api/announcements', announcementRoutes);
+app.use('/api/accounts', accountRoutes);
+app.use('/api/grades', gradeRoutes);
 app.use('/api/user', userInfoRoute);
+app.use('/api/users', authRoutes);
+app.use('/api/forms', formRoutes);
+app.use('/api/health', healthRoutes);
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -43,10 +47,6 @@ mongoose.connect(process.env.MONGO_URI, {
 }).catch(err => {
   console.error('Error connecting to MongoDB:', err);
 });
-
-app.use('/api/users', authRoutes);
-app.use('/api/forms', formRoutes);
-app.use('/api', healthRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
