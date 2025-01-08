@@ -18,32 +18,15 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({
-  origin: ['https://sir-pulis-grading-system.vercel.app', 'http://localhost:3000'], // Allow specific origins
+  origin: '*', // Allow all origins
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
-
-// Add CSP header
-app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline';");
-  next();
-});
-
-// Define routes with appropriate prefixes
-app.use('/api/announcements', announcementRoutes);
-app.use('/api/accounts', accountRoutes);
-app.use('/api/grades', gradeRoutes);
+app.use(announcementRoutes);
+app.use(accountRoutes);
+app.use(gradeRoutes);
 app.use('/api/user', userInfoRoute);
-app.use('/api/users', authRoutes);
-app.use('/api/forms', formRoutes);
-app.use('/api/health', healthRoutes);
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
 
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
@@ -54,10 +37,15 @@ mongoose.connect(process.env.MONGO_URI, {
   console.error('Error connecting to MongoDB:', err);
 });
 
+app.use('/api/users', authRoutes);
+app.use('/api/forms', formRoutes);
+app.use('/api', healthRoutes);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 /*
 async function addUsersAndStartServer() {
   await addUser(
