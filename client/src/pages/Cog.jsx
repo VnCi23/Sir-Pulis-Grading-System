@@ -58,7 +58,7 @@ const Cog = () => {
       formDataToSend.append(key, formData[key]);
     }
     try {
-      const response = await axios.post('http://localhost:5000/api/forms/submit-form', formDataToSend, {
+      const response = await axios.post('https://sir-pulis-grading-system-h789.vercel.app/api/forms/submit-form', formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

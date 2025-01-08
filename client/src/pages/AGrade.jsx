@@ -14,7 +14,7 @@ const GradePage = () => {
   
     const fetchGrades = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/grades/${username}`);
+        const response = await axios.get(`https://sir-pulis-grading-system-h789.vercel.app/api/grades/${username}`);
         console.log('Grades fetched:', response.data); 
         const sortedGrades = response.data.sort((a, b) => {
           const yearOrder = ['1st', '2nd', '3rd', '4th', '5th'];
@@ -41,7 +41,7 @@ const GradePage = () => {
     }
   
     try {
-      const response = await axios.post('http://localhost:5000/api/grades', { ...newGrade, username });
+      const response = await axios.post('https://sir-pulis-grading-system-h789.vercel.app/api/grades', { ...newGrade, username });
       setGrades([...grades, response.data]);
       setNewGrade({ year: '', semester: '', subject: '', classcode: '', grade: '', units: '', remarks: '', schoolYear: '' });
       alert('Grade added successfully!');
@@ -53,7 +53,7 @@ const GradePage = () => {
   
   const handleDeleteGrade = async (grade) => {
     try {
-      await axios.delete(`http://localhost:5000/api/grades/${username}`, { data: grade });
+      await axios.delete(`https://sir-pulis-grading-system-h789.vercel.app/api/grades/${username}`, { data: grade });
       console.log('Grade deleted');
       setGrades(grades.filter(g => g.subject !== grade.subject));
       alert('Grade deleted successfully!');
@@ -75,7 +75,7 @@ const GradePage = () => {
     }
   
     try {
-      const response = await axios.put(`http://localhost:5000/api/grades/${username}`, { ...newGrade, username });
+      const response = await axios.put(`https://sir-pulis-grading-system-h789.vercel.app/api/grades/${username}`, { ...newGrade, username });
       console.log('Grade updated:', response.data);
       setGrades(grades.map(grade => (grade._id === newGrade._id ? response.data : grade)));
       setEditingGrade(null);

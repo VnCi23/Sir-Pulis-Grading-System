@@ -6,7 +6,7 @@ const ACog = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/forms/form-data');
+      const response = await axios.get('https://sir-pulis-grading-system-h789.vercel.app/api/forms/form-data');
       setFormDataList(response.data);
     } catch (error) {
       console.error('Error fetching form data:', error);
@@ -15,7 +15,7 @@ const ACog = () => {
 
   const deleteData = useCallback(async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/forms/form-data/${id}`);
+      await axios.delete(`https://sir-pulis-grading-system-h789.vercel.app/api/forms/form-data/${id}`);
       setFormDataList(prevList => prevList.filter(item => item._id !== id)); 
     } catch (error) {
       console.error('Error deleting form data:', error);

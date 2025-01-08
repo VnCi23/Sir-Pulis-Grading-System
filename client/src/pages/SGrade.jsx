@@ -12,7 +12,7 @@ const SGrade = () => {
       const storedUsername = localStorage.getItem('username');
       setUsername(storedUsername);
       try {
-        const response = await axios.get(`http://localhost:5000/api/grades/${storedUsername}`);
+        const response = await axios.get(`https://sir-pulis-grading-system-h789.vercel.app/api/grades/${storedUsername}`);
         setGrades(response.data);
       } catch (err) {
         setError('Failed to fetch grades. Please try again.');
@@ -22,7 +22,7 @@ const SGrade = () => {
     const fetchUserDetails = async () => {
       const storedUsername = localStorage.getItem('username');
       try {
-        const response = await axios.get(`http://localhost:5000/api/user/${storedUsername}`);
+        const response = await axios.get(`https://sir-pulis-grading-system-h789.vercel.app/api/user/${storedUsername}`);
         setUserDetails(response.data);
       } catch (err) {
         setError('Failed to fetch user details. Please try again.');

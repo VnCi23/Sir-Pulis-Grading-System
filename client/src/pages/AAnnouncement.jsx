@@ -12,7 +12,7 @@ const Announcements = () => {
 
   const fetchAnnouncements = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/announcements');
+      const response = await axios.get('https://sir-pulis-grading-system-h789.vercel.app/api/announcements');
       setAnnouncements(response.data);
     } catch (error) {
       console.error('Error fetching announcements:', error);
@@ -27,7 +27,7 @@ const Announcements = () => {
   const handleAddAnnouncement = async () => {
     if (newAnnouncement.title && newAnnouncement.content) {
       try {
-        const response = await axios.post('http://localhost:5000/api/announcements', { ...newAnnouncement, date: new Date().toISOString() });
+        const response = await axios.post('https://sir-pulis-grading-system-h789.vercel.app/api/announcements', { ...newAnnouncement, date: new Date().toISOString() });
         setAnnouncements([response.data, ...announcements]);
         setNewAnnouncement({ title: '', content: '', date: '' });
       } catch (error) {
@@ -44,7 +44,7 @@ const Announcements = () => {
   const handleUpdateAnnouncement = async () => {
     if (editingAnnouncement && newAnnouncement.title && newAnnouncement.content) {
       try {
-        const response = await axios.put(`http://localhost:5000/api/announcements/${editingAnnouncement._id}`, newAnnouncement);
+        const response = await axios.put(`https://sir-pulis-grading-system-h789.vercel.app/api/announcements/${editingAnnouncement._id}`, newAnnouncement);
         setAnnouncements(announcements.map(announcement => 
           announcement._id === editingAnnouncement._id ? response.data : announcement
         ));
@@ -58,7 +58,7 @@ const Announcements = () => {
 
   const handleDeleteAnnouncement = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/announcements/${id}`);
+      await axios.delete(`https://sir-pulis-grading-system-h789.vercel.app/api/announcements/${id}`);
       setAnnouncements(announcements.filter(announcement => announcement._id !== id));
     } catch (error) {
       console.error('Error deleting announcement:', error);

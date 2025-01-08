@@ -12,7 +12,7 @@ function ADashboard() {
   const [gradesChartData, setGradesChartData] = useState({ labels: [], datasets: [] });
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/users')
+    fetch('https://sir-pulis-grading-system-h789.vercel.app/api/users')
       .then(response => response.json())
       .then(data => {
         console.log('Fetched Users:', data); 
@@ -56,7 +56,7 @@ function ADashboard() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/announcements')
+    fetch('https://sir-pulis-grading-system-h789.vercel.app/api/announcements')
       .then(response => response.json())
       .then(data => {
         console.log('Fetched Announcements:', data);

@@ -20,7 +20,7 @@ const UserManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/users')
+    fetch('https://sir-pulis-grading-system-h789.vercel.app/api/users')
       .then(response => response.json())
       .then(data => {
         const sortedData = data.sort((a, b) => a.username.localeCompare(b.username));
@@ -65,7 +65,7 @@ const UserManagement = () => {
         const hashedPassword = await bcrypt.hash(newUser.password, 10);
         const userToAdd = { ...newUser, password: hashedPassword };
 
-        const response = await fetch('http://localhost:5000/api/users', {
+        const response = await fetch('https://sir-pulis-grading-system-h789.vercel.app/api/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -110,7 +110,7 @@ const UserManagement = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${userToUpdate._id}`, {
+      const response = await fetch(`https://sir-pulis-grading-system-h789.vercel.app/api/users/${userToUpdate._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -154,7 +154,7 @@ const UserManagement = () => {
     if (userIndex !== -1) {
       const userToDelete = users[userIndex];
       try {
-        const response = await fetch(`http://localhost:5000/api/users/${userToDelete._id}`, {
+        const response = await fetch(`https://sir-pulis-grading-system-h789.vercel.app/api/users/${userToDelete._id}`, {
           method: 'DELETE'
         });
         if (response.ok) {

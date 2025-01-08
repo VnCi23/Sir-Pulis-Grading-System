@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   const login = async (username, password) => {
-    const res = await axios.post('http://localhost:5000/api/users/login', { username, password });
+    const res = await axios.post('https://sir-pulis-grading-system-h789.vercel.app/api/users/login', { username, password });
     dispatch({ type: 'LOGIN', payload: res.data });
   };
 
