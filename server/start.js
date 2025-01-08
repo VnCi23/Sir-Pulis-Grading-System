@@ -23,6 +23,13 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
+
+// Add CSP header
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline';");
+  next();
+});
+
 app.use(announcementRoutes);
 app.use(accountRoutes);
 app.use(gradeRoutes);
