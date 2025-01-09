@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 
 const Main = () => {
   return (
-    <main className="dark:bg-blue-800 bg-white relative overflow-hidden min-h-screen">
+    <main className="bg-blue-800 relative overflow-hidden min-h-screen">
       <header className="mt-5 h-20 sm:h-22 flex items-center z-30 w-full">
         <div className="container mx-auto px-5 flex items-center justify-between">
-          <div className="uppercase dark:text-white font-black text-xl">
+          <div className="uppercase text-white font-black text-xl">
             Makati Science Technological Institute of the Philippines 
           </div>
         </div>
       </header>
-      <div className="bg-white dark:bg-blue-800 flex justify-center items-center relative z-20 overflow-hidden">
+      <div className="bg-blue-800 flex justify-center items-center relative z-20 overflow-hidden">
         <div className="container mx-auto px-10 flex flex-col md:flex-row py-12">
           <div className="w-full md:w-2/3 lg:w-2/5 flex flex-col">
             <h1 className="text-6xl font-extrabold text-yellow-400 drop-shadow-lg">
@@ -35,7 +35,7 @@ const Main = () => {
               </Link> */}
               <a
                 href="http://mstip.edu.ph/"
-                className="flex items-center justify-center outline-none cursor-pointer w-32 h-10 bg-transparent border-2 border-yellow-500 text-yellow-500 dark:text-white hover:bg-yellow-500 hover:text-white text-sm font-semibold transition-all duration-200 ease-in rounded-lg shadow-sm hover:shadow-lg active:shadow-inner focus:shadow-inner"
+                className="flex items-center justify-center outline-none cursor-pointer w-32 h-10 bg-transparent border-2 border-yellow-500 text-white hover:bg-yellow-500 hover:text-white text-sm font-semibold transition-all duration-200 ease-in rounded-lg shadow-sm hover:shadow-lg active:shadow-inner focus:shadow-inner"
               >
                 About MSTIP
               </a>
