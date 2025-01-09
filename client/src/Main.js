@@ -42,7 +42,7 @@ const Main = () => {
             </div>
           </div>
           <div className="hidden p-5 md:block md:w-1/3 lg:w-3/5 relative">
-            <img src={aa} className="max-w-[14rem] md:max-w-[18rem] m-auto shadow-custom-black border-8 border-yellow-500 rounded-3xl"/>
+            <img src={aa} alt="mstip logo" className="max-w-[14rem] md:max-w-[18rem] m-auto shadow-custom-black border-8 border-yellow-500 rounded-3xl"/>
           </div>
         </div>
       </div>
