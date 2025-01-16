@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SHome from './SHome';
 import SGrade from './SGrade';
 import SAnnouncement from './SAnnouncement';
-import aa from '../assets/mstiplogo.png';
+import aa from '../assets/logo.png';
 
 const Student = () => {
   const navigate = useNavigate();
@@ -39,8 +39,8 @@ const Student = () => {
       <div className="h-auto flex flex-col items-center p-5 bg-blue-100">
         <div className="w-full flex justify-between items-center mb-4">
           <div className="flex items-center">
-            <img src={aa} alt="MSTIP Logo" className="h-14 mr-2" />
-            <h1 className="text-2xl font-extrabold">MSTIP Student</h1>
+            <img src={aa} alt="MSTIP Logo" className="h-14  rounded-full mr-2" />
+            <h1 className="text-2xl font-extrabold">ISCP's Student</h1>
           </div>
           <button
             onClick={handleLogout}

@@ -4,7 +4,7 @@ import AUserManagement from './AUserManagement';
 import AAnnouncement from './AAnnouncement';
 // import ACog from './ACog';
 import ADashboard from './ADashboard';
-import aa from '../assets/mstiplogo.png';
+import aa from '../assets/logo.png';
 
 const ANav = () => {
   const navigate = useNavigate();
@@ -44,7 +44,7 @@ const ANav = () => {
         <div className="w-full flex justify-between items-center mb-2">
           <div className="flex items-center">
             <img src={aa} alt="MSTIP Logo" className="h-14  rounded-full mr-2" />
-            <h1 className="text-2xl font-extrabold">MSTIP Admin</h1>
+            <h1 className="text-2xl font-extrabold">ISCP's Admin</h1>
           </div>
           <button
             onClick={handleLogout}

@@ -31,7 +31,7 @@ const Login = () => {
   return (
   <div className="flex justify-center items-center min-h-screen bg-blue-800 p-2 sm:p-3 md:p-5">
   <div className="bg-white p-4 m-auto shadow-custom-black border-8 border-yellow-500 w-full max-w-md rounded-3xl">
-    <div className="mt-6 text-center text-gray-800 text-xl font-extrabold">MSTIP User's Log In</div>
+    <div className="mt-6 text-center text-gray-800 text-xl font-extrabold">ISCP User's Log In</div>
     {error && <p className="text-red-500 text-center mb-4">{error}</p>}
     <form onSubmit={handleLogin} className="p-6">
       <div className="mb-4">

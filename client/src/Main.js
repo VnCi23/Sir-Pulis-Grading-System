@@ -1,5 +1,5 @@
 import React from 'react';
-import aa from './assets/aa.jpg';
+import logo from './assets/logo.png';
 import { Link } from 'react-router-dom';
 
 const Main = () => {
@@ -8,7 +8,7 @@ const Main = () => {
       <header className="mt-5 h-20 sm:h-22 flex items-center z-30 w-full">
         <div className="container mx-auto px-5 flex items-center justify-between">
           <div className="uppercase text-white font-black text-xl">
-            Makati Science Technological Institute of the Philippines 
+          International State College of the Philippines 
           </div>
         </div>
       </header>
@@ -16,10 +16,10 @@ const Main = () => {
         <div className="container mx-auto px-10 flex flex-col md:flex-row py-12">
           <div className="w-full md:w-2/3 lg:w-2/5 flex flex-col">
             <h1 className="text-6xl font-extrabold text-yellow-400 drop-shadow-lg">
-              MSTIP Online Grading System
+              ISCP's Online Grading Portal
             </h1>
             <p className="text-base font-medium py-7 text-white">
-              Welcome to the MSTIP Grading System! Our platform makes tracking academic progress easy. Students can quickly check their grades. Administrators will find it simple to manage users and grades. Only MSTIP students and administrators can log in.
+              Welcome to the ISCP's Grading System! Our platform makes tracking academic progress easy. Students can quickly check their grades. Administrators will find it simple to manage users and grades. Only ISCP's students and administrators can log in.
             </p>
             <div className="flex mt-6">
               <Link
@@ -34,15 +34,15 @@ const Main = () => {
                   </button>
               </Link> */}
               <a
-                href="http://mstip.edu.ph/"
+                href="https://web.facebook.com/ISCPhilippines"
                 className="flex items-center justify-center outline-none cursor-pointer w-32 h-10 bg-transparent border-2 border-yellow-500 text-white hover:bg-yellow-500 hover:text-white text-sm font-semibold transition-all duration-200 ease-in rounded-lg shadow-sm hover:shadow-lg active:shadow-inner focus:shadow-inner"
               >
-                About MSTIP
+                ISCP's Main Page
               </a>
             </div>
           </div>
           <div className="hidden p-5 md:block md:w-1/3 lg:w-3/5 relative">
-            <img src={aa} alt="mstip logo" className="max-w-[14rem] md:max-w-[18rem] m-auto shadow-custom-black border-8 border-yellow-500 rounded-3xl"/>
+            <img src={logo} alt="mstip logo" className="max-w-[14rem] md:max-w-[18rem] m-auto shadow-custom-black border-8 border-yellow-500 rounded-3xl"/>
           </div>
         </div>
       </div>
