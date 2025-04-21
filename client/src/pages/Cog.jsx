@@ -1,327 +1,123 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import school from '../assets/qq.jpg';
+import React from 'react';
+import pic1 from '../assets/pals/main.jpeg';
 
-const Cog = () => {
-  const [formData, setFormData] = useState({
-    studentName: '',
-    course: '',
-    email: '',
-    contactNumber: '',
-    studentId: '',
-    yearGraduate: '',
-    contactMethod: '',
-    dateOfBirth: '',
-    address: '',
-    reasonForRequest: '',
-    additionalNotes: '',
-    paymentProof: null,
-    preferredPickupDate: '',
-  });
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [step, setStep] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
-    });
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.studentName) newErrors.studentName = 'Student Name is required';
-    if (!formData.email) newErrors.email = 'Email is required';
-    if (!formData.contactNumber) newErrors.contactNumber = 'Contact Number is required';
-    if (!formData.studentId) newErrors.studentId = 'Student ID is required';
-    if (!formData.yearGraduate) newErrors.yearGraduate = 'Year Graduate is required';
-    if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of Birth is required';
-    if (!formData.address) newErrors.address = 'Address is required';
-    if (!formData.course) newErrors.course = 'Course is required';
-    if (!formData.contactMethod) newErrors.contactMethod = 'Contact Method is required';
-    if (!formData.reasonForRequest) newErrors.reasonForRequest = 'Reason for Request is required';
-    if (!formData.paymentProof) newErrors.paymentProof = 'Payment Proof is required';
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-    setLoading(true);
-    const formDataToSend = new FormData();
-    for (const key in formData) {
-      formDataToSend.append(key, formData[key]);
-    }
-    try {
-      const response = await axios.post('https://sir-pulis-grading-system-h789.vercel.app/api/forms/submit-form', formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log('Form submitted successfully:', response.data);
-      setSuccessMessage('Form submitted successfully!');
-      setErrorMessage('');
-      setFormData({
-        studentName: '',
-        course: '',
-        email: '',
-        contactNumber: '',
-        studentId: '',
-        yearGraduate: '',
-        contactMethod: '',
-        dateOfBirth: '',
-        address: '',
-        reasonForRequest: '',
-        additionalNotes: '',
-        paymentProof: null,
-        preferredPickupDate: '',
-      });
-      setStep(1);
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setErrorMessage('Error submitting form. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const nextStep = () => {
-    setStep(step + 1);
-  };
-
-  const prevStep = () => {
-    setStep(step - 1);
-  };
-
+const DeveloperCard = ({ name, imageUrl, description, facebookUrl }) => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-blue-800 p-2 sm:p-3 md:p-5">
-      <div className="bg-white p-5 rounded-3xl m-auto shadow-custom-black border-8 border-yellow-500 w-full max-w-5xl flex">
-        <div className="w-1/2 p-3">
-          <img src={school} alt="Description" className="w-full h-full object-cover rounded-3xl" />
-        </div>
-        <div className="w-1/2 p-4 overflow-y-auto" style={{ maxHeight: '80vh' }}>
-          <div className="text-center text-black text-xl font-extrabold">TOR Request Form</div>
-          {successMessage && <div className="mt-3 text-center text-green-500">{successMessage}</div>}
-          {errorMessage && <div className="mt-3 text-center text-red-500">{errorMessage}</div>}
-          <form onSubmit={handleSubmit} className="p-8 space-y-6">
-            {step === 1 && (
-              <div className="flex flex-col gap-1">
-                <label className="block text-sm font-medium text-gray-700">Student Name *</label>
-                <input
-                  type="text"
-                  name="studentName"
-                  value={formData.studentName}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-                />
-                {errors.studentName && <div className="text-red-500 text-sm">{errors.studentName}</div>}
-                
-                <label className="block text-sm font-medium text-gray-700">Student ID *</label>
-                <input
-                  type="text"
-                  name="studentId"
-                  value={formData.studentId}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-                />
-                {errors.studentId && <div className="text-red-500 text-sm">{errors.studentId}</div>}
-                
-                <label className="block text-sm font-medium text-gray-700">Email *</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-                />
-                {errors.email && <div className="text-red-500 text-sm">{errors.email}</div>}
-                
-                <label className="block text-sm font-medium text-gray-700">Contact Number *</label>
-                <input
-                  type="text"
-                  name="contactNumber"
-                  value={formData.contactNumber}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm mb-3"
-                />
-                {errors.contactNumber && <div className="text-red-500 text-sm">{errors.contactNumber}</div>}
-                
-                <button type="button" onClick={nextStep} className="cursor-pointer rounded-lg bg-yellow-500 px-8 py-3 text-sm font-semibold text-white hover:bg-yellow-400" disabled={loading}>
-                  Next
-                </button>
-              </div>
-            )}
-            {step === 2 && (
-              <div className="flex flex-col gap-2">
-                <label className="block text-sm font-medium text-gray-700">Year Graduate *</label>
-                <input
-                  type="text"
-                  name="yearGraduate"
-                  value={formData.yearGraduate}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-                />
-                {errors.yearGraduate && <div className="text-red-500 text-sm">{errors.yearGraduate}</div>}
-                
-                <label className="block text-sm font-medium text-gray-700">Date of Birth *</label>
-                <input
-                  type="date"
-                  name="dateOfBirth"
-                  value={formData.dateOfBirth}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-                />
-                {errors.dateOfBirth && <div className="text-red-500 text-sm">{errors.dateOfBirth}</div>}
-                
-                <label className="block text-sm font-medium text-gray-700">Address *</label>
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-                />
-                {errors.address && <div className="text-red-500 text-sm">{errors.address}</div>}
-                
-                <label className="block text-sm font-medium text-gray-700">Course *</label>
-                <select
-                  name="course"
-                  value={formData.course}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 font-semibold text-gray-500 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm mb-3"
-                >
-                  <option value="" disabled className="font-semibold text-slate-300">Select Course *</option>
-                  <option value="BS. Computer Engineering">BS. Computer Engineering</option>
-                  <option value="BS. Psychology">BS. Psychology</option>
-                  <option value="BS. Education">BS. Education</option>
-                  <option value="BS. Criminology">BS. Criminology</option>
-                  <option value="BS. Tourism Management">BS. Tourism Management</option>
-                  <option value="BS. Accountancy">BS. Accountancy</option>
-                  <option value="BS. Information System">BS. Information System</option>
-                </select>
-                {errors.course && <div className="text-red-500 text-sm">{errors.course}</div>}
-                
-                <button type="button" onClick={prevStep} className="cursor-pointer rounded-lg bg-yellow-500 px-8 py-3 text-sm font-semibold text-white hover:bg-yellow-400" disabled={loading}>
-                  Previous
-                </button>
-                <button type="button" onClick={nextStep} className="cursor-pointer rounded-lg bg-yellow-500 px-8 py-3 text-sm font-semibold text-white hover:bg-yellow-400" disabled={loading}>
-                  Next
-                </button>
-              </div>
-            )}
-            {step === 3 && (
-              <div className="flex flex-col gap-2">
-                <label className="block text-sm font-medium text-gray-700">Get Method *</label>
-                <select
-                  name="contactMethod"
-                  value={formData.contactMethod}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 font-semibold text-gray-500 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-                >
-                  <option value="" disabled className="font-semibold text-slate-300">Get Through Email or Go to School *</option>
-                  <option value="email" className="font-semibold text-gray-700">Send via Email</option>
-                  <option value="school" className="font-semibold text-gray-700">Go to School</option>
-                </select>
-                {errors.contactMethod && <div className="text-red-500 text-sm">{errors.contactMethod}</div>}
-                
-                <label className="block text-sm font-medium text-gray-700">Reason for Request *</label>
-                <textarea
-                  name="reasonForRequest"
-                  value={formData.reasonForRequest}
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-                />
-                {errors.reasonForRequest && <div className="text-red-500 text-sm">{errors.reasonForRequest}</div>}
-                
-                <label className="block text-sm font-medium text-gray-700">Additional Notes</label>
-                <textarea
-                  name="additionalNotes"
-                  value={formData.additionalNotes}
-                  onChange={handleChange}
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-                />
-                
-                <label className="block text-sm font-medium text-gray-700">Payment Proof *</label>
-                <input
-                  type="file"
-                  name="paymentProof"
-                  onChange={handleChange}
-                  required
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
-                />
-                {errors.paymentProof && <div className="text-red-500 text-sm">{errors.paymentProof}</div>}
-                
-                <label className="block text-sm font-medium text-gray-700">Preferred Pickup Date</label>
-                <input
-                  type="date"
-                  name="preferredPickupDate"
-                  value={formData.preferredPickupDate}
-                  onChange={handleChange}
-                  disabled={loading}
-                  className="block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm mb-3"
-                />
-                
-                <button type="button" onClick={prevStep} className="cursor-pointer rounded-lg bg-yellow-500 px-8 py-3 text-sm font-semibold text-white hover:bg-yellow-400" disabled={loading}>
-                  Previous
-                </button>
-                <button type="button" onClick={nextStep} className="cursor-pointer rounded-lg bg-yellow-500 px-8 py-3 text-sm font-semibold text-white hover:bg-yellow-400" disabled={loading}>
-                  Next
-                </button>
-              </div>
-            )}
-            {step === 4 && (
-              <div className="flex flex-col gap-2">
-                <div className="text-lg font-bold">Summary</div>
-                <div><strong>Student Name:</strong> {formData.studentName}</div>
-                <div><strong>Student ID:</strong> {formData.studentId}</div>
-                <div><strong>Email:</strong> {formData.email}</div>
-                <div><strong>Contact Number:</strong> {formData.contactNumber}</div>
-                <div><strong>Year Graduate:</strong> {formData.yearGraduate}</div>
-                <div><strong>Date of Birth:</strong> {formData.dateOfBirth}</div>
-                <div><strong>Address:</strong> {formData.address}</div>
-                <div><strong>Course:</strong> {formData.course}</div>
-                <div><strong>Contact Method:</strong> {formData.contactMethod}</div>
-                <div><strong>Reason for Request:</strong> {formData.reasonForRequest}</div>
-                <div><strong>Additional Notes:</strong> {formData.additionalNotes}</div>
-                <div><strong>Preferred Pickup Date:</strong> {formData.preferredPickupDate}</div>
-                <button type="button" onClick={prevStep} className="cursor-pointer rounded-lg bg-yellow-500 px-8 py-3 text-sm font-semibold text-white hover:bg-yellow-400" disabled={loading}>
-                  Previous
-                </button>
-                <button type="submit" className="cursor-pointer rounded-lg bg-yellow-500 px-8 py-3 text-sm font-semibold text-white hover:bg-yellow-400" disabled={loading}>
-                  {loading ? 'Submitting...' : 'Submit Request'}
-                </button>
-              </div>
-            )}
-          </form>
+    <a
+      href={facebookUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative block bg-black rounded-lg overflow-hidden transform transition-transform duration-500 hover:scale-105 h-72" // Reduced height
+    >
+      <img
+        alt={name}
+        src={imageUrl}
+        className="absolute inset-0 h-full w-full rounded-lg object-cover filter blur-sm transition-all duration-500 group-hover:blur-none"
+      />
+      <div className="relative p-2"> {/* Reduced padding */}
+        <p className="text-md font-bold text-white">{name}</p> {/* Adjusted text size */}
+        <div className="mt-2">
+          <div className="translate-y-4 transform opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <p className="text-xs text-white">{description}</p> {/* Adjusted text size */}
+          </div>
         </div>
       </div>
+    </a>
+  );
+};
+
+const Cog = () => {
+  const developers = [
+    {
+      name: 'Vince Christian Gaurino',
+      imageUrl: 'https://avatars.githubusercontent.com/u/119119995?v=4',
+      facebookUrl: 'https://web.facebook.com/VnCi.23/',
+    },
+    {
+      name: 'Jan Anferney Ibe',
+      imageUrl: 'https://scontent.fmnl4-1.fna.fbcdn.net/v/t39.30808-1/474464271_2937458683095896_7757944510268823606_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=109&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeFAdpQyoXVVAu14qQGJBXmDGi3xeY4gMHoaLfF5jiAweqiHxf5ZcA5i8UYQMoGzKjR48fUgmPjN6pwjVK6WtNtk&_nc_ohc=MTVGKKzL0TEQ7kNvwFWGeMh&_nc_oc=AdmszgN_LCDyi2HDrLr--LQHf0-u9zD5V6jZSfjyhX1_tcJ9_g3Dywi90et4s6TbxD4&_nc_zt=24&_nc_ht=scontent.fmnl4-1.fna&_nc_gid=2OOuZW7zyWHklzhzkhchEA&oh=00_AfEQd5z6fVM7AHsW6LyMtG43pzvALLCCFmEpnNp1-onCrw&oe=680BEB25',
+      facebookUrl: 'https://web.facebook.com/anferni.pascual',
+    },
+    {
+      name: 'John Jefferson Obenza',
+      imageUrl: 'https://scontent.fmnl4-3.fna.fbcdn.net/v/t39.30808-1/321679820_554611656257453_5827475266012655675_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=110&ccb=1-7&_nc_sid=1d2534&_nc_eui2=AeF_JkBg8oRQYUFiAh44sdn2AmBa6iyjQ3ECYFrqLKNDcZGDGzvHwajAWwcZ7mArWFDG8lVHC5GESa3mklF4sKSH&_nc_ohc=dHXk5H6FZkQQ7kNvwFFa57G&_nc_oc=AdlR96tCATEnJo_NGWeQv6_szpvoq7fMdbU2m15Wt-IwzaqVv5j_0NrvYPyGkcUKT0k&_nc_zt=24&_nc_ht=scontent.fmnl4-3.fna&_nc_gid=DmNNO2ISxfR2Ke0WigC1jQ&oh=00_AfEwZI0wPiStDdXKP2268PGt-Ul2s9By10vTpnuUOjSx1g&oe=680BEA49',
+      facebookUrl: 'https://web.facebook.com/john.jefferson.obenza',
+    },
+    {
+      name: 'Revic Dolot',
+      imageUrl: 'https://scontent.fmnl4-7.fna.fbcdn.net/v/t39.30808-6/476099936_646429797914269_5258227456530312955_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeFbLbgghN6IB8tNVdV8CqKTVI93Z4Xeob9Uj3dnhd6hvxEqkZr-ZqoQ7UsLbw9Vh9I6Jx6dY1e0ZW05-llpeBFd&_nc_ohc=KZ2rQgDvxR0Q7kNvwGD3iMu&_nc_oc=AdnfbPVd2gG2-XLtumd9GOW8kTYEEfMNrLLWaFXOfXRMmV4rSv8XjGIcptvqsLzvlqM&_nc_zt=23&_nc_ht=scontent.fmnl4-7.fna&_nc_gid=86LLnZfhczWVXxOdsIlWiQ&oh=00_AfEXjOGGAhbaj2XmSFgSyGuLa1fUIZpPqXr3MWchv3TaXQ&oe=680BF203',
+      facebookUrl: 'https://web.facebook.com/wwwvsooo',
+    },
+    {
+      name: 'Carlo Noveno',
+      imageUrl: 'https://scontent.fmnl4-1.fna.fbcdn.net/v/t39.30808-1/472027625_2281230818942604_5347704721136624266_n.jpg?stp=dst-jpg_s240x240_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeEUenl1PPsgMuYqeHocf2ZA_0nXIn8OjdH_Sdcifw6N0endfhk-z8wqJ7hZ8aEOf2Jm9uhb9-UXestEtJ21VF9H&_nc_ohc=j4KHBd1Cf-IQ7kNvwFLCjcw&_nc_oc=Adkv1ewevRGR2gXSQY7MC30o5qeCLGtfRRxSlpCiEMx_ivz9RPKYJ1ZHLlfOmGVCpXs&_nc_zt=24&_nc_ht=scontent.fmnl4-1.fna&_nc_gid=UMzKAen8BGmrxjQGxolIDQ&oh=00_AfG7OZ675IPcqEOR44Vmpsx95PQHytC5ScqEMKAR92mRjA&oe=680C1130',
+      facebookUrl: 'https://web.facebook.com/carlo.noveno.77',
+    },
+    {
+      name: 'Marc Arronn Abejo',
+      imageUrl: 'https://scontent.fmnl4-4.fna.fbcdn.net/v/t39.30808-1/481038216_1309829796924963_2931438369185493321_n.jpg?stp=c61.141.1036.1036a_dst-jpg_s720x720_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeH0ahItOgA9sJpkIx7CLRtZpN17VKNO0xGk3XtUo07TEdr6rnzqiVeF76qhfBXoyc4xWPzmX01xekkrae5iuQG5&_nc_ohc=lZv2WrKLVVUQ7kNvwG_goOk&_nc_oc=AdmlnpNP5tkp_gpvdgdx4Y8lDtjEJ_7dcgZizss0wcUOWz2dfQ_EFPrTKOdKJzt9dY8&_nc_zt=24&_nc_ht=scontent.fmnl4-4.fna&_nc_gid=YZJScnofodwjm0-YsPlu_A&oh=00_AfGb2K5TI2ATlO67LkMHqkebjjWc8qK7-IQV0fMvH96XmA&oe=680C0F8E',
+      facebookUrl: 'https://web.facebook.com/marc.abejo',
+    },
+    {
+      name: 'Albert Anthony Napal',
+      imageUrl: 'https://scontent.fmnl4-4.fna.fbcdn.net/v/t39.30808-1/473421672_1152741692939750_5306481121576327304_n.jpg?stp=dst-jpg_s720x720_tt6&_nc_cat=102&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeFHxrGPIMmN-eZ_F1Jkz_WIhyy6-76VOqyHLLr7vpU6rDEi_y984i55fSmFpqyZxkiA6vXHg4SKUQLsxKShIE2s&_nc_ohc=M7IyJiNHJjsQ7kNvwG-R8k5&_nc_oc=AdkjrQvkXa9pIh4X7WYgwrY6YGdYGhV2HBXAqSyvrB2tF0PQI24zoQGgtEtOUDELztg&_nc_zt=24&_nc_ht=scontent.fmnl4-4.fna&_nc_gid=PqQv3ZbxrqnHQdz5y-WOKA&oh=00_AfEUEMpl-IPed7df9zuvQCwxR1OSbWou_r_dc2gUHYzsNw&oe=680C1515',
+      facebookUrl: 'https://web.facebook.com/FredChicken16',
+    },
+    {
+      name: 'Christian Enrico Reyes',
+      imageUrl: 'https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/472959483_1133843431439924_8220212534282010902_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=86c6b0&_nc_eui2=AeH5nmmqjyU8009kBNleA-nm-umi0ivt3d366aLSK-3d3e1JMsv1q8tiAL3c31opdYxzs3K0hQ8Q2KlooKCWicRV&_nc_ohc=rNG10C_JQ0MQ7kNvwHElcwk&_nc_oc=AdmM4rJcTVJnnn4YMMoB28DSs_8dqp-DSfmlDehRrAsibnd5xu5jDdrMZwfTNefTVv8&_nc_zt=23&_nc_ht=scontent.fmnl4-2.fna&_nc_gid=MNK-QnjW36lRteBH3KQ82g&oh=00_AfEcybT7hzxCBK5w0pf4l5YB3W3rqU9pCrwxpkJbbvzggA&oe=680C1185',
+      facebookUrl: 'https://web.facebook.com/christian.enrico.reyes.2024',
+    },
+    {
+      name: 'Johnsin Almonguera',
+      imageUrl: 'https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/481906476_1304410167503192_8716525025069497123_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHb8ID7p7v8ncWQzVN200259A_I6rRSPvD0D8jqtFI-8CjFVycROnhh8GC_hHBKfvtL971YP79-xENo77UsRB0F&_nc_ohc=l_lWkkYlIz0Q7kNvwGfTHd-&_nc_oc=Adl0aBuZV0--CrsjJR6B7rGDZZCQQRpbRfrwnFKRa7vTjqFFU-A4e4tdWDGcfWGu_ss&_nc_zt=23&_nc_ht=scontent.fmnl4-2.fna&_nc_gid=0eSKxy4rYwPMvsAAbWfeoA&oh=00_AfHwI1X1SSqxtwuYSWIByb8mrtu3yGl6PspFdf-vjcYrKw&oe=680BEB76',
+      facebookUrl: 'https://web.facebook.com/johnsin.almonguera',
+    },
+  ];
+
+  return (
+    <div className="bg-blue-800 min-h-screen">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-blue-900 to-indigo-800 text-white overflow-hidden">
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${pic1})` }}
+        >
+          <div className="absolute inset-0 bg-black opacity-60"></div>
+        </div>
+        <div className="relative z-10 container mx-auto px-4 py-16 md:py-24">
+          <div className="text-center">
+            <p className="text-lg md:text-xl mt-8 text-white font-normal">
+              This mini capstone project was developed by third-year students at MakSci, starting from a simple idea that gradually grew into a fully realized project. Built entirely from scratch, it reflects our creativity, problem-solving skills, and dedication to learning. Through research and collaboration, we transformed a basic activity into a meaningful and structured initiative, showcasing our growth and perseverance throughout the process.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Developer Cards */}
+      <div className="p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {developers.map((dev, index) => (
+            <DeveloperCard
+              key={index}
+              name={dev.name}
+              imageUrl={dev.imageUrl}
+              description={dev.description}
+              facebookUrl={dev.facebookUrl}
+            />
+          ))}
+        </div>
+      </div>
+
+            {/* Footer */}
+            <footer className="text-white py-4">
+        <div className="container mx-auto text-center">
+          <p className="text-sm">
+            © 2025 Ginggoy's System. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };

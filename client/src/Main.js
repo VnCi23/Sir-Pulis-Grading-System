@@ -28,11 +28,11 @@ const Main = () => {
               >
                 Log In
               </Link>
-              {/* <Link to="/tor">
+              <Link to="/Creators">
                   <button className="flex items-center justify-center outline-none cursor-pointer w-32 h-10 bg-gradient-to-t from-yellow-300 via-yellow-500 to-yellow-300 rounded-lg border border-yellow-500 transition-all duration-200 ease-in font-sans text-sm font-semibold text-gray-600 shadow-sm hover:shadow-2xl active:shadow-2xl focus:shadow-inherit mr-3">
-                  Request TOR
+                  Creators
                   </button>
-              </Link> */}
+              </Link>
               <a
                 href="https://web.facebook.com/ISCPhilippines"
                 className="flex items-center justify-center outline-none cursor-pointer w-32 h-10 bg-transparent border-2 border-yellow-500 text-white hover:bg-yellow-500 hover:text-white text-sm font-semibold transition-all duration-200 ease-in rounded-lg shadow-sm hover:shadow-lg active:shadow-inner focus:shadow-inner"
