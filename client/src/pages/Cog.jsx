@@ -7,18 +7,18 @@ const DeveloperCard = ({ name, imageUrl, description, facebookUrl }) => {
       href={facebookUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block bg-black rounded-lg overflow-hidden transform transition-transform duration-500 hover:scale-105 h-72" // Reduced height
+      className="group relative block bg-black rounded-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 h-60"
     >
       <img
         alt={name}
         src={imageUrl}
-        className="absolute inset-0 h-full w-full rounded-lg object-cover filter blur-sm transition-all duration-500 group-hover:blur-none"
+        className="absolute inset-0 h-full w-full rounded-lg object-cover filter blur-sm transition-all duration-300 group-hover:blur-none"
       />
-      <div className="relative p-2"> {/* Reduced padding */}
-        <p className="text-md font-bold text-white">{name}</p> {/* Adjusted text size */}
-        <div className="mt-2">
-          <div className="translate-y-4 transform opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-            <p className="text-xs text-white">{description}</p> {/* Adjusted text size */}
+      <div className="relative p-1">
+        <p className="text-sm font-bold text-white">{name}</p>
+        <div className="mt-1">
+          <div className="translate-y-2 transform opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+            <p className="text-xs text-white">{description}</p>
           </div>
         </div>
       </div>
@@ -76,7 +76,7 @@ const Cog = () => {
   ];
 
   return (
-    <div className="bg-blue-800 min-h-screen">
+    <div className="bg-blue-800 relative overflow-hidden min-h-screen">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-900 to-indigo-800 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -88,16 +88,19 @@ const Cog = () => {
         </div>
         <div className="relative z-10 container mx-auto px-4 py-16 md:py-24">
           <div className="text-center">
-            <p className="text-lg md:text-xl mt-8 text-white font-normal">
-              This mini capstone project was developed by third-year students at MakSci, starting from a simple idea that gradually grew into a fully realized project. Built entirely from scratch, it reflects our creativity, problem-solving skills, and dedication to learning. Through research and collaboration, we transformed a basic activity into a meaningful and structured initiative, showcasing our growth and perseverance throughout the process.
+            <p className="text-sm md:text-xl mt-8 text-white font-medium">
+              This mini capstone project was developed by third-year students at MakSci, starting from a simple idea that gradually grew into a fully realized project. Built entirely from scratch, it reflects our creativity, problem-solving skills, and dedication to learning.
             </p>
           </div>
         </div>
       </section>
 
       {/* Developer Cards */}
-      <div className="p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="container mx-auto px-4 py-5">
+        <h1 className="text-xl font-bold text-yellow-400 text-center mb-5">
+          Meet the Creators
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {developers.map((dev, index) => (
             <DeveloperCard
               key={index}
@@ -110,10 +113,10 @@ const Cog = () => {
         </div>
       </div>
 
-            {/* Footer */}
-            <footer className="text-white py-4">
+      {/* Footer */}
+      <footer className="text-white py-2">
         <div className="container mx-auto text-center">
-          <p className="text-sm">
+          <p className="text-xs">
             © 2025 Ginggoy's System. All rights reserved.
           </p>
         </div>
